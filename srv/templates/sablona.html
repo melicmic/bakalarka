@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>HTO | {% block podnazev %}{% endblock %} </title>
+</head>
+<body>
+    <header>
+        <h1>Michalův webík</h1>
+        <p>Vítejte na webíku transfuzního oddělení.</p>
+    </header>
+   
+    <nav>
+        <ul >
+            <li><a href="/">Úvod</a></li>
+            <li><a href="/produkce">Založit záznam</a></li>
+            <li><a href="/cekajici">Seznam k vyšetření</a></li>
+        </ul>
+    </nav>
+
+    <main>
+       
+        {% block obsah_stranky %}{% endblock %}
+        
+    </main>
+
+
+    <footer>
+        <p>&copy;MM </p>
+        {% block patka %}{% endblock %}
+    </footer>
+</body>
+</html>
