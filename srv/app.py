@@ -18,5 +18,10 @@ def uvodni_stranka():
     print("ahoj")
     return render_template("index.html")
 
+@app.route('/prihlaseni')
+def prihlaseni():
+    print("login")
+    return render_template("prihlaseni.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
