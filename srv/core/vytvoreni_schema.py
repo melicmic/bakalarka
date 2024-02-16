@@ -28,7 +28,6 @@ class Status(Base):
     id_stat: Mapped[int] = mapped_column(primary_key=True)
     stat_nazev: Mapped[str] = mapped_column(String(30)) # název statusu
 
-    fk_stat_zar: Mapped[List["Zarizeni"]] = relationship(back_populates="fk_zar_stat")
     fk_stat_tran: Mapped[List["Transakce"]] = relationship(back_populates="fk_tran_stat")
 
 class Zarizeni(Base):
@@ -43,8 +42,7 @@ class Zarizeni(Base):
     # FK - kategorie, model->výrobce?, status?
     fk_kat: Mapped[int] = mapped_column(ForeignKey("Kategorie_tab.id_kat"))
     fk_vyr: Mapped[int] = mapped_column(ForeignKey("Vyrobci_tab.id_vyr"))
-    fk_stat: Mapped[int] = mapped_column(ForeignKey("Statusy_tab.id_stat"))
-
+    
     fk_zar_tran: Mapped[List["Transakce"]] = relationship(back_populates="fk_tran_zar")
     fk_zar_vyr: Mapped[List["Vyrobce"]] = relationship(back_populates="fk_vyr_zar")
     fk_zar_kat: Mapped[List["Kategorie"]] = relationship(back_populates="fk_kat_zar")
