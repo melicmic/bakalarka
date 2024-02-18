@@ -49,6 +49,13 @@ def overen():
     print(session.get("uzivatel",None))
     return render_template("overen.html", uzv=session.get("uzivatel",None), hsl=session.get("heslo",None))
 
+@app.route("/demo_data")
+def demo_lokace():
+    print("vložení statických dat")
+    demo_data.naplneni_dat(engine)
+
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
