@@ -47,7 +47,6 @@ class Zarizeni(Base):
     fk_zar_vyr: Mapped[List["Vyrobce"]] = relationship(back_populates="fk_vyr_zar")
     fk_zar_kat: Mapped[List["Kategorie"]] = relationship(back_populates="fk_kat_zar")
 
-
 class Uzivatel(Base):
     __tablename__ = "Uzivatele_tab"
     id_uziv: Mapped[int] = mapped_column(primary_key=True)
@@ -77,7 +76,6 @@ class Opravneni(Base):
     __tablename__ = "Opravneni_tab"
     id_opr: Mapped[int] = mapped_column(primary_key=True)
     opr_nazev: Mapped[str] = mapped_column(String(30)) # název oprávnění
-    opr_popis: Mapped[str] = mapped_column(String(30)) # popis oprávnění  
     
     fk_opr_uziv: Mapped[List["Uzivatel"]] = relationship(back_populates="fk_uziv_opr")
     # admin, čtení, zadny
@@ -103,9 +101,10 @@ class Budova(Base):
 class Transakce(Base):
     __tablename__ = "Transakce_tab"
     id_tran: Mapped[int] = mapped_column(primary_key=True)
-    tran_platnost_od: Mapped[str] = mapped_column(String(30)) # název oprávnění
-    tran_platnost_do: Mapped[str] = mapped_column(String(30)) # popis oprávnění  
+    tran_platnost_od: Mapped[datetime.datetime] = mapped_column(Date) # název oprávnění
+    tran_platnost_do: Mapped[datetime.datetime] = mapped_column(Date) # popis oprávnění  
     tran_poznamka: Mapped[str] = mapped_column(String(30)) # poznámka oprávnění
+    tran_editace: Mapped[datetime.datetime] = mapped_column(Date)
 
     fk_uziv: Mapped[int] = mapped_column(ForeignKey("Uzivatele_tab.id_uziv"))
     fk_zar: Mapped[int] = mapped_column(ForeignKey("Zarizeni_tab.id_zar"))
@@ -117,10 +116,6 @@ class Transakce(Base):
     fk_tran_lok: Mapped[List["Lokace"]] = relationship(back_populates="fk_lok_tran")
     fk_tran_stat: Mapped[List["Status"]] = relationship(back_populates="fk_stat_tran")
     # FK - zamestanenc, zarizeni, lokace, status, 
-
-
-
-
 
 
 
