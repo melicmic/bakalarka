@@ -1,12 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import psycopg2
 from sqlalchemy import create_engine
-
-#import core.vytvoreni_schema
 
 import core.vytvoreni_schema 
 
 app = Flask(__name__)
+
+app.secret_key = 'TAJNY_KLIC'
 
 engine = create_engine("postgresql+psycopg2://postgres:postgres@localhost:5432/evihaw", future=True)
 
@@ -18,10 +18,28 @@ def uvodni_stranka():
     print("ahoj")
     return render_template("index.html")
 
-@app.route('/prihlaseni')
+@app.route('/login', methods=["GET", "POST"])
 def prihlaseni():
-    print("login")
-    return render_template("prihlaseni.html")
+    if request.method == "POST":
+        print("čtu z formuláře")
+        uzivatel = request.form["username"]
+        heslo = request.form["password"]
+
+        session["uzivatel"] = uzivatel
+        session["heslo"] = heslo
+
+        dotaz = session.query(Uzivatel).f
+
+        return redirect(url_for("overen"))
+    else:
+        print("Přihlašovací stránka")
+        return render_template("prihlaseni.html")
+
+@app.route("/overen")
+def overen():
+    print("sessions:")
+    print(session.get("uzivatel",None))
+    return render_template("overen.html", uzv=session.get("uzivatel",None), hsl=session.get("heslo",None))
 
 if __name__ == "__main__":
     app.run(debug=True)
