@@ -1,11 +1,14 @@
-import datetime
-from typing import List, Optional
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import Integer, String, Date, ForeignKey
 
+from typing import List, Optional
+import datetime
+
+# Párování SQL na ORM-Python
 class Base(DeclarativeBase):
     pass
-  
+
+# Definice tabulek v DB
 class Vyrobce(Base):
     __tablename__ = "Vyrobci_tab"
     id_vyr: Mapped[int] = mapped_column(primary_key=True)
@@ -117,7 +120,3 @@ class Transakce(Base):
     fk_tran_stat: Mapped[List["Status"]] = relationship(back_populates="fk_stat_tran")
     # FK - zamestanenc, zarizeni, lokace, status, 
 
-
-
-def vytvoreni_ddl(engine):
-    Base.metadata.create_all(engine)
