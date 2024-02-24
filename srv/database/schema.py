@@ -1,5 +1,5 @@
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import Integer, String, Date, ForeignKey
+from sqlalchemy import Integer, String, Date, ForeignKey, UniqueConstraint
 
 from typing import List, Optional
 import datetime
@@ -35,13 +35,16 @@ class Status(Base):
 
 class Zarizeni(Base):
     __tablename__ = "Zarizeni_tab"
+    __table_args__ = (
+        UniqueConstraint("zar_inv", "zar_seriove", "zar_nazev"),
+    )
     id_zar: Mapped[int] = mapped_column(primary_key=True)
     zar_inv: Mapped[int] = mapped_column(Integer) # inventární číslo
     zar_nazev: Mapped[str] = mapped_column(String(30)) # domenové jméno
     zar_seriove: Mapped[str] = mapped_column(String(30)) # sériové číslo
     zar_model: Mapped[str] = mapped_column(String(30)) # model zařízení
     zar_nakup: Mapped[datetime.date] = mapped_column(Date) # datum nakupu
-    zar_poznm: Mapped[str] = mapped_column(String(64)) # poznámka
+    zar_poznm: Mapped[Optional[str]] = mapped_column(String(64)) # poznámka
     # FK - kategorie, model->výrobce?, status?
     fk_kat: Mapped[int] = mapped_column(ForeignKey("Kategorie_tab.id_kat"))
     fk_vyr: Mapped[int] = mapped_column(ForeignKey("Vyrobci_tab.id_vyr"))
@@ -52,14 +55,17 @@ class Zarizeni(Base):
 
 class Uzivatel(Base):
     __tablename__ = "Uzivatele_tab"
+    __table_args__ = (
+        UniqueConstraint("uziv_kod"),
+    )
     id_uziv: Mapped[int] = mapped_column(primary_key=True)
     uziv_kod: Mapped[str] = mapped_column(String(30)) # id-čko
     uziv_jmeno: Mapped[str] = mapped_column(String(30)) # jméno
-    uziv_prijemni: Mapped[str] = mapped_column(String(30)) # příjmené
-    uziv_email: Mapped[str] = mapped_column(String(30)) # email
-    uziv_nastup: Mapped[datetime.date] = mapped_column(Date) # den nástupu
-    uziv_vystup: Mapped[datetime.date] = mapped_column(Date) # den ukončení
-    uziv_heslo: Mapped[str] = mapped_column(String(30)) # heslo
+    uziv_prijmeni: Mapped[Optional[str]] = mapped_column(String(30)) # příjmené
+    uziv_email: Mapped[Optional[str]] = mapped_column(String(30)) # email
+    uziv_nastup: Mapped[Optional[datetime.date]] = mapped_column(Date) # den nástupu
+    uziv_vystup: Mapped[Optional[datetime.date]] = mapped_column(Date) # den ukončení
+    uziv_heslo: Mapped[Optional[str]] = mapped_column(String(30)) # heslo
     # FK - vztah, opravneni
     fk_vzt: Mapped[int] = mapped_column(ForeignKey("Vztahy_tab.id_vzt"))
     fk_opr: Mapped[int] = mapped_column(ForeignKey("Opravneni_tab.id_opr"))
@@ -85,6 +91,9 @@ class Opravneni(Base):
 
 class Lokace(Base):
     __tablename__ = "Lokace_tab"
+    __table_args__ = (
+        UniqueConstraint("lok_kod"),
+    )
     id_lok: Mapped[int] = mapped_column(primary_key=True)
     lok_kod: Mapped[str] = mapped_column(String(30)) # kód lokace
     lok_nazev: Mapped[str] = mapped_column(String(30)) # název lokace
@@ -96,7 +105,11 @@ class Lokace(Base):
 
 class Budova(Base):
     __tablename__ = "Budovy_tab"
+    __table_args__ = (
+        UniqueConstraint("bud_kod"),
+    )
     id_bud: Mapped[int] = mapped_column(primary_key=True)
+    bud_kod: Mapped[str] = mapped_column(String(8))
     bud_nazev: Mapped[str] = mapped_column(String(30)) # název budovy A-B-C
 
     fk_bud_lok: Mapped[List["Lokace"]] = relationship(back_populates="fk_lok_bud")

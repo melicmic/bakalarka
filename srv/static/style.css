@@ -1,5 +1,263 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #88b6db;
+    background-color: #f5f2f2;
+  }
+  
+  .menu-container {
+    width: calc(100% - 40px); /* Odečtení odsazení od celkové šířky */
+    padding: 20px; /* Odsazení celého menu */
+  }
+  
+  .menu {
+    background-color: #333;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 15px; /* Zaoblené rohy menu */
+  }
+  
+  .menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .menu ul li {
+    margin-right: 20px;
+  }
+  
+  .menu ul li:last-child {
+    margin-right: 0;
+  }
+  
+  .menu ul li a {
+    text-decoration: none;
+    color: #fff;
+    padding: 0px 40px;
+    font-size: 18px;
+    border-radius: 10px; /* Zaoblené rohy pod odkazy */
+    display: flex;
+    justify-content: center; /* Vycentrování textu horizontálně */
+    align-items: center; /* Vycentrování textu vertikálně */
+    height: 80px; /* Výška odkazu je stejná jako výška menu */
+    line-height: 80px; /* Zajištění, aby rámeček měl stejnou výšku jako menu */
+  }
+  
+  .menu ul li a:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Změna pozadí při najetí myší */
+  }
+  
+  .main-container {
+    max-width: 80%;
+    min-width: 700px;
+    margin: 20px auto; /* Odsazení hlavního kontejneru od menu */
+    display: flex;
+    height: 75vh; /* Výška hlavního kontejneru - výška menu */
+  }
+  
+  .left-block {
+    flex: 4;
+    /*background-color: #f0f0f0;*/
+  }
+  
+  .right-block {
+    flex: 1;
+    padding: 10px;
+    /*background-color: #dcdcdc;*/
+  }
+  
+  .footer {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+
+  .form-container {
+    width: 300px; /* Šířka formuláře */
+    margin: 0 auto; /* Zarovnání na střed */
 }
+
+.form-group {
+    margin-bottom: 20px; /* Mezera mezi jednotlivými políčky */
+}
+
+.form-group label {
+    display: block; /* Políčko pro popisek */
+    margin-bottom: 5px; /* Mezera pod popiskem */
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%; /* Šířka vstupních políček */
+    padding: 12px; /* Vnitřní okraje */
+    border: 2px solid #ccc; /* Ohraničení políčka */
+    border-radius: 5px; /* Zaoblené rohy */
+    box-sizing: border-box; /* Zahrne ohraničení do celkové šířky */
+}
+
+.form-group input[type="submit"] {
+    width: 100%; /* Šířka tlačítka */
+    padding: 15px; /* Vnitřní okraje tlačítka */
+    border: none; /* Žádné ohraničení */
+    border-radius: 5px; /* Zaoblené rohy */
+    background-color: #e74c3c; /* Zelená barva */
+    color: white; /* Bílá barva textu */
+    cursor: pointer; /* Změna kurzoru na ukazatel ruky */
+    transition: background-color 0.3s ease; /* Plynulý přechod barev */
+    font-size: 16px; /* Velikost písma */
+}
+
+.form-group input[type="submit"]:hover {
+    background-color: #872823; /*  45a049 Zelená barva při najetí myší */
+}
+
+
+
+.left-content {
+  flex: 1; /* Levý obsah zabere veškerý dostupný prostor */
+  display: flex; /* Další přepnutí na flexbox layout */
+  flex-direction: column; /* Rozmístění prvků pod sebou */
+}
+
+.sub-content {
+  flex: 1; /* Všechny podřízené prvky se budou roztáhnout, aby vyplnily nadřazený objekt */
+  /* Bbackground-color: #f0f0f0; /* Barva podřízených prvků */
+  margin-bottom: 10px; /* Vzdálenost mezi prvky */
+  min-height: 200px;
+}
+
+.right-content {
+  flex: 1; /* Pravý obsah zabere veškerý dostupný prostor */
+  background-color: #ccc; /* Barva pravého obsahu */
+}
+
+.nested-content {
+  display: inline-block; /* Přepnutí na inline-flexbox layout */
+  background-color: #ccc; /* Barva vnořených prvků */
+  margin-top: 10px; /* Vzdálenost mezi vnořenými prvky */
+  padding: 5px; /* Vnější odsazení pro lepší vizuální oddělení */
+  width: 48%;
+  min-height: 300px;
+}
+
+.nested-content > div {
+  display: flex; /* Přepnutí na flexbox layout */
+  align-items: left; /* Vycentrování obsahu podél vedlejší osy */
+  margin-right: 10px; /* Vzdálenost mezi vnořenými prvky */
+}
+
+.nested-content > div:last-child {
+  margin-right: 0; /* Odstranění marginu pro poslední vnořený prvek */
+}
+
+.bordered-table {
+  width: 100%;
+  margin-right: 20px; /* Margin pro oddělení od textu */
+}
+
+.bordered-table th, .bordered-table td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+
+/*zk buttonu*/
+.group-container {
+  display: flex;
+  justify-content: center;
+}
+
+.form-flex-search {
+  display: flex;
+  align-items: center;
+}
+
+.form-list {
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+}
+
+.form-item {
+  margin-right: 10px;
+}
+
+.form-item:last-child {
+  margin-right: 0;
+}
+
+.form-item input[type="text"] {
+  width: 500px; /* Změna šířky vstupního pole typu text */
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-item select {
+  width: 200px;
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-item select:hover {
+  border: 2px solid rgba(15, 35, 46, 0.4);
+  border-radius: 5px;
+}
+
+.form-item button[type="submit"] {
+  width: 200px;
+  padding: 12px;
+  border: Opx solid #ccc;
+  border-radius: 5px;
+}
+
+.form-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+}
+
+.form-button:hover {
+  background-color: #872823;
+}
+
+
+ul.side {
+  list-style-type: none;
+  padding: 10px;
+}
+
+ul.side li {
+  margin-bottom: 10px;
+}
+
+ul.side a {
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  color: #0F232E;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+ul.side a:hover {
+  color: white;
+  background-color: #872823;
+}
+
+.quick-link {
+  padding: 5px;
+  border-bottom: 4px solid #FF5532;
+  color: #0F232E;
+  font-weight: bold;
+}
+*/

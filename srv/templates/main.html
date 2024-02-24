@@ -1,0 +1,152 @@
+
+  
+{% extends "sablona.html" %}
+
+{% block podnazev %}
+Main
+{% endblock %}
+
+{% block obsah_stranky %}
+   
+   
+<section class="left-block">
+
+        
+  <div class="left-content">
+    <div class="sub-content"><p>Sub-Content 1</p> 
+     
+    
+      <div class="group-container">
+        <form action="#" method="post" class="form-flex-search">
+          <ul class="form-list">
+            <li class="form-item">
+              <input type="text" id="search" name="search" placeholder="Vyhledat...">
+                </li>
+                <li class="form-item">
+                      <select id="category" name="category">
+                        <option value="inventar">Inventární číslo</option>
+                        <option value="seriove">Sériové číslo</option>
+                        <option value="domenove">Doménové jméno</option>
+                        <option value="uzivatel">Uživatele</option>
+                      </select>
+                </li>
+                <li class="form-item">
+                      <button class="form-button" type="submit">Hledat</button>
+                </li>
+          </ul>
+        </form>
+      </div>
+
+    </div>
+    <div class="sub-content"><p>Sub-Content 2</p> 
+
+              <div class="nested-content">
+                <p>Nested content 1 - zařízení skladem</p>
+                <table class="bordered-table">
+                  <thead>
+                      <tr>
+                          <th>Zařízení</th>
+                          <th>Počet</th>
+                          <th>Výpis >>></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Sloupec 1</td>
+                      <td>Sloupec 2</td>
+                      <td>Sloupec 3</td>
+                  </tr>
+                  <tr>
+                    <td>Sloupec 1</td>
+                    <td>Sloupec 2</td>
+                    <td>Sloupec 3</td>
+                </tr>
+                      {% for row in rows %}
+                          <tr>
+                              <td>{{ row.column1 }}</td>
+                              <td>{{ row.column2 }}</td>
+                              <td>{{ row.column3 }}</td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+              
+              
+              
+              
+              
+              </div>
+              <div class="nested-content">
+
+                <p>Nested content 2 - zařízení skladem</p>
+                <table class="bordered-table">
+                  <thead>
+                      <tr>
+                          <th>Zařízení</th>
+                          <th>Počet</th>
+                          <th>Výpis >>></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Sloupec 1</td>
+                      <td>Sloupec 2</td>
+                      <td>Sloupec 3</td>
+                  </tr>
+                  <tr>
+                    <td>Sloupec 1</td>
+                    <td>Sloupec 2</td>
+                    <td>Sloupec 3</td>
+                </tr>
+                      {% for row in rows %}
+                          <tr>
+                              <td>{{ row.column1 }}</td>
+                              <td>{{ row.column2 }}</td>
+                              <td>{{ row.column3 }}</td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+
+
+              </div>
+
+            </div>
+          </div>
+        
+        
+
+
+      </section>
+      <section class="right-block">
+        <span class="quick-link">Prohlížení</span>
+        <ul class="side">
+          <li><a href="/login">Seznam zařízení</a></li>
+          <li><a href="home">Seznam pracovišť</a></li>
+          <li><a href="#">Seznam uživatelů</a></li>
+        </ul>
+
+        <span class="quick-link">Editace</span>
+        <ul class="side">
+          <li><a href="#">Zařízení</a></li>
+          <li><a href="#">Lokace</a></li>
+          <li><a href="#">Uživatelé</a></li>
+          <li><a href="#">Výrobci</a></li>
+        </ul>
+      
+        <span class="quick-link">Profil</span>
+        <ul class="side">
+          <li><a href="#">Editace</a></li>
+          <li><a href="odhlaseni">Odhlášení</a></li>
+        </ul>
+      
+      </section>
+    
+
+
+ 
+{% endblock %}  
+
+{% block patka %}
+route: /home
+{% endblock %}

@@ -1,5 +1,6 @@
-from .schema import Budova, Lokace, Vztah, Opravneni, Status, Kategorie, Vyrobce
+from .schema import Budova, Lokace, Vztah, Opravneni, Status, Kategorie, Vyrobce, Uzivatel
 from .connect import db_session
+import datetime
 
 def naplneni_dat():
     vlozeni_budova()
@@ -9,11 +10,12 @@ def naplneni_dat():
     vlozeni_status()
     vlozeni_vztah()
     vlozeni_vyrobce()
+    vlozeni_uzivatele()
 
 def vlozeni_budova():
-    b1 = Budova(bud_nazev="hala A")
-    b2 = Budova(bud_nazev="hala B")
-    b3 = Budova(bud_nazev="hala C")
+    b1 = Budova(bud_kod="AAA", bud_nazev="hala A")
+    b2 = Budova(bud_kod="BBB", bud_nazev="hala B")
+    b3 = Budova(bud_kod="CCC", bud_nazev="hala C")
     
     db_session.add_all([b1,b2,b3])
     db_session.commit()
@@ -110,3 +112,19 @@ def vlozeni_vyrobce():
     db_session.add_all([vy1,vy2,vy3,vy4,vy5,vy6])
     db_session.commit()
     print("Výrobce - hotovo")    
+
+
+def vlozeni_uzivatele():
+    u1 = Uzivatel(uziv_kod="admin", uziv_jmeno="Flask-Admin", uziv_prijmeni="1-Editor", uziv_nastup=datetime.datetime.now(), 
+        uziv_heslo="admin", fk_vzt=1, fk_opr=1)
+    u2 = Uzivatel(uziv_kod="visitor", uziv_jmeno="Návštěvník", uziv_prijmeni="2-Čtenář", uziv_nastup=datetime.datetime.now(),
+                  uziv_heslo="visitor", fk_vzt=1, fk_opr=2)
+    u3 = Uzivatel(uziv_kod="expelled", uziv_jmeno="Vyloučený", uziv_prijmeni="3-Vyloučený", uziv_nastup=datetime.datetime.now(),
+                  uziv_heslo="expelled", fk_vzt=1, fk_opr=2)    
+    db_session.add_all([u1, u2, u3])
+    db_session.commit()
+    print("Uzivatel - hotovo")
+
+
+
+    
