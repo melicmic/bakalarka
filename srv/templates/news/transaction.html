@@ -1,0 +1,113 @@
+
+  
+{% extends "sablona.html" %}
+
+{% block podnazev %}
+Main
+{% endblock %}
+
+{% block obsah_stranky %}
+   
+   
+<section class="left-block">
+
+  NEWS page        
+  <div class="form-container">
+    <form action="#" method="POST">
+      <div class="form-group">
+          <label for="inv">Inventární číslo:</label>
+          <input type="text" id="inv" name="inv" required>
+      </div>
+      <div class="form-group">
+          <label for="nazev">Název zařízení:</label>
+          <input type="text" id="nazev" name="nazev">
+      </div>
+      <div class="form-group">
+          <label for="seriove">Sériové číslo:</label>
+          <input type="text" id="seriove" name="seriove" required>
+      </div>
+      <div class="form-group">
+          <label for="model">Model:</label>
+          <input type="text" id="model" name="model" required>
+      </div>
+      <div class="form-group">
+          <label for="nakup">Datum nákupu:</label>
+          <input type="text" id="nakup" name="nakup" value="{{ x }}" required>
+      </div>
+      <div class="form-group">
+          <label for="poznm">Poznámka:</label>
+          <input type="text" id="poznm" name="poznm">
+      </div>
+      <label for="kat">Kategorie:</label>
+      <div class="form-item">
+          
+          <select id="kat" name="kat">
+              {% for i in k %}
+                  {% if i.id_kat == 1 %}
+                      <option value="{{ i.id_kat }}" selected>{{ i.id_kat }} - {{ i.kat_nazev }}</option>
+                  {% else %}
+                      <option value="{{ i.id_kat }}">{{ i.id_kat }} - {{ i.kat_nazev }}</option>
+                  {% endif %}
+              {% endfor %}
+          </select>
+            
+      </div>
+      
+      <label for="vyr">Výrobce:</label>
+      <div class="form-item">
+          
+          <select id="vyr" name="vyr">
+            {% for i in y %}
+            {% if i.id_vyr == 1 %}
+                <option value="{{ i.id_vyr }}" selected>{{ i.id_vyr }} - {{ i.vyr_nazev }}</option>
+            {% else %}
+                <option value="{{ i.id_vyr }}">{{ i.id_vyr }} - {{ i.vyr_nazev }}</option>
+            {% endif %}
+        {% endfor %}
+          </select>
+
+
+
+
+      </div>
+      <div class="form-group">
+          <input type="submit" value="Založit">
+      </div>
+  </form>
+  
+  
+</div>
+
+      </section>
+      <section class="right-block">
+        <span class="quick-link">Prohlížení</span>
+        <ul class="side">
+          <li><a href="/login">Seznam zařízení</a></li>
+          <li><a href="home">Seznam pracovišť</a></li>
+          <li><a href="#">Seznam uživatelů</a></li>
+        </ul>
+
+        <span class="quick-link">Editace</span>
+        <ul class="side">
+          <li><a href="#">Zařízení</a></li>
+          <li><a href="#">Lokace</a></li>
+          <li><a href="#">Uživatelé</a></li>
+          <li><a href="#">Výrobci</a></li>
+        </ul>
+      
+        <span class="quick-link">Profil</span>
+        <ul class="side">
+          <li><a href="#">Editace</a></li>
+          <li><a href="/signed/odhlaseni">Odhlášení</a></li>
+        </ul>
+      
+      </section>
+    
+
+
+ 
+{% endblock %}  
+
+{% block patka %}
+route: /home
+{% endblock %}

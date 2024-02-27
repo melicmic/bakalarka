@@ -1,0 +1,52 @@
+{% extends "sablona.html" %}
+
+{% block podnazev %}
+Úvod
+{% endblock %}
+
+{% block obsah_stranky %}
+<div class="main-body">
+    <section class="left-block">     
+
+    
+
+<h1>uzivatel: {{ uzv }} a jeho heslo: {{ hsl }} a opravnění </h1><br>
+
+<p>Informace o zařízení:</p>
+      <table class="bordered-table">
+        <tbody>
+          <tr>
+            <td>Inventární číslo:</td>
+            <td>Sloupec 2</td>
+        </tr>
+        <tr>
+          <td>Název zařízení:</td>
+          <td>Sloupec 2</td>
+      </tr>
+      <tr>
+        <td>Sériové číslo:</td>
+        <td>Sloupec 2</td>
+    </tr>
+            {% for row in rows %}
+                <tr>
+                    <td>{{ row.column1 }}</td>
+                    <td>{{ row.column2 }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    
+</div>
+</section>
+<section class="right-block">
+
+    Pravá strana
+
+</section>
+{% endblock %}  
+
+{% block patka %}
+route: / a /login
+{% endblock %}

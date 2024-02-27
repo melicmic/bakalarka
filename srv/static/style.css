@@ -55,9 +55,13 @@ body {
     min-width: 700px;
     margin: 20px auto; /* Odsazení hlavního kontejneru od menu */
     display: flex;
-    height: 75vh; /* Výška hlavního kontejneru - výška menu */
+    min-height: 75vh; /* Výška hlavního kontejneru - výška menu */
   }
-  
+  .main-body{
+    flex: 3;
+    flex-direction: row;
+  }
+
   .left-block {
     flex: 4;
     /*background-color: #f0f0f0;*/
@@ -260,4 +264,7 @@ ul.side a:hover {
   color: #0F232E;
   font-weight: bold;
 }
-*/
+
+
+
+

@@ -12,7 +12,7 @@ class Base(DeclarativeBase):
 class Vyrobce(Base):
     __tablename__ = "Vyrobci_tab"
     id_vyr: Mapped[int] = mapped_column(primary_key=True)
-    vyr_nazev: Mapped[str] = mapped_column(String(30)) # název výrobce
+    vyr_nazev: Mapped[str] = mapped_column(String(30), unique=True) # název výrobce
     
     fk_vyr_zar: Mapped[List["Zarizeni"]] = relationship(back_populates="fk_zar_vyr")
 
@@ -22,26 +22,26 @@ class Vyrobce(Base):
 class Kategorie(Base):
     __tablename__ = "Kategorie_tab"
     id_kat: Mapped[int] = mapped_column(primary_key=True)
-    kat_nazev: Mapped[str] = mapped_column(String(30)) # název kategorie - pc, ntbk, workst,...
+    kat_nazev: Mapped[str] = mapped_column(String(30), unique=True) # název kategorie - pc, ntbk, workst,...
 
     fk_kat_zar: Mapped[List["Zarizeni"]] = relationship(back_populates="fk_zar_kat")
 
 class Status(Base):
     __tablename__ = "Statusy_tab"
     id_stat: Mapped[int] = mapped_column(primary_key=True)
-    stat_nazev: Mapped[str] = mapped_column(String(30)) # název statusu
+    stat_nazev: Mapped[str] = mapped_column(String(30), unique=True) # název statusu
 
     fk_stat_tran: Mapped[List["Transakce"]] = relationship(back_populates="fk_tran_stat")
 
 class Zarizeni(Base):
     __tablename__ = "Zarizeni_tab"
     __table_args__ = (
-        UniqueConstraint("zar_inv", "zar_seriove", "zar_nazev"),
+        UniqueConstraint("zar_inv"),
     )
     id_zar: Mapped[int] = mapped_column(primary_key=True)
     zar_inv: Mapped[int] = mapped_column(Integer) # inventární číslo
-    zar_nazev: Mapped[str] = mapped_column(String(30)) # domenové jméno
-    zar_seriove: Mapped[str] = mapped_column(String(30)) # sériové číslo
+    zar_nazev: Mapped[str] = mapped_column(String(30), unique=True) # domenové jméno
+    zar_seriove: Mapped[str] = mapped_column(String(30), unique=True) # sériové číslo
     zar_model: Mapped[str] = mapped_column(String(30)) # model zařízení
     zar_nakup: Mapped[datetime.date] = mapped_column(Date) # datum nakupu
     zar_poznm: Mapped[Optional[str]] = mapped_column(String(64)) # poznámka
@@ -62,7 +62,7 @@ class Uzivatel(Base):
     uziv_kod: Mapped[str] = mapped_column(String(30)) # id-čko
     uziv_jmeno: Mapped[str] = mapped_column(String(30)) # jméno
     uziv_prijmeni: Mapped[Optional[str]] = mapped_column(String(30)) # příjmené
-    uziv_email: Mapped[Optional[str]] = mapped_column(String(30)) # email
+    uziv_email: Mapped[Optional[str]] = mapped_column(String(30), unique=True) # email
     uziv_nastup: Mapped[Optional[datetime.date]] = mapped_column(Date) # den nástupu
     uziv_vystup: Mapped[Optional[datetime.date]] = mapped_column(Date) # den ukončení
     uziv_heslo: Mapped[Optional[str]] = mapped_column(String(30)) # heslo
@@ -96,7 +96,7 @@ class Lokace(Base):
     )
     id_lok: Mapped[int] = mapped_column(primary_key=True)
     lok_kod: Mapped[str] = mapped_column(String(30)) # kód lokace
-    lok_nazev: Mapped[str] = mapped_column(String(30)) # název lokace
+    lok_nazev: Mapped[str] = mapped_column(String(30), unique=True) # název lokace
 
     fk_bud: Mapped[int] = mapped_column(ForeignKey("Budovy_tab.id_bud"))
 

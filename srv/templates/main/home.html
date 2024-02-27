@@ -20,14 +20,15 @@ Main
         <form action="#" method="post" class="form-flex-search">
           <ul class="form-list">
             <li class="form-item">
-              <input type="text" id="search" name="search" placeholder="Vyhledat...">
+              <input type="text" id="search" name="search" placeholder="Vyhledat..." required>
                 </li>
                 <li class="form-item">
                       <select id="category" name="category">
-                        <option value="inventar">Inventární číslo</option>
-                        <option value="seriove">Sériové číslo</option>
-                        <option value="domenove">Doménové jméno</option>
-                        <option value="uzivatel">Uživatele</option>
+                        <option value="0">Inventární číslo</option>
+                        <option value="1">Sériové číslo</option>
+                        <option value="2">Doménové jméno</option>
+                        <option value="3">ID uživatele</option>
+                        <option value="4">Uživatele</option>
                       </select>
                 </li>
                 <li class="form-item">
@@ -124,6 +125,7 @@ Main
           <li><a href="/login">Seznam zařízení</a></li>
           <li><a href="home">Seznam pracovišť</a></li>
           <li><a href="#">Seznam uživatelů</a></li>
+          
         </ul>
 
         <span class="quick-link">Editace</span>
