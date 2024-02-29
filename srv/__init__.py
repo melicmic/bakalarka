@@ -6,7 +6,7 @@ from database import vytvoreni_ddl#, odkomentovat Base, engine
 from database import naplneni_dat
 from database import db_session
 
-from modul import login_bp, demo_bp, main_bp, news_bp
+from modul import login_bp, demo_bp, main_bp, news_bp, result_bp
 
 def create_app():
     app = Flask(__name__)
@@ -20,5 +20,6 @@ def create_app():
     app.register_blueprint(login_bp, url_prefix="")
     app.register_blueprint(demo_bp, url_prefix="")
     app.register_blueprint(news_bp, url_prefix="/new")
+    app.register_blueprint(result_bp, url_prefix="/result/")
     return app
 

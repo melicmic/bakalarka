@@ -13,7 +13,7 @@ Main
 
         
   <div class="left-content">
-    <div class="sub-content"><p>Sub-Content 1</p> 
+    <div class="sub-content">
      
     
       <div class="group-container">
@@ -39,7 +39,7 @@ Main
       </div>
 
     </div>
-    <div class="sub-content"><p>Sub-Content 2</p> 
+    <div class="sub-content">
 
               <div class="nested-content">
                 <p>Nested content 1 - zařízení skladem</p>
@@ -120,26 +120,25 @@ Main
 
       </section>
       <section class="right-block">
-        <span class="quick-link">Prohlížení</span>
-        <ul class="side">
-          <li><a href="/login">Seznam zařízení</a></li>
-          <li><a href="home">Seznam pracovišť</a></li>
-          <li><a href="#">Seznam uživatelů</a></li>
-          
-        </ul>
 
-        <span class="quick-link">Editace</span>
+        <span class="quick-link">Rychlé akce</span>
         <ul class="side">
-          <li><a href="#">Zařízení</a></li>
-          <li><a href="#">Lokace</a></li>
-          <li><a href="#">Uživatelé</a></li>
-          <li><a href="#">Výrobci</a></li>
+          <li><a href="{{ url_for('news.transaction') }}">Záznamy</a></li>
+          <li><a href="{{ url_for('news.device') }}">Zařízení</a></li>
+          <li><a href="{{ url_for('news.category') }}">Uživatelé</a></li>
         </ul>
-      
+        <span class="quick-link">Editace</span>
+        
+        <ul class="side">
+          <li><a href="{{ url_for('news.location') }}">Lokace</a></li>
+          <li><a href="{{ url_for('news.building') }}">Budovy</a></li>
+          <li><a href="{{ url_for('news.manufacturer') }}">Výrobce</a></li>
+          <li><a href="{{ url_for('news.category') }}">Kategorie</a></li>
+        </ul>
         <span class="quick-link">Profil</span>
         <ul class="side">
-          <li><a href="#">Editace</a></li>
-          <li><a href="odhlaseni">Odhlášení</a></li>
+          <li><a href="{{ url_for('login.edit') }}">Upravit</a></li>
+          <li><a href="{{ url_for('login.logout') }}">Odhlášení</a></li>
         </ul>
       
       </section>

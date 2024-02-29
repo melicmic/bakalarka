@@ -1,5 +1,5 @@
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import Integer, String, Date, ForeignKey, UniqueConstraint
+from sqlalchemy import Integer, String, Date, DateTime, ForeignKey, UniqueConstraint
 
 from typing import List, Optional
 import datetime
@@ -26,6 +26,9 @@ class Kategorie(Base):
 
     fk_kat_zar: Mapped[List["Zarizeni"]] = relationship(back_populates="fk_zar_kat")
 
+    def __repr__(self) -> str:
+        return f"Kategorie(id={self.id_kat!r}, name={self.kat_nazev!r})"
+
 class Status(Base):
     __tablename__ = "Statusy_tab"
     id_stat: Mapped[int] = mapped_column(primary_key=True)
@@ -40,7 +43,6 @@ class Zarizeni(Base):
     )
     id_zar: Mapped[int] = mapped_column(primary_key=True)
     zar_inv: Mapped[int] = mapped_column(Integer) # inventární číslo
-    zar_nazev: Mapped[str] = mapped_column(String(30), unique=True) # domenové jméno
     zar_seriove: Mapped[str] = mapped_column(String(30), unique=True) # sériové číslo
     zar_model: Mapped[str] = mapped_column(String(30)) # model zařízení
     zar_nakup: Mapped[datetime.date] = mapped_column(Date) # datum nakupu
@@ -52,6 +54,11 @@ class Zarizeni(Base):
     fk_zar_tran: Mapped[List["Transakce"]] = relationship(back_populates="fk_tran_zar")
     fk_zar_vyr: Mapped[List["Vyrobce"]] = relationship(back_populates="fk_vyr_zar")
     fk_zar_kat: Mapped[List["Kategorie"]] = relationship(back_populates="fk_kat_zar")
+
+    def __repr__(self):
+        return f"<Zarizeni(id_zar={self.id_zar}, zar_inv={self.zar_inv}, zar_seriove='{self.zar_seriove}', zar_model='{self.zar_model}', zar_nakup={self.zar_nakup}, zar_poznm='{self.zar_poznm}', fk_kat={self.fk_kat}, fk_vyr={self.fk_vyr})>"
+
+
 
 class Uzivatel(Base):
     __tablename__ = "Uzivatele_tab"
@@ -95,13 +102,16 @@ class Lokace(Base):
         UniqueConstraint("lok_kod"),
     )
     id_lok: Mapped[int] = mapped_column(primary_key=True)
-    lok_kod: Mapped[str] = mapped_column(String(30)) # kód lokace
-    lok_nazev: Mapped[str] = mapped_column(String(30), unique=True) # název lokace
+    lok_kod: Mapped[str] = mapped_column(String(30), unique=True) # kód lokace
+    lok_nazev: Mapped[str] = mapped_column(String(30)) # název lokace
 
     fk_bud: Mapped[int] = mapped_column(ForeignKey("Budovy_tab.id_bud"))
 
     fk_lok_tran: Mapped[List["Transakce"]] = relationship(back_populates="fk_tran_lok")
     fk_lok_bud: Mapped[List["Budova"]] = relationship(back_populates="fk_bud_lok")
+
+    def __repr__(self):
+        return f"<Lokace(id_lok={self.id_lok}, lok_kod='{self.lok_kod}', lok_nazev='{self.lok_nazev}', fk_bud={self.fk_bud})>"
 
 class Budova(Base):
     __tablename__ = "Budovy_tab"
@@ -114,13 +124,17 @@ class Budova(Base):
 
     fk_bud_lok: Mapped[List["Lokace"]] = relationship(back_populates="fk_lok_bud")
 
+    def __repr__(self):
+        return f"<Budova(id_bud={self.id_bud}, bud_kod='{self.bud_kod}', bud_nazev='{self.bud_nazev}')>"
+
 class Transakce(Base):
     __tablename__ = "Transakce_tab"
     id_tran: Mapped[int] = mapped_column(primary_key=True)
     tran_platnost_od: Mapped[datetime.datetime] = mapped_column(Date) # název oprávnění
-    tran_platnost_do: Mapped[datetime.datetime] = mapped_column(Date) # popis oprávnění  
+    tran_platnost_do: Mapped[Optional[datetime.datetime]] = mapped_column(Date) # popis oprávnění  
     tran_poznamka: Mapped[str] = mapped_column(String(30)) # poznámka oprávnění
-    tran_editace: Mapped[datetime.datetime] = mapped_column(Date)
+    #tran_nazev: Mapped[str] = mapped_column(String(30), unique=True) # domenové jméno
+    tran_editace: Mapped[datetime.datetime] = mapped_column(DateTime)
 
     fk_uziv: Mapped[int] = mapped_column(ForeignKey("Uzivatele_tab.id_uziv"))
     fk_zar: Mapped[int] = mapped_column(ForeignKey("Zarizeni_tab.id_zar"))

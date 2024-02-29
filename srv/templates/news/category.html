@@ -1,0 +1,41 @@
+
+  
+{% extends "sablona.html" %}
+
+{% block podnazev %}
+New category
+{% endblock %}
+
+{% block obsah_stranky %}
+   
+   
+<section class="left-block">
+
+  Přidání nové kategorie. Výpis již platných      
+  
+      </section>
+      <section class="right-block">
+        <span class="quick-link">Nový výrobce</span>
+        <div class="form-container">
+            <form action="#" method="POST">
+              <div class="form-group">
+                  <label for="nazev">Název kategorie:</label>
+                  <input type="text" id="nazev" name="nazev" required>
+              </div>
+              
+              <div class="form-group">
+                  <input type="submit" value="Založit">
+              </div>
+          </form>
+            </div>  
+      
+      </section>
+    
+
+
+ 
+{% endblock %}  
+
+{% block patka %}
+route: /home
+{% endblock %}

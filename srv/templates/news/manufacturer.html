@@ -1,0 +1,43 @@
+
+  
+{% extends "sablona.html" %}
+
+{% block podnazev %}
+New Location
+{% endblock %}
+
+{% block obsah_stranky %}
+   
+   
+<section class="left-block">
+
+  Přidání nového výrobce. Výpis již platných      
+  
+      </section>
+      {% if pravo==True %}
+      <section class="right-block">
+        <span class="quick-link">Nový výrobce</span>
+        <div class="form-container">
+            <form action="#" method="POST">
+              <div class="form-group">
+                  <label for="nazev">Název výrobce:</label>
+                  <input type="text" id="nazev" name="nazev" required>
+              </div>
+              
+              <div class="form-group">
+                  <input type="submit" value="Založit">
+              </div>
+          </form>
+            </div>  
+      
+      </section>
+      {% endif %}
+    
+
+
+ 
+{% endblock %}  
+
+{% block patka %}
+route: /home
+{% endblock %}

@@ -7,7 +7,7 @@
 from flask import Blueprint
 from flask import request, render_template, redirect, url_for, session
 
-from database import db_session, Uzivatel
+from database import db_session, engine, Uzivatel
 
 
 login_bp = Blueprint("login", __name__)#, static_folder="static", template_folder="templates")
@@ -36,17 +36,23 @@ def index():
                     return redirect(url_for("main.home"))
                 else:
                     print("++ login.py | index() >>> neplatný vstup")
-                    return render_template("error.html")
+                    return render_template("main/error.html")
             
             else:
                 print("++ login.py | index() >>> Přihlašovací stránka (default)")
                 return render_template("index.html")
 
 
-@login_bp.route('/login')
-def login():
-    print("++ login.py | login() >>> Redirect po přihlášení")
-    if "uzivatel" in session:
-         return redirect(url_for("main.home"))
-    else:
-         return redirect(url_for("login.index"))
+
+@login_bp.route("/edit")
+def edit():
+    print("transakce")
+    return render_template("main/error.html", e="<h1>upravit uživatelům profil</h1>")
+
+@login_bp.route("/logout")
+def logout():
+        session.clear()
+        engine.dispose()
+        print(f"++ main.py | logout() >>> Uživatel odhlášen --|==|-- {engine.pool.status()}")
+        return redirect(url_for("login.index"))
+     

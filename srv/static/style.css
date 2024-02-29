@@ -3,7 +3,11 @@ body {
     padding: 0;
     background-color: #f5f2f2;
   }
-  
+  hr {
+    background-color: #872823;
+    height: 3px;
+    border: 0px;
+  }
   .menu-container {
     width: calc(100% - 40px); /* Odečtení odsazení od celkové šířky */
     padding: 20px; /* Odsazení celého menu */
@@ -81,20 +85,22 @@ body {
 
   .form-container {
     width: 300px; /* Šířka formuláře */
-    margin: 0 auto; /* Zarovnání na střed */
+    margin: 5px auto; /* Zarovnání na střed */
 }
 
 .form-group {
     margin-bottom: 20px; /* Mezera mezi jednotlivými políčky */
 }
 
-.form-group label {
+.form-group label,
+.form-group select {
     display: block; /* Políčko pro popisek */
     margin-bottom: 5px; /* Mezera pod popiskem */
 }
 
 .form-group input[type="text"],
-.form-group input[type="password"] {
+.form-group input[type="password"],
+.form-group select {
     width: 100%; /* Šířka vstupních políček */
     padding: 12px; /* Vnitřní okraje */
     border: 2px solid #ccc; /* Ohraničení políčka */
@@ -140,7 +146,7 @@ body {
 
 .nested-content {
   display: inline-block; /* Přepnutí na inline-flexbox layout */
-  background-color: #ccc; /* Barva vnořených prvků */
+ 
   margin-top: 10px; /* Vzdálenost mezi vnořenými prvky */
   padding: 5px; /* Vnější odsazení pro lepší vizuální oddělení */
   width: 48%;
@@ -158,15 +164,47 @@ body {
 }
 
 .bordered-table {
-  width: 100%;
-  margin-right: 20px; /* Margin pro oddělení od textu */
+  width: 90%;
+  margin: 0 auto;
 }
 
-.bordered-table th, .bordered-table td {
-  border: 1px solid black;
-  padding: 8px;
+.bordered-table th {
+  margin: 20x;
 }
 
+.bordered-table td {
+  text-align: left;
+  padding: 20px;
+  width: 10%;
+}
+
+
+.prehled {
+  border: 0px;
+  margin: 20px auto;
+  width: 80%;
+}
+th {
+  text-align: center;
+  width: auto;
+  border-bottom: 4px solid #e74c3c;
+}
+tbody > tr {
+  text-align: center;
+
+  width: auto;
+}
+
+.prehled td {
+  padding: 20px;
+  width: auto;
+}
+
+
+tbody > tr:hover {
+  background-color: #e74c3c;
+
+}
 
 /*zk buttonu*/
 .group-container {
@@ -219,6 +257,8 @@ body {
   border-radius: 5px;
 }
 
+
+
 .form-button {
   background-color: #e74c3c;
   color: white;
@@ -236,7 +276,7 @@ body {
 
 ul.side {
   list-style-type: none;
-  padding: 10px;
+  padding: 0px;
 }
 
 ul.side li {
@@ -260,6 +300,8 @@ ul.side a:hover {
 
 .quick-link {
   padding: 5px;
+  margin-bottom: 10px;
+  display: inline-block;
   border-bottom: 4px solid #FF5532;
   color: #0F232E;
   font-weight: bold;

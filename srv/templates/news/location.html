@@ -3,7 +3,7 @@
 {% extends "sablona.html" %}
 
 {% block podnazev %}
-Main
+New Location
 {% endblock %}
 
 {% block obsah_stranky %}
@@ -11,98 +11,69 @@ Main
    
 <section class="left-block">
 
-  NEWS page        
-  <div class="form-container">
-    <form action="#" method="POST">
-      <div class="form-group">
-          <label for="inv">Inventární číslo:</label>
-          <input type="text" id="inv" name="inv" required>
-      </div>
-      <div class="form-group">
-          <label for="nazev">Název zařízení:</label>
-          <input type="text" id="nazev" name="nazev">
-      </div>
-      <div class="form-group">
-          <label for="seriove">Sériové číslo:</label>
-          <input type="text" id="seriove" name="seriove" required>
-      </div>
-      <div class="form-group">
-          <label for="model">Model:</label>
-          <input type="text" id="model" name="model" required>
-      </div>
-      <div class="form-group">
-          <label for="nakup">Datum nákupu:</label>
-          <input type="text" id="nakup" name="nakup" value="{{ x }}" required>
-      </div>
-      <div class="form-group">
-          <label for="poznm">Poznámka:</label>
-          <input type="text" id="poznm" name="poznm">
-      </div>
-      <label for="kat">Kategorie:</label>
-      <div class="form-item">
-          
-          <select id="kat" name="kat">
-              {% for i in k %}
-                  {% if i.id_kat == 1 %}
-                      <option value="{{ i.id_kat }}" selected>{{ i.id_kat }} - {{ i.kat_nazev }}</option>
-                  {% else %}
-                      <option value="{{ i.id_kat }}">{{ i.id_kat }} - {{ i.kat_nazev }}</option>
-                  {% endif %}
-              {% endfor %}
-          </select>
-            
-      </div>
-      
-      <label for="vyr">Výrobce:</label>
-      <div class="form-item">
-          
-          <select id="vyr" name="vyr">
-            {% for i in y %}
-            {% if i.id_vyr == 1 %}
-                <option value="{{ i.id_vyr }}" selected>{{ i.id_vyr }} - {{ i.vyr_nazev }}</option>
-            {% else %}
-                <option value="{{ i.id_vyr }}">{{ i.id_vyr }} - {{ i.vyr_nazev }}</option>
-            {% endif %}
+  Přidání nové lokace. Výpis již platných      
+
+
+
+  <table class="prehled">
+    <thead>
+        <tr>
+            <th>Kód lokace</th>
+            <th>Popis lokace</th>
+            <th>Budova</th>
+            <th>A</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for xko,yko in x %}
+            <tr>
+                <td>{{ xko.lok_kod }}</td>
+                <td>{{ xko.lok_nazev }}</td>
+                <td>{{ yko.bud_nazev }}</td>
+                <td><form action="#" method="post">
+                    <input type="hidden" name="selected_id" value="{{ xko.id }}">
+                    <button type="submit">E</button></form></td>
+                </tr>
         {% endfor %}
-          </select>
-
-
-
-
-      </div>
-      <div class="form-group">
-          <input type="submit" value="Založit">
-      </div>
-  </form>
-  
-  
-</div>
-
+    </tbody>
+</table>
       </section>
+      {% if pravo==True %}
       <section class="right-block">
-        <span class="quick-link">Prohlížení</span>
-        <ul class="side">
-          <li><a href="/login">Seznam zařízení</a></li>
-          <li><a href="home">Seznam pracovišť</a></li>
-          <li><a href="#">Seznam uživatelů</a></li>
-        </ul>
-
-        <span class="quick-link">Editace</span>
-        <ul class="side">
-          <li><a href="#">Zařízení</a></li>
-          <li><a href="#">Lokace</a></li>
-          <li><a href="#">Uživatelé</a></li>
-          <li><a href="#">Výrobci</a></li>
-        </ul>
-      
-        <span class="quick-link">Profil</span>
-        <ul class="side">
-          <li><a href="#">Editace</a></li>
-          <li><a href="/signed/odhlaseni">Odhlášení</a></li>
-        </ul>
+        <span class="quick-link">Nová lokace</span>
+        <div class="form-container">
+            <form action="#" method="POST">
+              <div class="form-group">
+                  <label for="kod">Kód lokace:</label>
+                  <input type="text" id="kod" name="kod" required>
+              </div>
+              <div class="form-group">
+                  <label for="nazev">Název lokace:</label>
+                  <input type="text" id="nazev" name="nazev">
+              </div>
+              
+              <div class="form-group">
+                  <label for="bud">Budova:</label>
+                  <select id="bud" name="bud">
+                    {% for i in y %}
+                    {% if i.id_bud == 1 %}
+                        <option value="{{ i.id_bud }}" selected>{{ i.bud_kod }} ({{ i.bud_nazev }})</option>
+                    {% else %}
+                    <option value="{{ i.id_bud }}">{{ i.bud_kod }} - {{ i.bud_nazev }}</option>
+                    {% endif %}
+                    {% endfor %}
+                  </select>
+                    
+              </div>
+              
+              <div class="form-group">
+                  <input type="submit" value="Založit">
+              </div>
+          </form>
+            </div>  
       
       </section>
-    
+      {% endif %}
 
 
  

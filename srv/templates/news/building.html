@@ -1,0 +1,51 @@
+
+  
+{% extends "sablona.html" %}
+
+{% block podnazev %}
+New Location
+{% endblock %}
+
+{% block obsah_stranky %}
+   
+   
+<section class="left-block">
+
+  
+    <p>Přidání nové budovy</p>
+
+      </section>
+      
+      {% if pravo == True %}
+      <section class="right-block">
+        <span class="quick-link">Přidání nové budovy</span>
+        
+        <div class="form-container">
+            <form action="#" method="POST">
+              <div class="form-group">
+                  <label for="kod">Kód budovy:</label>
+                  <input type="text" id="kod" name="kod" required>
+              </div>
+              <div class="form-group">
+                  <label for="nazev">Název budovy:</label>
+                  <input type="text" id="nazev" name="nazev">
+              </div>
+              
+              <div class="form-group">
+                  <input type="submit" name="nova_budova" value="Založit">
+              </div>
+          </form>
+          
+          
+        </div>
+      
+      </section>
+      {% endif %}
+
+
+ 
+{% endblock %}  
+
+{% block patka %}
+route: /home
+{% endblock %}

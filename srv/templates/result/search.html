@@ -8,42 +8,100 @@
 <div class="main-body">
     <section class="left-block">     
 
-    
-
-<h1>uzivatel: {{ uzv }} a jeho heslo: {{ hsl }} a opravnění </h1><br>
-
-<p>Informace o zařízení:</p>
+<span class="quick-link">Informace o zařízení:</span>
       <table class="bordered-table">
-        <tbody>
-          <tr>
-            <td>Inventární číslo:</td>
-            <td>Sloupec 2</td>
-        </tr>
-        <tr>
-          <td>Název zařízení:</td>
-          <td>Sloupec 2</td>
-      </tr>
-      <tr>
-        <td>Sériové číslo:</td>
-        <td>Sloupec 2</td>
-    </tr>
-            {% for row in rows %}
+        <tbody>            
                 <tr>
-                    <td>{{ row.column1 }}</td>
-                    <td>{{ row.column2 }}</td>
+                    <td>Inventární číslo:</td>
+                    <td>{{ zar.zar_inv }}</td>
                 </tr>
-            {% endfor %}
+                <tr>
+                    <td>Kategorie:</td>
+                    <td>{{ kat.kat_nazev }}</td>
+                </tr>
+                <tr>
+                    <td>Sériové číslo:</td>
+                    <td>{{ zar.zar_seriove }}</td>
+                </tr>
+                <tr>
+                    <td>Výrobce:</td>
+                    <td>{{ vyr.vyr_nazev }}</td>
+                </tr>
+                <tr>
+                    <td>Model:</td>
+                    <td>{{ zar.zar_model }}</td>
+                </tr>
+                <tr>
+                    <td>Datum nákupu:</td>
+                    <td>{{ zar.zar_nakup }}</td>
+                </tr>
+                <tr>
+                    <td>Status:</td>
+                    <td>{{ kat.kat_nazev }}</td>
+                </tr>
         </tbody>
     </table>
+    <hr />
+    <span class="quick-link">Umístění:</span>
+    <table class="bordered-table">
+      <tbody>            
+              <tr>
+                  <td>Kód lokace:</td>
+                  <td>{{ zar.zar_inv }}</td>
+              </tr>
+              <tr>
+                <td>Popis lokace:</td>
+                <td>{{ zar.zar_inv }}</td>
+            </tr>
+              <tr>
+                  <td>Budova:</td>
+                  <td>{{ kat.kat_nazev }}</td>
+              </tr>
+              <tr>
+                <td>Předáno:</td>
+                <td>{{ kat.kat_nazev }}</td>
+            </tr>
 
+      </tbody>
+  </table>
+    <hr />
+  <span class="quick-link">Vlastník:</span>
+    <table class="bordered-table">
+      <tbody>            
+              <tr>
+                  <td>ID Uživatele:</td>
+                  <td>{{ zar.zar_inv }}</td>
+              </tr>
+              <tr>
+                  <td>Uživatel:</td>
+                  <td>{{ kat.kat_nazev }}</td>
+              </tr>
+              <tr>
+                  <td>Vztah:</td>
+                  <td>{{ vyr.vyr_nazev }}</td>
+              </tr>
+              <tr>
+                  <td>Datum nástupu:</td>
+                  <td>{{ zar.zar_nakup }}</td>
+              </tr>
+              <tr>
+                <td>Datom výstupu:</td>
+                <td>{{ zar.zar_model }}</td>
+            </tr>
+      </tbody>
+  </table>
 
     
 </div>
 </section>
 <section class="right-block">
 
-    Pravá strana
-
+    <span class="quick-link">Rychlé akce</span>
+    <ul class="side">
+        <li><a href="/">Přesunout</a></li>
+        <li><a href="{{ url_for('news.device') }}">Upravit</a></li>
+        <li><a href="account">Vyřadit</a></li>
+      </ul>
 </section>
 {% endblock %}  
 

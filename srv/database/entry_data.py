@@ -120,8 +120,10 @@ def vlozeni_uzivatele():
     u2 = Uzivatel(uziv_kod="visitor", uziv_jmeno="Návštěvník", uziv_prijmeni="2-Čtenář", uziv_nastup=datetime.datetime.now(),
                   uziv_heslo="visitor", fk_vzt=1, fk_opr=2)
     u3 = Uzivatel(uziv_kod="expelled", uziv_jmeno="Vyloučený", uziv_prijmeni="3-Vyloučený", uziv_nastup=datetime.datetime.now(),
-                  uziv_heslo="expelled", fk_vzt=1, fk_opr=2)    
-    db_session.add_all([u1, u2, u3])
+                  uziv_heslo="expelled", fk_vzt=1, fk_opr=2)
+    u4 = Uzivatel(uziv_kod="system", uziv_jmeno="System", uziv_prijmeni="", uziv_nastup=datetime.datetime.now(),
+                  uziv_heslo="system", fk_vzt=1, fk_opr=2)        
+    db_session.add_all([u1, u2, u3, u4])
     db_session.commit()
     print("Uzivatel - hotovo")
 
