@@ -3,7 +3,7 @@
 {% extends "sablona.html" %}
 
 {% block podnazev %}
-New Location
+New Manufacturer
 {% endblock %}
 
 {% block obsah_stranky %}
@@ -11,7 +11,34 @@ New Location
    
 <section class="left-block">
 
-  Přidání nového výrobce. Výpis již platných      
+  <section class="left-block">
+
+  
+    <table class="dim-prehled">
+      <thead>
+          <tr>
+              <th>Název výrobce</th>
+              {%if pravo==True%}<th class="list-akce">A</th>{%endif%}
+          </tr>
+      </thead>
+      <tbody>
+          {% for r in dotaz %}
+              <tr>
+                  <td style="text-align: left;">{{ r.vyr_nazev }}</td>
+                  {% if pravo==True %}
+                  <td><form action="#" method="post">
+                      <input type="hidden" name="selected_id" value="{{ r.id_vyr }}">
+                      <button class="button-akce"  type="submit">e</button>
+                      <input type="hidden" name="selected_id" value="{{ r.id_vyr }}">
+                      <button class="button-akce"  type="submit">X</button></form>
+                  </td>
+                  {% endif %}
+                  </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+  
+        </section>
   
       </section>
       {% if pravo==True %}
@@ -21,7 +48,7 @@ New Location
             <form action="#" method="POST">
               <div class="form-group">
                   <label for="nazev">Název výrobce:</label>
-                  <input type="text" id="nazev" name="nazev" required>
+                  <input type="text" name="nazev" required>
               </div>
               
               <div class="form-group">

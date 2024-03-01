@@ -1,0 +1,110 @@
+{% extends "sablona.html" %}
+
+{% block podnazev %}
+Přehled zařízení
+{% endblock %}
+
+{% block obsah_stranky %}
+   
+ 
+   
+<section class="left-block">
+    <div class="group-container">
+        <form action="#" method="post" class="form-flex-search">
+          <ul class="form-list">
+            <li class="form-item">
+              <input type="text" id="search" name="search" placeholder="{% if hledane is not none %} {{ hledane }} {% else %} Filtrovat podle...{%endif%}" required>
+                </li>
+                <li class="form-item">
+                      <select id="category" name="category">
+                        <option value="0">Inventární číslo</option>
+                        <option value="1">Sériové číslo</option>
+                        <option value="2">Výrobce</option>
+                        <option value="3">Model</option>
+                        <option value="4">Popisek</option>
+                        <option value="5">Kategorie</option>
+                        <option value="6">Nakoupeno</option>
+                        <option value="7">Status</option>
+                        <option value="8">Kódu lokace</option>
+                        <option value="9">Kódu budovy</option>
+                      </select>
+                </li>
+                <li class="form-item">
+                      <button class="form-button" type="submit">Filtrovat</button>
+                </li>
+                
+          </ul>
+        </form>
+        <form action="{{ url_for('main.inventory') }}" method="get" class="form-item">
+          <ul class="form-list">
+                 <li class="form-item">
+                      <button class="form-button-cancel" type="submit">X</button>
+                </li>
+                
+          </ul>
+        </form></div>
+        {% if pravo==True %}
+        <div class="admin-group-container">
+            <form action="#" method="post">
+              <ul class="form-list-admin">
+                <li class="form-item-admin">
+                    <button class="form-button-admin" type="submit">Nový</button>
+              </li>
+                    <li class="form-item-admin">
+                        <button class="form-button-admin" type="submit">Editovat</button>
+                  </li>
+                    <li class="form-item-admin">
+                          <button class="form-button-admin" type="submit">Zrušit</button>
+                    </li>
+              </ul>
+            </form>
+    
+          </div>
+            {% endif %}
+    
+    <table class="prehled">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Inventární číslo</th>
+                <th>Sériové číslo</th>
+                <th>Výrobce</th>
+                <th>Model</th>
+                <th>Popisek</th>
+                <th>Kategorie</th>
+                <th>Nakoupeno</th>
+                <th>Status</th>
+                <th>Umístění</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in dotaz %}
+                <tr>
+                    <td>{{ r.Zarizeni.id_zar }}</td>
+                    <td>{{ r.Zarizeni.zar_inv }}</td>
+                    <td>{{ r.Zarizeni.zar_seriove }}</td>
+                    <td>{{ r.Vyrobce.vyr_nazev }}</td>
+                    <td>{{ r.Zarizeni.zar_model }}</td>
+                    <td>{{ r.Transakce.tran_poznamka}}</td>
+                    <td>{{ r.Kategorie.kat_nazev }}</td>
+                    <td>{{ r.Zarizeni.zar_nakup }}</td>
+                    <td>{{ r.Status.stat_nazev }}</td>
+                    <td>{{ r.Lokace.lok_kod }} ({{ r.Lokace.lok_nazev }})</td>                   
+                    </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+
+      
+
+    
+
+
+ 
+{% endblock %}  
+
+{% block patka %}
+route: /home
+{% endblock %}

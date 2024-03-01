@@ -4,7 +4,7 @@ body {
     background-color: #f5f2f2;
   }
   hr {
-    background-color: #872823;
+    background-color: rgba(135, 40, 35, 0.3);
     height: 3px;
     border: 0px;
   }
@@ -53,6 +53,7 @@ body {
   .menu ul li a:hover {
     background-color: rgba(255, 255, 255, 0.2); /* Změna pozadí při najetí myší */
   }
+  
   
   .main-container {
     max-width: 80%;
@@ -136,7 +137,7 @@ body {
   flex: 1; /* Všechny podřízené prvky se budou roztáhnout, aby vyplnily nadřazený objekt */
   /* Bbackground-color: #f0f0f0; /* Barva podřízených prvků */
   margin-bottom: 10px; /* Vzdálenost mezi prvky */
-  min-height: 200px;
+  min-height: 100px;
 }
 
 .right-content {
@@ -150,7 +151,7 @@ body {
   margin-top: 10px; /* Vzdálenost mezi vnořenými prvky */
   padding: 5px; /* Vnější odsazení pro lepší vizuální oddělení */
   width: 48%;
-  min-height: 300px;
+  min-height: 200px;
 }
 
 .nested-content > div {
@@ -178,11 +179,15 @@ body {
   width: 10%;
 }
 
-
+.dim-prehled {
+  border: 0px;
+  margin: 0 auto;
+  width: 80%;
+}
 .prehled {
   border: 0px;
-  margin: 20px auto;
-  width: 80%;
+  margin: 0 auto;
+  width: 100%;
 }
 th {
   text-align: center;
@@ -191,12 +196,11 @@ th {
 }
 tbody > tr {
   text-align: center;
-
   width: auto;
 }
 
 .prehled td {
-  padding: 20px;
+  padding: 10px;
   width: auto;
 }
 
@@ -212,10 +216,6 @@ tbody > tr:hover {
   justify-content: center;
 }
 
-.form-flex-search {
-  display: flex;
-  align-items: center;
-}
 
 .form-list {
   display: flex;
@@ -227,9 +227,6 @@ tbody > tr:hover {
   margin-right: 10px;
 }
 
-.form-item:last-child {
-  margin-right: 0;
-}
 
 .form-item input[type="text"] {
   width: 500px; /* Změna šířky vstupního pole typu text */
@@ -250,13 +247,6 @@ tbody > tr:hover {
   border-radius: 5px;
 }
 
-.form-item button[type="submit"] {
-  width: 200px;
-  padding: 12px;
-  border: Opx solid #ccc;
-  border-radius: 5px;
-}
-
 
 
 .form-button {
@@ -267,11 +257,33 @@ tbody > tr:hover {
   cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 16px;
+  width: 200px;
+  padding: 12px;
+  border: Opx solid #ccc;
+  border-radius: 5px;
 }
-
 .form-button:hover {
   background-color: #872823;
 }
+
+.form-button-cancel {
+  color:#7e7e7e;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  width: 48px;
+  padding: 12px;
+  border: 0px solid #ccc;
+  
+}
+.form-button-cancel:hover {
+  background-color: #000;
+  color: white;
+}
+
+
 
 
 ul.side {
@@ -309,4 +321,61 @@ ul.side a:hover {
 
 
 
+.admin-group-container {
+  display: flex;
+  justify-content: left;
+}
 
+
+.form-list-admin {
+  display: flex;
+  list-style-type: none;
+  padding: 0px;
+}
+
+.form-item-admin {
+  margin-right: 10px;
+}
+
+
+.form-button-admin {
+  width: 150px;
+  padding: 6px;
+  border: none;  
+  color: #8f8f8f;
+  cursor: pointer;
+  border-bottom: 3px solid #ccc;
+  background-color: #f5f2f2;
+  font-size: 16px;
+  transition: border-bottom 0.3s ease;
+}
+
+.form-button-admin:hover {
+  border-bottom: 3px solid #e74c3c; 
+  color: #0F232E;
+}
+
+.button-akce {
+    color:#7e7e7e;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    width: 48px;
+    padding: 12px;
+    border: 0px solid #ccc;
+    
+}
+.button-akce:hover {
+    background-color: #000;
+    color: white;
+}
+  
+.list-akce {
+  width: 120px;
+}
+.id_db {
+  width: 100px;
+  font-size: 1Opx;
+}

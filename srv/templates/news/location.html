@@ -10,29 +10,29 @@ New Location
    
    
 <section class="left-block">
-
-  Přidání nové lokace. Výpis již platných      
-
-
-
-  <table class="prehled">
+  <table class="dim-prehled">
     <thead>
         <tr>
-            <th>Kód lokace</th>
+            <th class="id_db">Kód</th>
             <th>Popis lokace</th>
             <th>Budova</th>
-            <th>A</th>
+            {%if pravo==True%}<th class="list-akce">A</th>{%endif%}
         </tr>
     </thead>
     <tbody>
-        {% for xko,yko in x %}
+        {% for r in dotaz %}
             <tr>
-                <td>{{ xko.lok_kod }}</td>
-                <td>{{ xko.lok_nazev }}</td>
-                <td>{{ yko.bud_nazev }}</td>
+                <td>{{ r.Lokace.lok_kod }}</td>
+                <td>{{ r.Lokace.lok_nazev }}</td>
+                <td>{{ r.Budova.bud_nazev }}</td>
+                {% if pravo==True %}
                 <td><form action="#" method="post">
-                    <input type="hidden" name="selected_id" value="{{ xko.id }}">
-                    <button type="submit">E</button></form></td>
+                    <input type="hidden" name="selected_id" value="{{ r.Lokace.id_lok }}">
+                    <button class="button-akce"  type="submit">e</button>
+                    <input type="hidden" name="selected_id" value="{{ r.Lokace.id_lok }}">
+                    <button class="button-akce"  type="submit">X</button></form>
+                </td>
+                {% endif %}
                 </tr>
         {% endfor %}
     </tbody>
@@ -45,16 +45,16 @@ New Location
             <form action="#" method="POST">
               <div class="form-group">
                   <label for="kod">Kód lokace:</label>
-                  <input type="text" id="kod" name="kod" required>
+                  <input type="text" name="kod" required>
               </div>
               <div class="form-group">
                   <label for="nazev">Název lokace:</label>
-                  <input type="text" id="nazev" name="nazev">
+                  <input type="text" name="nazev">
               </div>
               
               <div class="form-group">
                   <label for="bud">Budova:</label>
-                  <select id="bud" name="bud">
+                  <select name="bud">
                     {% for i in y %}
                     {% if i.id_bud == 1 %}
                         <option value="{{ i.id_bud }}" selected>{{ i.bud_kod }} ({{ i.bud_nazev }})</option>

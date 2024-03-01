@@ -2,8 +2,8 @@ from flask import Blueprint, render_template, redirect, request, url_for, sessio
 from sqlalchemy import desc
 from sqlalchemy.exc import IntegrityError
 
-from database import db_session, Zarizeni, Lokace, Budova, Transakce, Status, Uzivatel, Kategorie
-from core import kratke_datum, vyrobce_list, kategorie_list, budovy_list, tr_new_device, my_role
+from database import db_session, Zarizeni, Lokace, Budova, Transakce, Status, Uzivatel, Kategorie, Vztah, Opravneni, Vyrobce
+from core import kratke_datum, vyrobce_list, kategorie_list, budovy_list, tr_new_device, my_role, transaction_listing, user_listing, opravneni_list, vztah_list
 
 news_bp = Blueprint("news", __name__)#, static_folder="static", template_folder="templates")
 
@@ -16,10 +16,10 @@ def device():
         if request.method == "POST":
             print("++ čtu vstupy z formuláře")
             input = Zarizeni(zar_inv = request.form["inv"],
-                            zar_seriove = request.form["seriove"],
-                            zar_model = request.form["model"] ,
+                            zar_seriove = request.form["seriove"].upper(),
+                            zar_model = request.form["model"].capitalize(),
                             zar_nakup = request.form["nakup"],
-                            zar_poznm = request.form["poznm"] ,
+                            zar_poznm = request.form["info"] ,
                             fk_kat = request.form["kat"],
                             fk_vyr  = request.form["vyr"]                       
                             )
@@ -35,9 +35,10 @@ def device():
                 id=input.zar_inv
                 print(id)
                 print(type(id))
-                id_tr= tr_new_device(input).id_tran
+                popisek = request.form["tran_popis"] 
+                id_tr= tr_new_device(input,popisek).id_tran
                 db_session.close()
-                return redirect(url_for("news.transaction", id=id_tr))
+                return redirect(url_for("main.records", id=id_tr))
 
         else:
             print("první načtení")
@@ -56,7 +57,7 @@ def location():
     if request.method == "POST":
         print("++ čtu vstupy z formuláře")
         input = Lokace(lok_kod = request.form["kod"].upper(),
-                            lok_nazev = request.form["nazev"].upper(),
+                            lok_nazev = request.form["nazev"].capitalize(),
                             fk_bud = request.form["bud"]                   
                             )
         db_session.add(input) 
@@ -66,11 +67,7 @@ def location():
         except IntegrityError as e:
             print(f"chyba při vkládání {e}")
             db_session.rollback() ##### nutnéééééééééééééééééééééééééééééééé
-            return render_template("error.html", e=e)
-        except IntegrityError as e:
-            print(f"chyba při vkládání {e}")
-            db_session.rollback() ##### nutnéééééééééééééééééééééééééééééééé
-            return render_template("error.html", e=e)
+            return render_template("main/error.html", e=e)
         else:
             print("Zařízení založeno, trigger do transakce")
 
@@ -81,9 +78,10 @@ def location():
         print("první načtení")
         y=budovy_list()
         vypis = db_session.query(Lokace, Budova).join(Budova, Lokace.fk_bud == Budova.id_bud).order_by(Budova.bud_nazev).all()
-        return render_template("news/location.html", y=y, x=vypis, pravo=pravo)
+        db_session.close()
+        return render_template("news/location.html", y=y, dotaz=vypis, pravo=pravo)
 
-
+# Nové budovy
 @news_bp.route("building", methods=["GET", "POST"])
 def building():
     print("++ news.py | building() - vytvoření nového zařízení")
@@ -91,7 +89,7 @@ def building():
     if request.method == "POST":
         print("++ čtu vstupy z formuláře")
         input = Budova(bud_kod = request.form["kod"].upper(),
-                bud_nazev = request.form["nazev"].upper(),   )               
+                bud_nazev = request.form["nazev"].capitalize())               
 
         db_session.add(input) 
         try:
@@ -109,7 +107,7 @@ def building():
         print("první načtení")
         y=budovy_list()
         
-        return render_template("news/building.html", y=y, pravo=pravo)
+        return render_template("news/building.html", dotaz=y, pravo=pravo)
 
 
 @news_bp.route("manufacturer", methods=["GET", "POST"])
@@ -118,14 +116,7 @@ def manufacturer():
     print("++ news.py | manufacturer() - vytvoření nového zařízení")
     if request.method == "POST":
         print("++ čtu vstupy z formuláře")
-        input = Zarizeni(zar_inv = request.form["inv"],
-                         zar_nazev = request.form["nazev"],
-                         zar_seriove = request.form["seriove"],
-                         zar_model = request.form["model"] ,
-                         zar_nakup = request.form["nakup"],
-                         zar_poznm = request.form["poznm"] ,
-                         fk_kat = request.form["kat"],
-                         fk_vyr  = request.form["vyr"]                       
+        input = Vyrobce(vyr_nazev = request.form["nazev"].capitalize(),                    
                          )
         db_session.add(input) 
         try:
@@ -137,11 +128,12 @@ def manufacturer():
         else:
             print("Zařízení založeno, trigger do transakce")
             db_session.close()
-            return redirect(url_for("news.transaction"))
+            return redirect(url_for("news.manufacturer"))
 
     else:
         print("první načtení")
-        return render_template("news/manufacturer.html", pravo=pravo)
+        y=vyrobce_list()
+        return render_template("news/manufacturer.html", dotaz=y, pravo=pravo)
 
 @news_bp.route("category", methods=["GET", "POST"])
 def category():
@@ -149,60 +141,58 @@ def category():
     print("++ news.py | category() - vytvoření nového zařízení")
     if request.method == "POST":
         print("++ čtu vstupy z formuláře")
-        input = Zarizeni(zar_inv = request.form["inv"],
-                         zar_nazev = request.form["nazev"],
-                         zar_seriove = request.form["seriove"],
-                         zar_model = request.form["model"] ,
-                         zar_nakup = request.form["nakup"],
-                         zar_poznm = request.form["poznm"] ,
-                         fk_kat = request.form["kat"],
-                         fk_vyr  = request.form["vyr"]                       
-                         )
+        input = Kategorie(kat_nazev = request.form["nazev"].capitalize())
         db_session.add(input) 
         try:
             db_session.commit()
         except IntegrityError as e:
             print(f"chyba při vkládání {e}")
             db_session.rollback() ##### nutnéééééééééééééééééééééééééééééééé
-            return render_template("error.html", e=e)
+            return render_template("main/error.html", e=e)
         else:
             print("Zařízení založeno, trigger do transakce")
+            
             db_session.close()
-            return redirect(url_for("news.category"))
+            return redirect(url_for("news.category", dotaz=vypis, pravo=pravo))
 
     else:
         print("první načtení")
-        return render_template("news/category.html", pravo=pravo)
+        vypis = kategorie_list()
+        return render_template("news/category.html", dotaz=vypis, pravo=pravo)
 
-
-@news_bp.route("transaction", methods=["GET","POST"], defaults={"id": None})
-@news_bp.route("transaction/<int:id>", methods=["GET","POST"])
-def transaction(id):
+@news_bp.route("user", methods=["GET", "POST"])
+def user():
     pravo = my_role()
-    if id == None:
-        print("id je none")
-        print("první načtení")
-        vypis= (db_session.query(Transakce, Zarizeni, Uzivatel, Lokace, Status, Kategorie)
-                .join(Zarizeni, Transakce.fk_zar == Zarizeni.id_zar)
-                .join(Uzivatel, Transakce.fk_uziv == Uzivatel.id_uziv)
-                .join(Lokace, Transakce.fk_lok == Lokace.id_lok)
-                .join(Status, Transakce.fk_stat == Status.id_stat)
-                .join(Kategorie, Zarizeni.fk_kat == Kategorie.id_kat)
-                .order_by((Transakce.tran_editace))
-                .limit(5).all()
-                )
-        return render_template("news/transaction.html", x=vypis, pravo=pravo)
+    print("++ news.py | user() - vytvoření nového uživatele")
+    if request.method == "POST":
+        print("++ čtu vstupy z formuláře")
+
+        input = Uzivatel(uziv_kod = request.form["kod"].lower(),
+                        uziv_jmeno = request.form["jmeno"].capitalize(),
+                        uziv_prijmeni = request.form["prijmeni"].capitalize(),
+                        uziv_email = request.form["email"].lower(),
+                        uziv_nastup = request.form["nastup"],
+                        uziv_heslo = request.form["heslo"],
+                        fk_vzt = request.form["vzt"],
+                        fk_opr = request.form["opr"]
+                            )
+        db_session.add(input) 
+
+        try:
+            db_session.commit()
+        except IntegrityError as e:
+            print(f"chyba při vkládání {e}")
+            db_session.rollback() ##### nutnéééééééééééééééééééééééééééééééé
+            return render_template("main/error.html", e=e)
+        else:
+            print("Zařízení založeno, trigger do transakce")
+
+            db_session.close()
+            return redirect(url_for("main.participants"))
+
     else:
-        print(f"předané id je {id}")
-        vypis= (db_session.query(Transakce, Zarizeni, Uzivatel, Lokace, Status, Kategorie)
-                .join(Zarizeni, Transakce.fk_zar == Zarizeni.id_zar)
-                .join(Uzivatel, Transakce.fk_uziv == Uzivatel.id_uziv)
-                .join(Lokace, Transakce.fk_lok == Lokace.id_lok)
-                .join(Status, Transakce.fk_stat == Status.id_stat)
-                .join(Kategorie, Zarizeni.fk_kat == Kategorie.id_kat)
-                .where(Transakce.id_tran == id)).all()
-        print("++ news.py | transaction() - zapsání transakce")
-        return render_template("news/transaction.html", x=vypis, pravo=False)   
-   
-
-
+        print("první načtení")
+        k=vztah_list()
+        y=opravneni_list()
+        db_session.close()
+        return render_template("news/user.html", x=kratke_datum(), y=y, k=k, pravo=pravo)

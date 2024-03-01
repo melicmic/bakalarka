@@ -11,16 +11,40 @@ New category
    
 <section class="left-block">
 
-  Přidání nové kategorie. Výpis již platných      
+  <table class="dim-prehled">
+    <thead>
+        <tr>
+            <th class="id_db">Kód</th>
+            <th>Název kategorie</th>
+            {%if pravo==True%}<th class="list-akce">A</th>{%endif%}
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in dotaz %}
+            <tr>
+                <td>{{ r.id_kat }}</td>
+                <td style="text-align: left;"">{{ r.kat_nazev }}</td>
+                {% if pravo==True %}
+                <td><form action="#" method="post">
+                    <input type="hidden" name="selected_id" value="{{ r.id_kat }}">
+                    <button class="button-akce"  type="submit">e</button>
+                    <input type="hidden" name="selected_id" value="{{ r.id_kat }}">
+                    <button class="button-akce"  type="submit">X</button></form>
+                </td>
+                {% endif %}
+                </tr>
+        {% endfor %}
+    </tbody>
+</table>
   
       </section>
       <section class="right-block">
-        <span class="quick-link">Nový výrobce</span>
+        <span class="quick-link">Nová kategorie</span>
         <div class="form-container">
             <form action="#" method="POST">
               <div class="form-group">
                   <label for="nazev">Název kategorie:</label>
-                  <input type="text" id="nazev" name="nazev" required>
+                  <input type="text" name="nazev" required>
               </div>
               
               <div class="form-group">

@@ -17,7 +17,7 @@ Main
      
     
       <div class="group-container">
-        <form action="#" method="post" class="form-flex-search">
+        <form action="#" method="post">
           <ul class="form-list">
             <li class="form-item">
               <input type="text" id="search" name="search" placeholder="Vyhledat..." required>
@@ -120,12 +120,12 @@ Main
 
       </section>
       <section class="right-block">
-
+        {% if pravo == True %}
         <span class="quick-link">Rychlé akce</span>
         <ul class="side">
-          <li><a href="{{ url_for('news.transaction') }}">Záznamy</a></li>
-          <li><a href="{{ url_for('news.device') }}">Zařízení</a></li>
-          <li><a href="{{ url_for('news.category') }}">Uživatelé</a></li>
+          <li><a href="{{ url_for('main.records') }}">Nový záznam</a></li>
+          <li><a href="{{ url_for('news.device') }}">Nové zařízení</a></li>
+          <li><a href="{{ url_for('news.user') }}">Nový uživatel</a></li>
         </ul>
         <span class="quick-link">Editace</span>
         
@@ -135,6 +135,7 @@ Main
           <li><a href="{{ url_for('news.manufacturer') }}">Výrobce</a></li>
           <li><a href="{{ url_for('news.category') }}">Kategorie</a></li>
         </ul>
+        {% endif %}
         <span class="quick-link">Profil</span>
         <ul class="side">
           <li><a href="{{ url_for('login.edit') }}">Upravit</a></li>

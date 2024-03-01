@@ -1,0 +1,105 @@
+{% extends "sablona.html" %}
+
+{% block podnazev %}
+New Transaction
+{% endblock %}
+
+{% block obsah_stranky %}
+   
+   
+<section class="left-block">
+
+        <div class="group-container">
+            <form action="#" method="post">
+              <ul class="form-list">
+                <li class="form-item">
+                  <input type="text" id="us_search" name="us_search" placeholder="{% if hledane is not none %} {{ hledane }} {% else %} Filtrovat podle...{%endif%}" required>
+                    </li>
+                    <li class="form-item">
+                          <select id="us_category" name="us_category">
+                            <option value="0">ID uživatele</option>
+                            <option value="1">Jméno</option>
+                            <option value="2">Příjmení</option>
+                            <option value="3">E-mail</option>
+                            <option value="4">Vztah</option>
+                            <option value="5">Oprávnění</option>
+                          </select>
+                    </li>
+                    <li class="form-item">
+                          <button class="form-button" type="submit">Filtrovat</button>
+                    </li>
+              </ul>
+            </form>
+            <form action="{{ url_for('main.participants') }}" method="get" class="form-item">
+              <ul class="form-list">
+                     <li class="form-item">
+                          <button class="form-button-cancel" type="submit">X</button>
+                    </li>
+                    
+              </ul>
+            </form>
+            </div>
+
+            {% if pravo==True %}
+            <div class="admin-group-container">
+                <form action="#" method="post">
+                  <ul class="form-list-admin">
+                    <li class="form-item-admin">
+                        <button class="form-button-admin" type="submit">Nový</button>
+                  </li>
+                        <li class="form-item-admin">
+                            <button class="form-button-admin" type="submit">Editovat</button>
+                      </li>
+                        <li class="form-item-admin">
+                              <button class="form-button-admin" type="submit">Zablokovat</button>
+                        </li>
+                  </ul>
+                </form>
+        
+                </div>
+                {% endif %}
+    <table class="prehled">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID uživatele</th>
+                <th>Jméno</th>
+                <th>E-mail</th>
+                <th>Vztah</th>
+                <th>Oprávnění</th>
+                <th>Nástup</th>
+                <th>Výstup</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in dotaz %}
+                <tr>
+                    <td>{{ r.Uzivatel.id_uziv }}</td>
+                    <td>{{ r.Uzivatel.uziv_kod }}</td>
+                    <td style="text-align: left;">{{ r.Uzivatel.uziv_jmeno}} {{ r.Uzivatel.uziv_prijmeni}}</td>
+                    <td style="text-align: left;">{{ r.Uzivatel.uziv_email}}</td>
+                    <td>{{ r.Vztah.vzt_nazev}}</td>
+                    <td>{{ r.Opravneni.opr_nazev }}</td>
+                    <td>{{ r.Uzivatel.uziv_nastup}}</td>
+                    <td>{% if r.Uzivatel.uziv_vystup  is none %} --- {% else %} {{ dotaz2.Uzivatel.uziv_vystup }} {% endif %}</td>
+                  </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section> 
+
+
+
+
+      
+
+    
+
+
+ 
+{% endblock %}  
+
+{% block patka %}
+route: /home
+{% endblock %}

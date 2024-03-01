@@ -28,7 +28,7 @@ def index():
                 db_session.close()
                 if dotaz==None:
                     print("vráceno NONE ... nenašel se v db")
-                    return render_template("error.html")
+                    return render_template("main/error.html")
                 elif (dotaz.uziv_kod==uzivatel and dotaz.uziv_heslo==heslo):
                     print("++ login.py | index() >>> uživatel je ověřen")
                     session["uzivatel"] = uzivatel

@@ -8,40 +8,37 @@ Main
 
 {% block obsah_stranky %}
    
-   
-<section class="left-block">
-
-  NEWS page        
+<section class="left-block">       
   <div class="form-container">
     <form action="#" method="POST">
       <div class="form-group">
           <label for="inv">Inventární číslo:</label>
-          <input type="text" id="inv" name="inv" required>
+          <input type="text" name="inv" required>
       </div>
-      <!--<div class="form-group">
-          <label for="nazev">Název zařízení:</label>
-          <input type="text" id="nazev" name="nazev">
-      </div>-->
       <div class="form-group">
           <label for="seriove">Sériové číslo:</label>
-          <input type="text" id="seriove" name="seriove" required>
+          <input type="text" name="seriove" required>
       </div>
       <div class="form-group">
           <label for="model">Model:</label>
-          <input type="text" id="model" name="model" required>
+          <input type="text" name="model" required>
       </div>
       <div class="form-group">
+        <label for="nazev">Doplňující informace:</label>
+        <input type="text" name="info">
+    </div>
+      <div class="form-group">
           <label for="nakup">Datum nákupu:</label>
-          <input type="text" id="nakup" name="nakup" value="{{ x }}" required>
+          <input type="text" name="nakup" value="{{ x }}" required>
       </div>
       <div class="form-group">
           <label for="poznm">Poznámka:</label>
-          <input type="text" id="poznm" name="poznm">
+          <input type="text" name="tran_popis">
       </div>
       
       <div class="form-group">
           <label for="kat">Kategorie:</label>
-          <select id="kat" name="kat">
+          <select name="kat">
               {% for i in k %}
                   {% if i.id_kat == 1 %}
                       <option value="{{ i.id_kat }}" selected>{{ i.id_kat }} - {{ i.kat_nazev }}</option>
@@ -56,7 +53,7 @@ Main
       
       <div class="form-group">
           <label for="vyr">Výrobce:</label>
-          <select id="vyr" name="vyr">
+          <select name="vyr">
             {% for i in y %}
             {% if i.id_vyr == 1 %}
                 <option value="{{ i.id_vyr }}" selected>{{ i.id_vyr }} - {{ i.vyr_nazev }}</option>

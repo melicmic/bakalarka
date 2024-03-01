@@ -44,12 +44,13 @@ def vlozeni_lokace():
 
 # Vztahy - Interní, Externí, Vyrobní, Dodavatel
 def vlozeni_vztah():
-    v1 = Vztah(vzt_nazev="Interní")
+    v1 = Vztah(vzt_nazev="Systémový")
     v2 = Vztah(vzt_nazev="Výrobní")
-    v3 = Vztah(vzt_nazev="Externí")
-    v4 = Vztah(vzt_nazev="Dodavatel")
+    v3 = Vztah(vzt_nazev="Interní")
+    v4 = Vztah(vzt_nazev="Externí")
+    v5 = Vztah(vzt_nazev="Dodavatel")
 
-    db_session.add_all([v1,v2,v3,v4])
+    db_session.add_all([v1,v2,v3,v4, v5])
     db_session.commit()
     print("Vztah - hotovo")
 
@@ -84,18 +85,19 @@ def vlozeni_kategorie():
     print("Kategorie - hotovo")
 
 def vlozeni_status():
-    s1 = Status(stat_nazev="Aktivní")
-    s2 = Status(stat_nazev="Rezervní")
-    s3 = Status(stat_nazev="V opravě")
-    s4 = Status(stat_nazev="Zapůjčeno")
-    s5 = Status(stat_nazev="Likvidace")
-    s6 = Status(stat_nazev="Výměna")
-    s7 = Status(stat_nazev="Vráceno")
-    s8 = Status(stat_nazev="Odkoupeno")
-    s9 = Status(stat_nazev="Vyřezeno")
-    s10 = Status(stat_nazev="Ztraceno")    
-    s11 = Status(stat_nazev="Nalezeno")
-    s12 = Status(stat_nazev="Naskladněno")
+    s1 = Status(stat_nazev="Naskladněno")
+    s2 = Status(stat_nazev="Aktivní")
+    s3 = Status(stat_nazev="Rezervní")
+    s4 = Status(stat_nazev="V opravě")
+    s5 = Status(stat_nazev="Zapůjčeno")
+    s6 = Status(stat_nazev="Likvidace")
+    s7 = Status(stat_nazev="Výměna")
+    s8 = Status(stat_nazev="Vráceno")
+    s9 = Status(stat_nazev="Odkoupeno")
+    s10 = Status(stat_nazev="Vyřezeno")
+    s11 = Status(stat_nazev="Ztraceno")    
+    s12 = Status(stat_nazev="Nalezeno")
+    
         
     db_session.add_all([s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12])
     db_session.commit()

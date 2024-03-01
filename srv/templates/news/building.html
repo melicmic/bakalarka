@@ -12,7 +12,31 @@ New Location
 <section class="left-block">
 
   
-    <p>Přidání nové budovy</p>
+  <table class="dim-prehled">
+    <thead>
+        <tr>
+            <th class="id_db">Kód</th>
+            <th>Popis budovy</th>
+            {%if pravo==True%}<th class="list-akce">A</th>{%endif%}
+        </tr>
+    </thead>
+    <tbody>
+        {% for r in dotaz %}
+            <tr>
+                <td>{{ r.bud_kod }}</td>
+                <td>{{ r.bud_nazev }}</td>
+                {% if pravo==True %}
+                <td><form action="#" method="post">
+                    <input type="hidden" name="selected_id" value="{{ r.id_bud }}">
+                    <button class="button-akce"  type="submit">e</button>
+                    <input type="hidden" name="selected_id" value="{{ r.id_bud }}">
+                    <button class="button-akce"  type="submit">X</button></form>
+                </td>
+                {% endif %}
+                </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
       </section>
       

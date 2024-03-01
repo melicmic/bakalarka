@@ -13,31 +13,31 @@
         <tbody>            
                 <tr>
                     <td>Inventární číslo:</td>
-                    <td>{{ zar.zar_inv }}</td>
+                    <td>{{ dotaz.Zarizeni.zar_inv }}</td>
                 </tr>
                 <tr>
                     <td>Kategorie:</td>
-                    <td>{{ kat.kat_nazev }}</td>
+                    <td>{{ dotaz.Kategorie.kat_nazev }}</td>
                 </tr>
                 <tr>
                     <td>Sériové číslo:</td>
-                    <td>{{ zar.zar_seriove }}</td>
+                    <td>{{ dotaz.Zarizeni.zar_seriove }}</td>
                 </tr>
                 <tr>
                     <td>Výrobce:</td>
-                    <td>{{ vyr.vyr_nazev }}</td>
+                    <td>{{ dotaz.Vyrobce.vyr_nazev }}</td>
                 </tr>
                 <tr>
                     <td>Model:</td>
-                    <td>{{ zar.zar_model }}</td>
+                    <td>{{ dotaz.Zarizeni.zar_model }}</td>
                 </tr>
                 <tr>
                     <td>Datum nákupu:</td>
-                    <td>{{ zar.zar_nakup }}</td>
+                    <td>{{ dotaz.Zarizeni.zar_nakup }}</td>
                 </tr>
                 <tr>
                     <td>Status:</td>
-                    <td>{{ kat.kat_nazev }}</td>
+                    <td>{{ dotaz2.Status.stat_nazev }}</td>
                 </tr>
         </tbody>
     </table>
@@ -46,20 +46,20 @@
     <table class="bordered-table">
       <tbody>            
               <tr>
-                  <td>Kód lokace:</td>
-                  <td>{{ zar.zar_inv }}</td>
+                  <td>Kód:</td>
+                  <td>{{ dotaz2.Lokace.lok_kod }}</td>
               </tr>
               <tr>
-                <td>Popis lokace:</td>
-                <td>{{ zar.zar_inv }}</td>
+                <td>Popis:</td>
+                <td>{{ dotaz2.Lokace.lok_nazev }}</td>
             </tr>
               <tr>
                   <td>Budova:</td>
-                  <td>{{ kat.kat_nazev }}</td>
+                  <td>{{ dotaz2.Budova.bud_kod }} ({{ dotaz2.Budova.bud_nazev }})</td>
               </tr>
               <tr>
                 <td>Předáno:</td>
-                <td>{{ kat.kat_nazev }}</td>
+                <td>{{ dotaz2.Transakce.tran_platnost_od }}</td>
             </tr>
 
       </tbody>
@@ -70,23 +70,30 @@
       <tbody>            
               <tr>
                   <td>ID Uživatele:</td>
-                  <td>{{ zar.zar_inv }}</td>
+                  <td>{{ dotaz2.Uzivatel.uziv_kod }}</td>
               </tr>
               <tr>
                   <td>Uživatel:</td>
-                  <td>{{ kat.kat_nazev }}</td>
+                  <td>{{ dotaz2.Uzivatel.uziv_jmeno }} {{ dotaz2.Uzivatel.uziv_prijmeni }}</td>
               </tr>
               <tr>
+                <td>E-mail:</td>
+                <td>{{ dotaz2.Uzivatel.uziv_email }}</td>
+            </tr>
+              <tr>
                   <td>Vztah:</td>
-                  <td>{{ vyr.vyr_nazev }}</td>
+                  <td>{{ dotaz2.Vztah.vzt_nazev }}</td>
               </tr>
               <tr>
                   <td>Datum nástupu:</td>
-                  <td>{{ zar.zar_nakup }}</td>
+                  <td>{{ dotaz2.Uzivatel.uziv_nastup }}</td>
               </tr>
               <tr>
                 <td>Datom výstupu:</td>
-                <td>{{ zar.zar_model }}</td>
+                <td>{% if dotaz2.Uzivatel.uziv_vystup  == None %}
+                    ---
+                    {% else %}
+                    {{ dotaz2.Uzivatel.uziv_vystup }} {% endif %}</td>
             </tr>
       </tbody>
   </table>
@@ -100,7 +107,7 @@
     <ul class="side">
         <li><a href="/">Přesunout</a></li>
         <li><a href="{{ url_for('news.device') }}">Upravit</a></li>
-        <li><a href="account">Vyřadit</a></li>
+        <li><a href="participants">Vyřadit</a></li>
       </ul>
 </section>
 {% endblock %}  
