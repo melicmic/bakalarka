@@ -1,9 +1,8 @@
 from flask import Blueprint, render_template, redirect, request, url_for, session
-from sqlalchemy import desc
 from sqlalchemy.exc import IntegrityError
 
 from database import db_session, Zarizeni, Lokace, Budova, Transakce, Status, Uzivatel, Kategorie, Vztah, Opravneni, Vyrobce
-from core import kratke_datum, vyrobce_list, kategorie_list, budovy_list, tr_new_device, my_role, transaction_listing, user_listing, opravneni_list, vztah_list
+from core import kratke_datum, vyrobce_list, kategorie_list, lokace_list, budovy_list, tr_new_device, my_role, relocation_listing, opravneni_list, vztah_list
 
 news_bp = Blueprint("news", __name__)#, static_folder="static", template_folder="templates")
 
@@ -24,6 +23,8 @@ def device():
                             fk_vyr  = request.form["vyr"]                       
                             )
             db_session.add(input) 
+            popisek = request.form["tran_popis"] 
+            
             try:
                 db_session.commit()
             except IntegrityError as e:
@@ -32,10 +33,6 @@ def device():
                 return render_template("main/error.html", e=e)
             else:
                 print("Zařízení založeno, trigger do transakce")
-                id=input.zar_inv
-                print(id)
-                print(type(id))
-                popisek = request.form["tran_popis"] 
                 id_tr= tr_new_device(input,popisek).id_tran
                 db_session.close()
                 return redirect(url_for("main.records", id=id_tr))
@@ -70,15 +67,12 @@ def location():
             return render_template("main/error.html", e=e)
         else:
             print("Zařízení založeno, trigger do transakce")
-
-            db_session.close()
             return redirect(url_for("news.location"))
 
     else:
         print("první načtení")
         y=budovy_list()
         vypis = db_session.query(Lokace, Budova).join(Budova, Lokace.fk_bud == Budova.id_bud).order_by(Budova.bud_nazev).all()
-        db_session.close()
         return render_template("news/location.html", y=y, dotaz=vypis, pravo=pravo)
 
 # Nové budovy
@@ -100,13 +94,11 @@ def building():
             return render_template("error.html", e=e)
         else:
             print("Zařízení založeno, trigger do transakce")
-            db_session.close()
             return redirect(url_for("news.building"))
 
     else:
         print("první načtení")
-        y=budovy_list()
-        
+        y=budovy_list()   
         return render_template("news/building.html", dotaz=y, pravo=pravo)
 
 
@@ -127,7 +119,6 @@ def manufacturer():
             return render_template("error.html", e=e)
         else:
             print("Zařízení založeno, trigger do transakce")
-            db_session.close()
             return redirect(url_for("news.manufacturer"))
 
     else:
@@ -151,9 +142,7 @@ def category():
             return render_template("main/error.html", e=e)
         else:
             print("Zařízení založeno, trigger do transakce")
-            
-            db_session.close()
-            return redirect(url_for("news.category", dotaz=vypis, pravo=pravo))
+            return redirect(url_for("news.category"))
 
     else:
         print("první načtení")
@@ -186,13 +175,12 @@ def user():
             return render_template("main/error.html", e=e)
         else:
             print("Zařízení založeno, trigger do transakce")
-
-            db_session.close()
             return redirect(url_for("main.participants"))
 
     else:
         print("první načtení")
         k=vztah_list()
         y=opravneni_list()
-        db_session.close()
         return render_template("news/user.html", x=kratke_datum(), y=y, k=k, pravo=pravo)
+    
+

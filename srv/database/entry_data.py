@@ -22,9 +22,9 @@ def vlozeni_budova():
     print("Budova - hotovo")
 
 def vlozeni_lokace():
-    l1 = Lokace(lok_kod="A01", lok_nazev="Stul O1", fk_bud=1)
-    l2 = Lokace(lok_kod="A02", lok_nazev="Stul O2", fk_bud=1)
-    l3 = Lokace(lok_kod="A03", lok_nazev="Kontrola O1", fk_bud=1)
+    l1 = Lokace(lok_kod="RIP", lok_nazev="Křemíkové nebe", fk_bud=1)
+    l2 = Lokace(lok_kod="IT", lok_nazev="Sklad IT", fk_bud=1)
+    l3 = Lokace(lok_kod="JUNK", lok_nazev="Smetiště", fk_bud=1)
     l4 = Lokace(lok_kod="A04", lok_nazev="Kontorla O2", fk_bud=1)
     l5 = Lokace(lok_kod="A05", lok_nazev="Expedice O1", fk_bud=1)
     l6 = Lokace(lok_kod="B01", lok_nazev="Stul O1", fk_bud=2)
@@ -94,7 +94,7 @@ def vlozeni_status():
     s7 = Status(stat_nazev="Výměna")
     s8 = Status(stat_nazev="Vráceno")
     s9 = Status(stat_nazev="Odkoupeno")
-    s10 = Status(stat_nazev="Vyřezeno")
+    s10 = Status(stat_nazev="Vyřazeno")
     s11 = Status(stat_nazev="Ztraceno")    
     s12 = Status(stat_nazev="Nalezeno")
     
@@ -122,10 +122,8 @@ def vlozeni_uzivatele():
     u2 = Uzivatel(uziv_kod="visitor", uziv_jmeno="Návštěvník", uziv_prijmeni="2-Čtenář", uziv_nastup=datetime.datetime.now(),
                   uziv_heslo="visitor", fk_vzt=1, fk_opr=2)
     u3 = Uzivatel(uziv_kod="expelled", uziv_jmeno="Vyloučený", uziv_prijmeni="3-Vyloučený", uziv_nastup=datetime.datetime.now(),
-                  uziv_heslo="expelled", fk_vzt=1, fk_opr=2)
-    u4 = Uzivatel(uziv_kod="system", uziv_jmeno="System", uziv_prijmeni="", uziv_nastup=datetime.datetime.now(),
-                  uziv_heslo="system", fk_vzt=1, fk_opr=2)        
-    db_session.add_all([u1, u2, u3, u4])
+                  uziv_heslo="expelled", fk_vzt=1, fk_opr=2)      
+    db_session.add_all([u1, u2, u3])
     db_session.commit()
     print("Uzivatel - hotovo")
 

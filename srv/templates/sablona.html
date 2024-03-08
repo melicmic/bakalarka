@@ -11,9 +11,9 @@
         <nav class="menu">
             <ul>
               <li><a href="/">Úvod</a></li>
-              <li><a href="{{ url_for('main.inventory') }}">Zařízení</a></li>
-              <li><a href="{{ url_for('main.records') }}">Záznamy</a></li>
-              <li><a href="{{ url_for('main.participants') }}">Uživatelé</a></li>
+              <li><a href="{{ url_for('edit.listing') }}">Uloženo na lokaci</a></li>
+              <li><a href="{{ url_for('main.inventory') }}">Seznam zařízení</a></li>
+              <li><a href="{{ url_for('main.participants') }}">Seznam uživatelů</a></li>
               <li><a href="/">Plán výměn</a></li>
             </ul>
           </nav>
@@ -22,18 +22,10 @@
     
     <main class="main-container">
       {% block obsah_stranky %}{% endblock %}
-      <!--<section class="left-block">     
-
-      </section>
-      <section class="right-block">
-
-        Pravá strana
-
-      </section>--->
     </main>
+    
     <footer class="footer">
-      <p>&copy; {% block patka %}{% endblock %}</p>
-      
+      <p>&copy; {% block patka %}{% endblock %}</p> 
     </footer>
   </div>
 </body>

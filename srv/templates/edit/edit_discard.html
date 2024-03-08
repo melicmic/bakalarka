@@ -1,0 +1,86 @@
+{% extends "sablona.html" %}
+
+{% block podnazev %}
+New Transaction
+{% endblock %}
+
+{% block obsah_stranky %}
+   
+   
+<section class="left-block">
+ 
+  
+            <table class="prehled">
+              <thead>
+                  <tr>
+                      <th>Inventární číslo</th>
+                      <th>Původní lokace</th>
+                      <th>Nová lokace</th>
+                      <th>Nový status</th>
+                      <th>Předáno uživateli</th>
+                      <th>Popisek</th>
+                      <th>Datum změny</th>
+                  </tr>
+              </thead>
+              <tbody> <form action="#" method="post">
+                {% for row in result %}
+                {% for k in row %}
+                      <tr>
+                        <input type="hidden" name="id_tran[]" value="{{ k.Transakce.id_tran }}">
+                          <td class="form-edit">
+                            <input type="hidden" name="inv[]" value="{{ k.Zarizeni.id_zar }}">
+                            <input type="text" value="{{ k.Zarizeni.zar_inv }}" readonly>
+                            </td>
+                          <td class="form-item"><select name="old_lok">  
+                            <option value="{{ k.Lokace.id_lok }}">{{ k.Lokace.lok_kod }} ({{ k.Lokace.lok_nazev }})</option>
+                          </select></td>
+                          <td class="form-edit">                        
+                          {% for i in lok %}
+                          {% if i.Lokace.id_lok == 1 %}
+                          <input type="hidden" name="new_lok[]" value="{{ i.Lokace.id_lok }}">
+                          <input type="text" value="{{ i.Lokace.lok_kod }} ({{ i.Lokace.lok_nazev }})" readonly>
+                          {% endif %}
+                          {% endfor %}
+                          </td>
+                                               
+                            <td class="form-item"><select name="new_status[]" >                          
+                              {% for i in status %}
+                              {%if i.id_stat == 10 %}
+                                  <option value="{{ i.id_stat }}" selected>{{ i.stat_nazev }}</option>
+                              {%elif i.id_stat == 11 or i.id_stat == 12 %}
+                                <option value="{{ i.id_stat }}">{{ i.stat_nazev }}</option>
+                              {%endif%}
+                              {% endfor %}</select>
+                           </td>
+                            <td class="form-edit">                         
+                              <input type="text" name="uziv" value="{{ uziv }}" readonly>
+                             </td>
+                              <td class="form-edit">                          
+                                <input type="text" name="popis[]">
+                                </td>
+                          <td class="form-edit"><input type="date" name="datum[]" value="{{datum}}" required></td>
+                          </tr>
+                  {% endfor %}
+                  {% endfor %}
+              </tbody>
+          </table><br /> <br />
+          <div class="group-container">
+          <button class="form-button" type="submit">Potvrdit změny</button>
+        </div>
+  </form>
+</section> 
+
+
+
+
+      
+
+    
+
+
+ 
+{% endblock %}  
+
+{% block patka %}
+route: /home
+{% endblock %}

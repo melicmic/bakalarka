@@ -206,7 +206,7 @@ tbody > tr {
 
 
 tbody > tr:hover {
-  background-color: #e74c3c;
+  background-color: rgba(231, 76, 60, 0.3);
 
 }
 
@@ -234,7 +234,13 @@ tbody > tr:hover {
   border: 2px solid #ccc;
   border-radius: 5px;
 }
-
+.form-edit input[type="date"],
+.form-edit input[type="text"] {
+  width: 150px; /* Změna šířky vstupního pole typu text */
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
 .form-item select {
   width: 200px;
   padding: 12px;
@@ -378,4 +384,30 @@ ul.side a:hover {
 .id_db {
   width: 100px;
   font-size: 1Opx;
+}
+
+.form-link-admin {
+  width: 150px;
+  padding: 6px;
+  border: none;  
+  color: #8f8f8f;
+  cursor: pointer;
+  border-bottom: 3px solid #ccc;
+  background-color: #f5f2f2;
+  font-size: 16px;
+  text-decoration: none;
+  transition: border-bottom 0.3s ease;
+}
+
+.form-link-admin:hover {
+  border-bottom: 3px solid #e74c3c; 
+  color: #0F232E;
+}
+
+.prehled input[type="checkbox"] {
+    width: 100%; /* Šířka vstupních políček */
+    height: 18px;
+    border: 2px solid #ccc; /* Ohraničení políčka */
+    border-radius: 5px; /* Zaoblené rohy */
+    box-sizing: border-box; /* Zahrne ohraničení do celkové šířky */
 }

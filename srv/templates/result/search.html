@@ -89,7 +89,7 @@
                   <td>{{ dotaz2.Uzivatel.uziv_nastup }}</td>
               </tr>
               <tr>
-                <td>Datom výstupu:</td>
+                <td>Datum výstupu:</td>
                 <td>{% if dotaz2.Uzivatel.uziv_vystup  == None %}
                     ---
                     {% else %}
@@ -102,12 +102,12 @@
 </div>
 </section>
 <section class="right-block">
-
     <span class="quick-link">Rychlé akce</span>
     <ul class="side">
-        <li><a href="/">Přesunout</a></li>
+        <li><a href="{{ url_for('edit.writing') }}">Přesunout</a></li>
+        <li><a href="{{ url_for('main.records', id=dotaz.Zarizeni.zar_inv, cp=0) }}">Historie</a></li>
         <li><a href="{{ url_for('news.device') }}">Upravit</a></li>
-        <li><a href="participants">Vyřadit</a></li>
+        
       </ul>
 </section>
 {% endblock %}  

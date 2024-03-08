@@ -146,4 +146,7 @@ class Transakce(Base):
     fk_tran_lok: Mapped[List["Lokace"]] = relationship(back_populates="fk_lok_tran")
     fk_tran_stat: Mapped[List["Status"]] = relationship(back_populates="fk_stat_tran")
     # FK - zamestanenc, zarizeni, lokace, status, 
-
+    
+    def __repr__(self):
+        return f"<Transakce(id_tran={self.id_tran}, tran_platnost_od='{self.tran_platnost_od}', tran_platnost_do='{self.tran_platnost_do}', tran_poznamka={self.tran_poznamka}, tran_editace='{self.tran_editace}', fk_uziv='{self.fk_uziv}', fk_zar={self.fk_zar}, fk_lok='{self.fk_lok}', fk_stat={self.fk_stat})>"
+    

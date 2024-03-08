@@ -30,7 +30,7 @@ New Transaction
                           </select>
                     </li>
                     <li class="form-item">
-                          <button class="form-button" type="submit">Filtrovat</button>
+                          <button class="form-button" name="button_name" value="search" type="submit">Filtrovat</button>
                     </li>
               </ul>
             </form>
@@ -46,21 +46,14 @@ New Transaction
 
             {% if pravo==True %}
             <div class="admin-group-container">
-                <form action="#" method="post">
-                  <ul class="form-list-admin">
-                    <li class="form-item-admin">
-                        <button class="form-button-admin" type="submit">Přesunout</button>
-                  </li>
-                        <li class="form-item-admin">
-                            <button class="form-button-admin" type="submit">Editovat</button>
-                      </li>
-                        <li class="form-item-admin">
-                              <button class="form-button-admin" type="submit">Filtrovat</button>
-                        </li>
-                  </ul>
-                </form>
-        
-                </div>
+              <form action="{{ url_for('edit.listing') }}" method="get">
+                <ul class="form-list-admin">
+                  <li class="form-item-admin">
+                      <button class="form-button-admin" type="submit">Nový záznam</button>
+                </li>
+                </ul>
+              </form>
+              </div>
                 {% endif %}
     <table class="prehled">
         <thead>
@@ -73,6 +66,8 @@ New Transaction
                 <th>Lokace</th>
                 <th>Uživatel</th>
                 <th>Status</th>
+                <th>Od</th>
+                <th>Do</th>
                 <th>Editováno</th>
             </tr>
         </thead>
@@ -87,6 +82,8 @@ New Transaction
                     <td>{{ r.Lokace.lok_kod }}</td>
                     <td>{{ r.Uzivatel.uziv_jmeno }} {{ r.Uzivatel.uziv_prijmeni }}</td>
                     <td>{{ r.Status.stat_nazev }}</td>
+                    <td>{{ r.Transakce.tran_platnost_od}}</td>
+                    <td>{% if r.Transakce.tran_platnost_do is none %} --- {% else %} {{ r.Transakce.tran_platnost_do }} {% endif %}</td>
                     <td>{{ r.Transakce.tran_editace }}</td>
                     </tr>
             {% endfor %}

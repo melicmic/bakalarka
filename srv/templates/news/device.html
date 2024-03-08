@@ -41,9 +41,9 @@ Main
           <select name="kat">
               {% for i in k %}
                   {% if i.id_kat == 1 %}
-                      <option value="{{ i.id_kat }}" selected>{{ i.id_kat }} - {{ i.kat_nazev }}</option>
+                      <option value="{{ i.id_kat }}" selected>{{ i.kat_nazev }}</option>
                   {% else %}
-                      <option value="{{ i.id_kat }}">{{ i.id_kat }} - {{ i.kat_nazev }}</option>
+                      <option value="{{ i.id_kat }}">{{ i.kat_nazev }}</option>
                   {% endif %}
               {% endfor %}
           </select>
@@ -56,9 +56,9 @@ Main
           <select name="vyr">
             {% for i in y %}
             {% if i.id_vyr == 1 %}
-                <option value="{{ i.id_vyr }}" selected>{{ i.id_vyr }} - {{ i.vyr_nazev }}</option>
+                <option value="{{ i.id_vyr }}" selected>{{ i.vyr_nazev }}</option>
             {% else %}
-                <option value="{{ i.id_vyr }}">{{ i.id_vyr }} - {{ i.vyr_nazev }}</option>
+                <option value="{{ i.id_vyr }}">{{ i.vyr_nazev }}</option>
             {% endif %}
         {% endfor %}
           </select>

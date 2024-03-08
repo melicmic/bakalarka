@@ -26,7 +26,7 @@ New Transaction
                           </select>
                     </li>
                     <li class="form-item">
-                          <button class="form-button" type="submit">Filtrovat</button>
+                          <button class="form-button" name="button_name" value="search" type="submit">Filtrovat</button>
                     </li>
               </ul>
             </form>
@@ -42,21 +42,18 @@ New Transaction
 
             {% if pravo==True %}
             <div class="admin-group-container">
-                <form action="#" method="post">
-                  <ul class="form-list-admin">
-                    <li class="form-item-admin">
-                        <button class="form-button-admin" type="submit">Nový</button>
-                  </li>
-                        <li class="form-item-admin">
-                            <button class="form-button-admin" type="submit">Editovat</button>
-                      </li>
-                        <li class="form-item-admin">
-                              <button class="form-button-admin" type="submit">Zablokovat</button>
-                        </li>
-                  </ul>
-                </form>
+              <form action="#" method="post">
+                <ul class="form-list-admin">
+                  <li class="form-item-admin">
+                      <button class="form-button-admin" name="button_name" value="new" type="submit">Nový</button>
+                </li>
+                <li class="form-item-admin">
+                  <button class="form-button-admin" name="button_name" value="edit"  type="submit">Editovat</button>
+            </li>
+                </ul>
+              </form>
         
-                </div>
+              </div>
                 {% endif %}
     <table class="prehled">
         <thead>
@@ -81,7 +78,7 @@ New Transaction
                     <td>{{ r.Vztah.vzt_nazev}}</td>
                     <td>{{ r.Opravneni.opr_nazev }}</td>
                     <td>{{ r.Uzivatel.uziv_nastup}}</td>
-                    <td>{% if r.Uzivatel.uziv_vystup  is none %} --- {% else %} {{ dotaz2.Uzivatel.uziv_vystup }} {% endif %}</td>
+                    <td>{% if r.Uzivatel.uziv_vystup  is none %} --- {% else %} {{ r.Uzivatel.uziv_vystup }} {% endif %}</td>
                   </tr>
             {% endfor %}
         </tbody>

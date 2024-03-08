@@ -1,0 +1,104 @@
+{% extends "sablona.html" %}
+
+{% block podnazev %}
+New relocation
+{% endblock %}
+
+{% block obsah_stranky %}
+   
+   
+<section class="left-block">
+
+        <div class="group-container">
+            <form action="#" method="post">
+              <ul class="form-list">
+                    <li class="form-item">
+                      <label>Zobrazit podle lokace:</label>
+                          <select name="location">
+                            {% for ik in k %}
+                            {% if ik.Lokace.id_lok == hledane %}
+                            <option name="selected_id" value="{{ik.Lokace.id_lok}}" selected>{{ ik.Lokace.lok_kod}} - {{ ik.Lokace.lok_nazev }} ({{ ik.Budova.bud_kod}})</option>
+                            {% else %}
+                            <option name="selected_id" value="{{ik.Lokace.id_lok}}">{{ ik.Lokace.lok_kod}} - {{ ik.Lokace.lok_nazev }} ({{ ik.Budova.bud_kod}})</option>
+                            {% endif %}
+                            {% endfor %}
+                          </select>
+                    </li>
+                    <li class="form-item">
+                          <button class="form-button" name="button_name" value="search" type="submit">Načíst</button>
+                    </li>
+              </ul>
+            </form>
+            <form action="{{ url_for('edit.listing') }}" method="get" class="form-item">
+              <ul class="form-list">
+                     <li class="form-item">
+                          <button class="form-button-cancel" type="submit">X</button>
+                    </li>
+                    
+              </ul>
+            </form>
+            </div>
+            {% if pravo==True %}
+            <div class="admin-group-container">
+              <form action="#" method="post">
+                  <ul class="form-list-admin">
+                    <li class="form-item-admin">
+                        <button class="form-button-admin" name="button_name" value="move" type="submit">Přesunout</button>
+                  </li>
+                        <li class="form-item-admin">
+                            <button class="form-button-admin" name="button_name" value="discard" type="submit">Vyřadit</button>
+                      </li>
+                  </ul>
+               
+        
+                </div>
+                {% endif %}
+                {% if dotaz == [] %} <h2>Na této lokaci se nic nenachází</h2>
+                {% else %}
+    <table class="prehled">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Lokace</th>
+                <th>Kategorie</th>
+                <th>Inventární číslo</th>
+                <th>Sériové číslo</th>
+                <th>Popis</th>
+                <th>Uživatel</th>
+                <th>Status</th>
+                <th>Od</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in dotaz %}
+                <tr>
+                    <td><input class="prehled" type="checkbox" name="zaskrt" value="{{r.Zarizeni.zar_inv}}"></td>
+                    <td>{{ r.Lokace.lok_kod }}</td>
+                    <td>{{ r.Kategorie.kat_nazev}}</td>
+                    <td>{{ r.Zarizeni.zar_inv }}</td>
+                    <td>{{ r.Zarizeni.zar_seriove }}</td>
+                    <td>{{ r.Transakce.tran_poznamka}}</td>
+                    <td>{{ r.Uzivatel.uziv_jmeno }} {{ r.Uzivatel.uziv_prijmeni }}</td>
+                    <td>{{ r.Status.stat_nazev }}</td>
+                    <td>{{ r.Transakce.tran_platnost_od}}</td>
+                    </tr> 
+            {% endfor %}{%endif%}
+        </tbody></form>
+    </table>
+
+</section> 
+
+
+
+
+      
+
+    
+
+
+ 
+{% endblock %}  
+
+{% block patka %}
+route: /home
+{% endblock %}

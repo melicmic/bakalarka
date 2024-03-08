@@ -10,7 +10,7 @@ def vytvoreni_ddl():
     Base.metadata.create_all(engine)
 
 # Nastavení připojení do db
-engine = create_engine("postgresql+psycopg2://postgres:postgres@localhost:5432/evihaw", future=True)
+engine = create_engine("postgresql+psycopg2://postgres:postgres@localhost:5432/evihaw", future=True) #echo=True
 print(f"connect.py | engine --|==|-- {engine.pool.status()}")
 # Vytvoření objektu session pri přístup do db
 Session = sessionmaker(bind=engine)

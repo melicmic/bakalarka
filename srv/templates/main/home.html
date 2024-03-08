@@ -10,12 +10,8 @@ Main
    
    
 <section class="left-block">
-
-        
   <div class="left-content">
     <div class="sub-content">
-     
-    
       <div class="group-container">
         <form action="#" method="post">
           <ul class="form-list">
@@ -26,9 +22,6 @@ Main
                       <select id="category" name="category">
                         <option value="0">Inventární číslo</option>
                         <option value="1">Sériové číslo</option>
-                        <option value="2">Doménové jméno</option>
-                        <option value="3">ID uživatele</option>
-                        <option value="4">Uživatele</option>
                       </select>
                 </li>
                 <li class="form-item">
@@ -37,10 +30,8 @@ Main
           </ul>
         </form>
       </div>
-
     </div>
     <div class="sub-content">
-
               <div class="nested-content">
                 <p>Nested content 1 - zařízení skladem</p>
                 <table class="bordered-table">
@@ -71,14 +62,8 @@ Main
                       {% endfor %}
                   </tbody>
               </table>
-              
-              
-              
-              
-              
               </div>
               <div class="nested-content">
-
                 <p>Nested content 2 - zařízení skladem</p>
                 <table class="bordered-table">
                   <thead>
@@ -108,22 +93,15 @@ Main
                       {% endfor %}
                   </tbody>
               </table>
-
-
-              </div>
-
+            </div>
             </div>
           </div>
-        
-        
-
-
       </section>
       <section class="right-block">
         {% if pravo == True %}
         <span class="quick-link">Rychlé akce</span>
         <ul class="side">
-          <li><a href="{{ url_for('main.records') }}">Nový záznam</a></li>
+          <li><a href="{{ url_for('main.records') }}">Historie změn</a></li>
           <li><a href="{{ url_for('news.device') }}">Nové zařízení</a></li>
           <li><a href="{{ url_for('news.user') }}">Nový uživatel</a></li>
         </ul>
@@ -141,12 +119,7 @@ Main
           <li><a href="{{ url_for('login.edit') }}">Upravit</a></li>
           <li><a href="{{ url_for('login.logout') }}">Odhlášení</a></li>
         </ul>
-      
       </section>
-    
-
-
- 
 {% endblock %}  
 
 {% block patka %}
