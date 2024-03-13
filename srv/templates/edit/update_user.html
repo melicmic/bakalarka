@@ -1,0 +1,70 @@
+{% extends "sablona.html" %}
+
+{% block podnazev %}
+New Transaction
+{% endblock %}
+
+{% block obsah_stranky %}
+ {% if pravo == True %}  
+  <section class="left-block">       
+    <div class="form-container">
+      <form action="#" method="POST">
+        <input type="hidden" name="id" value="{{ result.Uzivatel.id_uziv }}">
+        <div class="form-group">
+            <label>ID uživatele:</label>
+            <input type="text" name="uziv_kod" value="{{ result.Uzivatel.uziv_kod }}" style="background-color: #ccc;"readonly>
+        </div>
+        <div class="form-group">
+            <label>Jméno:</label>
+            <input type="text" name="jmeno" value="{{ result.Uzivatel.uziv_jmeno }}">
+        </div>
+        <div class="form-group">
+            <label>Příjmení:</label>
+            <input type="text" name="prijmeni" value="{{ result.Uzivatel.uziv_prijmeni }}">
+        </div>
+        <div class="form-group">
+          <label>E-mail:</label>
+          <input type="text" name="email" value="{{ result.Uzivatel.uziv_email }}">
+      </div>
+      <div class="form-group">
+        <label>Heslo:</label>
+        <input type="password" name="pswd" value="{{ result.Uzivatel.uziv_heslo }}">
+    </div>
+        <div class="form-group">
+            <label>Vztah:</label>
+            <select name="vzt">
+                {% for i in k %}
+                    {% if i.id_vzt == result.Uzivatel.fk_vzt %}
+                        <option value="{{ i.id_vzt }}" selected>{{ i.vzt_nazev }}</option>
+                    {% elif i.id_vzt > 1 %}
+                        <option value="{{ i.id_vzt }}">{{ i.vzt_nazev }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+              
+        </div>
+        
+        <div class="form-group">
+            <label>Oprávnění:</label>
+            <select name="opr">
+              {% for i in v %}
+              {% if i.id_opr == result.Uzivatel.fk_opr %}
+                  <option value="{{ i.id_opr }}" selected>{{ i.opr_nazev }}</option>
+              {% else %}
+                  <option value="{{ i.id_opr }}">{{ i.opr_nazev }}</option>
+              {% endif %}
+          {% endfor %}
+            </select>
+            </div>
+            <div class="form-group">
+                <button name="button_name" value="edit" type="submit">Uložit změny</button>
+            </div>
+        
+    </form>
+  </section> 
+{% endif %}
+{% endblock %}  
+
+{% block patka %}
+route: /home
+{% endblock %}

@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask import request, render_template, redirect, url_for, session
 
-from database import db_session, engine
+from database import db_session
 from core import search_bar, my_role, device_listing, transaction_listing, user_listing
 
 main_bp = Blueprint("main", __name__)#, static_folder="static", template_folder="templates")
@@ -18,9 +18,7 @@ def home():
                 return redirect(url_for("main.searching", tp = text_pole, cp = combo_pole))
         else:
                 print("++ main.py | home() >> > načtení úvodní stránky")
-                y=0
-                x=0  
-                return render_template("main/home.html", x=x, y=y, pravo=pravo)
+                return render_template("main/home.html", pravo=pravo)
         
 @main_bp.route("/searching", methods=["GET", "POST"])
 def searching():
@@ -85,8 +83,6 @@ def inventory():
                         combo_pole_l = request.form["category"]             
                         result=device_listing(text_pole_l,combo_pole_l)
                         return render_template("result/inventory.html", dotaz=result, hledane=text_pole_l, pravo=pravo)
-                elif button_name == "edit": # kliknuto na políčko EDIT | dodělat checkbox (radio?)
-                        return render_template("result/inventory.html", pravo=pravo)
                 else: # kliknuto na Nový
                         return redirect(url_for("news.device"))             
         else:
@@ -104,8 +100,12 @@ def participants():
                 combo_pole_u = request.form["us_category"]      
                 vypis= user_listing(text_pole_u,combo_pole_u)
                 return render_template("result/participants.html", dotaz=vypis, pravo=pravo, hledane=text_pole_u, vybrane=int(combo_pole_u))
-        elif button_name == "edit": # kliknuto na políčko EDIT | dodělat checkbox (radio?)
-               return render_template("result/participants.html", pravo=pravo)
+        elif button_name == "edit": 
+               id = request.form["selected_id"]
+               return redirect(url_for("edit.update_user", id=int(id)))
+        elif button_name == "discard":
+               id = request.form["selected_id"]
+               return redirect(url_for("edit.discard_user", id=int(id)))
         else: # kliknuto na Nový
                return redirect(url_for("news.user"))
                

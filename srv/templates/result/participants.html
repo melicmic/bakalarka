@@ -47,9 +47,6 @@ New Transaction
                   <li class="form-item-admin">
                       <button class="form-button-admin" name="button_name" value="new" type="submit">Nový</button>
                 </li>
-                <li class="form-item-admin">
-                  <button class="form-button-admin" name="button_name" value="edit"  type="submit">Editovat</button>
-            </li>
                 </ul>
               </form>
         
@@ -66,6 +63,9 @@ New Transaction
                 <th>Oprávnění</th>
                 <th>Nástup</th>
                 <th>Výstup</th>
+                {% if pravo==True %}
+                <th>Akce</th>
+                {%endif%}
             </tr>
         </thead>
         <tbody>
@@ -79,6 +79,14 @@ New Transaction
                     <td>{{ r.Opravneni.opr_nazev }}</td>
                     <td>{{ r.Uzivatel.uziv_nastup}}</td>
                     <td>{% if r.Uzivatel.uziv_vystup  is none %} --- {% else %} {{ r.Uzivatel.uziv_vystup }} {% endif %}</td>
+                    {% if pravo==True %}
+                    <td><form action="#" method="post">
+                        <input type="hidden" name="selected_id" value="{{ r.Uzivatel.id_uziv }}">
+                        <button class="button-akce" name="button_name" value="edit" type="submit">e</button>
+                        <input type="hidden" name="selected_id" value="{{ r.Uzivatel.id_uziv }}">
+                        <button class="button-akce" name="button_name" value="discard" type="submit">X</button></form>
+                    </td>
+                    {% endif %}
                   </tr>
             {% endfor %}
         </tbody>

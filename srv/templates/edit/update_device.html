@@ -1,0 +1,68 @@
+{% extends "sablona.html" %}
+
+{% block podnazev %}
+New Transaction
+{% endblock %}
+
+{% block obsah_stranky %}
+ {% if pravo == True %}  
+  <section class="left-block">       
+    <div class="form-container">
+      <form action="#" method="POST">
+        <div class="form-group">
+            <label for="inv">Inventární číslo:</label>
+            <input type="text" name="inv" value="{{ result.Zarizeni.zar_inv }}" style="background-color: #ccc;"readonly>
+        </div>
+        <div class="form-group">
+            <label for="seriove">Sériové číslo:</label>
+            <input type="text" name="seriove" value="{{ result.Zarizeni.zar_seriove }}">
+        </div>
+        <div class="form-group">
+            <label for="model">Model:</label>
+            <input type="text" name="model" value="{{ result.Zarizeni.zar_model }}">
+        </div>
+        <div class="form-group">
+          <label for="nazev">Doplňující informace:</label>
+          <input type="text" name="info" value="{{ result.Zarizeni.zar_poznm }}">
+      </div>
+        <div class="form-group">
+            <label for="kat">Kategorie:</label>
+            <select name="kat">
+                {% for i in k %}
+                    {% if i.id_kat == result.Zarizeni.fk_kat %}
+                        <option value="{{ i.id_kat }}" selected>{{ i.kat_nazev }}</option>
+                    {% else %}
+                        <option value="{{ i.id_kat }}">{{ i.kat_nazev }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+              
+        </div>
+        
+        <div class="form-group">
+            <label for="vyr">Výrobce:</label>
+            <select name="vyr">
+              {% for i in v %}
+              {% if i.id_vyr == result.Zarizeni.fk_vyr %}
+                  <option value="{{ i.id_vyr }}" selected>{{ i.vyr_nazev }}</option>
+              {% else %}
+                  <option value="{{ i.id_vyr }}">{{ i.vyr_nazev }}</option>
+              {% endif %}
+          {% endfor %}
+            </select>
+  
+  
+  
+  
+        </div>
+        <div class="form-group">
+            <button class="form-button" type="submit">Potvrdit změny</button>
+        </div>
+    </form>
+  </section> 
+{% endif %}
+{% endblock %}  
+
+{% block patka %}
+route: /home
+{% endblock %}

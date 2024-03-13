@@ -35,7 +35,7 @@ def device():
                 print("Zařízení založeno, trigger do transakce")
                 id_tr= tr_new_device(input,popisek).id_tran
                 db_session.close()
-                return redirect(url_for("main.records", id=id_tr))
+                return redirect(url_for("main.records", id=id_tr, cp=10))
 
         else:
             print("první načtení")

@@ -53,7 +53,7 @@ def device_listing(text_pole=1, combo_pole=7):
             .join(Status, Transakce.fk_stat == Status.id_stat)
             .join(Kategorie, Zarizeni.fk_kat == Kategorie.id_kat)
             .join(Vyrobce, Zarizeni.fk_vyr == Vyrobce.id_vyr) 
-            .where(Transakce.tran_platnost_do.is_(None))
+            .where(and_(Transakce.tran_platnost_do.is_(None)), not_(Lokace.id_lok == 1))
             .order_by((Zarizeni.zar_inv))
             .limit(50)
             .all())
@@ -79,7 +79,7 @@ def device_listing(text_pole=1, combo_pole=7):
 
 # Výpis Transakcí z hlavního menu
 # Funguje jako potvrzení trigerru     
-def transaction_listing(text_pole, combo_pole_t,y=20):
+def transaction_listing(text_pole, combo_pole_t,y=50):
     if text_pole == None: # první načtení přehledu bez zadaných parametrů
         dotaz4 = (db_session.query(Transakce, Uzivatel, Zarizeni, Lokace, Status, Kategorie, Vyrobce, Budova)
         .join(Zarizeni, Transakce.fk_zar == Zarizeni.id_zar)
@@ -90,7 +90,7 @@ def transaction_listing(text_pole, combo_pole_t,y=20):
         .join(Budova, Lokace.fk_bud == Budova.id_bud)
         .join(Uzivatel, Transakce.fk_uziv == Uzivatel.id_uziv)
         .where(Transakce.tran_platnost_do.is_(None))
-        .order_by(desc(Transakce.tran_editace))
+        .order_by(desc(Transakce.tran_editace), Transakce.id_tran)
         .limit(y).all())
     else: # pro filtrování výsledků
         combo_pole=int(combo_pole_t)
@@ -106,7 +106,8 @@ def transaction_listing(text_pole, combo_pole_t,y=20):
                 Budova.bud_kod==text_pole,
                 Transakce.id_tran==text_pole]
         x = list[combo_pole]
-            
+        
+        # Výpis historie pro konkrétní INV číslo, řazeno podle id_tran
         dotaz4 = (db_session.query(Transakce, Uzivatel, Zarizeni, Lokace, Status, Kategorie, Vyrobce, Budova)
                 .join(Zarizeni, Transakce.fk_zar == Zarizeni.id_zar)
                 .join(Lokace, Transakce.fk_lok == Lokace.id_lok)
@@ -115,7 +116,7 @@ def transaction_listing(text_pole, combo_pole_t,y=20):
                 .join(Vyrobce, Zarizeni.fk_vyr == Vyrobce.id_vyr)
                 .join(Budova, Lokace.fk_bud == Budova.id_bud)
                 .join(Uzivatel, Transakce.fk_uziv == Uzivatel.id_uziv)
-                .order_by(desc(Transakce.tran_editace))
+                .order_by(desc(Transakce.id_tran), desc(Transakce.tran_editace))
                 .where(x)
                 .all())
     return dotaz4
@@ -145,8 +146,6 @@ def user_listing(text_pole, combo_pole):
     return dotaz5
 
 
-
-
 def relocation_listing(selected_lok):
     dotaz6 = (db_session.query(Transakce, Uzivatel, Zarizeni, Lokace, Status, Kategorie, Vyrobce, Budova)
     .join(Zarizeni, Transakce.fk_zar == Zarizeni.id_zar)
@@ -161,18 +160,3 @@ def relocation_listing(selected_lok):
     .all())
     return dotaz6
 
-
-def relocation_discard(id_lok):
-    for i in len(id_lok):
-        dotaz7 = (db_session.query(Transakce, Uzivatel, Zarizeni, Lokace, Status, Kategorie, Vyrobce, Budova)
-        .join(Zarizeni, Transakce.fk_zar == Zarizeni.id_zar)
-        .join(Lokace, Transakce.fk_lok == Lokace.id_lok)
-        .join(Status, Transakce.fk_stat == Status.id_stat)
-        .join(Kategorie, Zarizeni.fk_kat == Kategorie.id_kat)
-        .join(Vyrobce, Zarizeni.fk_vyr == Vyrobce.id_vyr)
-        .join(Budova, Lokace.fk_bud == Budova.id_bud)
-        .join(Uzivatel, Transakce.fk_uziv == Uzivatel.id_uziv)
-        .where((and_(Transakce.tran_platnost_do.is_(None), Lokace.id_lok == selected_lok)))
-        .order_by(Kategorie.kat_nazev)
-        .all())
-    return dotaz7

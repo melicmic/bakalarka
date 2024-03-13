@@ -7,6 +7,8 @@
 from flask import Blueprint
 from flask import request, render_template, redirect, url_for, session
 
+
+from core import uzivatel_list
 from database import db_session, engine, Uzivatel
 
 
@@ -47,7 +49,8 @@ def index():
 @login_bp.route("/edit")
 def edit():
     print("transakce")
-    return render_template("main/error.html", e="<h1>upravit uživatelům profil</h1>")
+    x=uzivatel_list(session.get("uzivatel"))
+    return redirect(url_for("edit.update_user", id=x))
 
 @login_bp.route("/logout")
 def logout():

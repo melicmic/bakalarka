@@ -43,18 +43,6 @@ New Transaction
               </ul>
             </form>
             </div>
-
-            {% if pravo==True %}
-            <div class="admin-group-container">
-              <form action="{{ url_for('edit.listing') }}" method="get">
-                <ul class="form-list-admin">
-                  <li class="form-item-admin">
-                      <button class="form-button-admin" type="submit">Nový záznam</button>
-                </li>
-                </ul>
-              </form>
-              </div>
-                {% endif %}
     <table class="prehled">
         <thead>
             <tr>

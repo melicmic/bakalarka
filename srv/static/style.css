@@ -101,6 +101,7 @@ body {
 
 .form-group input[type="text"],
 .form-group input[type="password"],
+.form-group input[type="date"],
 .form-group select {
     width: 100%; /* Šířka vstupních políček */
     padding: 12px; /* Vnitřní okraje */
@@ -109,7 +110,7 @@ body {
     box-sizing: border-box; /* Zahrne ohraničení do celkové šířky */
 }
 
-.form-group input[type="submit"] {
+.form-group button[type="submit"] {
     width: 100%; /* Šířka tlačítka */
     padding: 15px; /* Vnitřní okraje tlačítka */
     border: none; /* Žádné ohraničení */

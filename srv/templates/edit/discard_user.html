@@ -1,0 +1,49 @@
+{% extends "sablona.html" %}
+
+{% block podnazev %}
+New Transaction
+{% endblock %}
+
+{% block obsah_stranky %}
+ {% if pravo == True %}  
+  <section class="left-block">       
+    <div class="form-container">
+        <form action="#" method="POST">
+            <input type="hidden" name="id" value="{{ result.Uzivatel.id_uziv }}">
+            <div class="form-group">
+                <label>ID uživatele:</label>
+                <input type="text" name="uziv_kod" value="{{ result.Uzivatel.uziv_kod }}" style="background-color: #ccc;"readonly>
+            </div>
+            <div class="form-group">
+                <label>Jméno:</label>
+                <input type="text" name="jmeno" value="{{ result.Uzivatel.uziv_jmeno }}">
+            </div>
+            <div class="form-group">
+                <label>Příjmení:</label>
+                <input type="text" name="prijmeni" value="{{ result.Uzivatel.uziv_prijmeni }}">
+            </div>
+            <div class="form-group">
+              <label>E-mail:</label>
+              <input type="text" name="email" value="{{ result.Uzivatel.uziv_email }}">
+          </div>
+
+            <div class="form-group">
+                <label>Datum nástupu:</label>
+                <input type="date" name="nastup" value="{{ result.Uzivatel.uziv_nastup }}">
+            </div>
+            <div class="form-group">
+                <label>Datum výstupu:</label>
+                <input type="date" name="vystup" value="{{ x }}" required>
+            </div>
+    
+            <div class="form-group">
+                <button name="button_name" value="discard" type="submit">Vyřadit</button>
+            </div>
+        </form>
+  </section> 
+{% endif %}
+{% endblock %}  
+
+{% block patka %}
+route: /home
+{% endblock %}
