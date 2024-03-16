@@ -1,0 +1,88 @@
+{% extends "sablona.html" %}
+
+{% block podnazev %}
+Plán výměn
+{% endblock %}
+
+{% block obsah_stranky %}
+<section class="left-block">
+    <div class="group-container">
+        <form action="#" method="post" class="form-flex-search">
+          <ul class="form-list">
+            <li class="form-item">
+            <label>Rok: </label>
+            <select name="year">
+              {% for i in roll_list %}
+              {% if i == hledane %}
+                  <option value="{{i}}" selected>{{ i }}</option>
+              {% else %}
+                  <option value="{{i}}">{{ i }}</option>
+              {% endif %}
+              {%endfor%}
+            </select>
+          </li>
+                <li class="form-item">
+                      <button class="form-button" name="button_name" value="search" type="submit">Filtrovat</button>
+                </li>
+          </ul>
+        </form>
+        <form action="{{ url_for('main.planning') }}" method="get" class="form-item">
+          <ul class="form-list">
+                 <li class="form-item">
+                      <button class="form-button-cancel" value="x" type="submit">X</button>
+                </li>
+          </ul>
+        </form></div>
+    
+    <table class="prehled">
+        <thead>
+            <tr>
+                <th>Inventární číslo</th>
+                <th>Sériové číslo</th>
+                <th>Popis</th>
+                <th>Výrobce</th>
+                <th>Model</th>
+                <th>Kategorie</th>
+                <th>Status</th>
+                <th>Nakoupeno</th>             
+                <th>Lokace</th>
+                <th>Název</th>
+                <th>Účet</th>
+                <th>Typ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in dotaz %}
+              {% if r.zdechni == hledane %}
+                <tr>
+                    <td>{{ r.zar_inv }}</td>
+                    <td>{{ r.zar_seriove }}</td>
+                    <td>{{ r.tran_poznamka }}</td>
+                    <td>{{ r.vyr_nazev }}</td>
+                    <td>{{ r.zar_model }}</td>
+                    <td>{{ r.kat_nazev }}</td>
+                    <td>{{ r.stat_nazev }}</td>
+                    <td>{{ r.zar_nakup }}</td>
+                    <td>{{ r.lok_kod }}</td>
+                    <td>{{ r.lok_nazev }}</td>
+                    <td>{{ r.uziv_kod }}</td>
+                    <td>{{ r.vzt_nazev }}</td>                 
+                    </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+
+      
+
+    
+
+
+ 
+{% endblock %}  
+
+{% block patka %}
+route: /home
+{% endblock %}

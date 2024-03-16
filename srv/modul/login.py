@@ -50,7 +50,7 @@ def index():
 def edit():
     print("transakce")
     x=uzivatel_list(session.get("uzivatel"))
-    return redirect(url_for("edit.update_user", id=x))
+    return redirect(url_for("task.update_user", id=x))
 
 @login_bp.route("/logout")
 def logout():

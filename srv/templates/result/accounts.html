@@ -1,7 +1,7 @@
 {% extends "sablona.html" %}
 
 {% block podnazev %}
-New Transaction
+Uživatelé
 {% endblock %}
 
 {% block obsah_stranky %}
@@ -30,7 +30,7 @@ New Transaction
                     </li>
               </ul>
             </form>
-            <form action="{{ url_for('main.participants') }}" method="get" class="form-item">
+            <form action="{{ url_for('main.accounts') }}" method="get" class="form-item">
               <ul class="form-list">
                      <li class="form-item">
                           <button class="form-button-cancel" type="submit">X</button>
@@ -46,6 +46,12 @@ New Transaction
                 <ul class="form-list-admin">
                   <li class="form-item-admin">
                       <button class="form-button-admin" name="button_name" value="new" type="submit">Nový</button>
+                </li>
+                <li class="form-item-admin">
+                  <button class="form-button-admin" name="button_name" value="act" type="submit">Aktivní</button>
+                </li>
+                <li class="form-item-admin">
+                  <button class="form-button-admin" name="button_name" value="neact" type="submit">Neaktivní</button>
                 </li>
                 </ul>
               </form>

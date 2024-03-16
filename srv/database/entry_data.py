@@ -21,7 +21,7 @@ def vlozeni_budova():
     db_session.commit()
     print("Budova - hotovo")
 
-def vlozeni_lokace():
+def vlozeni_lokace(): # první musí být lokace vyřazeno
     l1 = Lokace(lok_kod="RIP", lok_nazev="Křemíkové nebe", fk_bud=1)
     l2 = Lokace(lok_kod="IT", lok_nazev="Sklad IT", fk_bud=1)
     l3 = Lokace(lok_kod="JUNK", lok_nazev="Smetiště", fk_bud=1)
@@ -42,7 +42,7 @@ def vlozeni_lokace():
     db_session.commit()
     print("Lokace - hotovo")
 
-# Vztahy - Interní, Externí, Vyrobní, Dodavatel
+# Vztahy - Interní, Externí, Vyrobní, Dodavatel --- první musí být SYSTEMOVÝ, nezobrazuje se ve výběrech
 def vlozeni_vztah():
     v1 = Vztah(vzt_nazev="Systémový")
     v2 = Vztah(vzt_nazev="Výrobní")
@@ -65,15 +65,15 @@ def vlozeni_opravneni():
     print("Oprávnění - hotovo")
 
 def vlozeni_kategorie():
-    k1 = Kategorie(kat_nazev="Notebook")
-    k2 = Kategorie(kat_nazev="PC Desktop")
-    k3 = Kategorie(kat_nazev="PC Tower")
-    k4 = Kategorie(kat_nazev="PC Workstation")
+    k1 = Kategorie(kat_nazev="Notebook", kat_zivot=4)
+    k2 = Kategorie(kat_nazev="PC Desktop", kat_zivot=5)
+    k3 = Kategorie(kat_nazev="PC Tower", kat_zivot=5)
+    k4 = Kategorie(kat_nazev="PC Workstation", kat_zivot=5)
     k5 = Kategorie(kat_nazev="Monitor")
     k6 = Kategorie(kat_nazev="Monitor HUB")
     k7 = Kategorie(kat_nazev="Dokovací stanice")
-    k8 = Kategorie(kat_nazev="Mobil")
-    k9 = Kategorie(kat_nazev="Tablet")
+    k8 = Kategorie(kat_nazev="Mobil", kat_zivot=3)
+    k9 = Kategorie(kat_nazev="Tablet", kat_zivot=3)
     k10 = Kategorie(kat_nazev="Telefon")    
     k11 = Kategorie(kat_nazev="Tiskárna")
     k12 = Kategorie(kat_nazev="USB příslušenství")

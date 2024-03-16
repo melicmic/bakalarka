@@ -23,8 +23,7 @@ def device():
                             fk_vyr  = request.form["vyr"]                       
                             )
             db_session.add(input) 
-            popisek = request.form["tran_popis"] 
-            
+            #### opravit, padá to při duplikátní hodnotě, ale nevím proč???????
             try:
                 db_session.commit()
             except IntegrityError as e:
@@ -33,10 +32,12 @@ def device():
                 return render_template("main/error.html", e=e)
             else:
                 print("Zařízení založeno, trigger do transakce")
-                id_tr= tr_new_device(input,popisek).id_tran
+                popisek = request.form["tran_popis"]
+                zalozeni = tr_new_device(input,popisek)
+                id_tr = zalozeni.id_tran
+                print(id_tr)
                 db_session.close()
-                return redirect(url_for("main.records", id=id_tr, cp=10))
-
+                return redirect(url_for("main.history", id=id_tr, cp=10))
         else:
             print("první načtení")
             y=vyrobce_list()
@@ -175,7 +176,7 @@ def user():
             return render_template("main/error.html", e=e)
         else:
             print("Zařízení založeno, trigger do transakce")
-            return redirect(url_for("main.participants"))
+            return redirect(url_for("main.accounts"))
 
     else:
         print("první načtení")

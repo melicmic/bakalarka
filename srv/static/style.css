@@ -108,6 +108,7 @@ body {
     border: 2px solid #ccc; /* Ohraničení políčka */
     border-radius: 5px; /* Zaoblené rohy */
     box-sizing: border-box; /* Zahrne ohraničení do celkové šířky */
+    font-size: 11pt;
 }
 
 .form-group button[type="submit"] {
@@ -166,17 +167,13 @@ body {
 }
 
 .bordered-table {
-  width: 90%;
+  width: 80%;
   margin: 0 auto;
-}
-
-.bordered-table th {
-  margin: 20x;
 }
 
 .bordered-table td {
   text-align: left;
-  padding: 20px;
+  padding: 10px;
   width: 10%;
 }
 
@@ -194,6 +191,7 @@ th {
   text-align: center;
   width: auto;
   border-bottom: 4px solid #e74c3c;
+  color: #0F232E;
 }
 tbody > tr {
   text-align: center;
@@ -205,10 +203,8 @@ tbody > tr {
   width: auto;
 }
 
-
 tbody > tr:hover {
   background-color: rgba(231, 76, 60, 0.3);
-
 }
 
 /*zk buttonu*/
@@ -234,6 +230,7 @@ tbody > tr:hover {
   padding: 12px;
   border: 2px solid #ccc;
   border-radius: 5px;
+  font-size: 11pt;
 }
 .form-edit input[type="date"],
 .form-edit input[type="text"] {
@@ -241,12 +238,23 @@ tbody > tr:hover {
   padding: 12px;
   border: 2px solid #ccc;
   border-radius: 5px;
+  font-size: 11pt;
 }
+
 .form-item select {
   width: 200px;
   padding: 12px;
   border: 2px solid #ccc;
   border-radius: 5px;
+  font-size: 11pt;
+}
+
+.form-item label{
+  width: 200px;
+  padding: 12px;
+  font-size: 11pt;
+  color: #0F232E;
+  font-weight: bold;
 }
 
 .form-item select:hover {
@@ -368,9 +376,9 @@ ul.side a:hover {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-size: 16px;
-    width: 48px;
-    padding: 12px;
+    font-size: 11pt;
+    width: 40px;
+    padding: 10px;
     border: 0px solid #ccc;
     
 }

@@ -3,7 +3,7 @@
 {% extends "sablona.html" %}
 
 {% block podnazev %}
-Main
+Úvodní stránka
 {% endblock %}
 
 {% block obsah_stranky %}
@@ -101,7 +101,7 @@ Main
         {% if pravo == True %}
         <span class="quick-link">Rychlé akce</span>
         <ul class="side">
-          <li><a href="{{ url_for('main.records') }}">Historie změn</a></li>
+          <li><a href="{{ url_for('main.history') }}">Historie změn</a></li>
           <li><a href="{{ url_for('news.device') }}">Nové zařízení</a></li>
           <li><a href="{{ url_for('news.user') }}">Nový uživatel</a></li>
         </ul>

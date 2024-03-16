@@ -37,16 +37,17 @@ def opravneni_list():
 def status_list(x):
     if x is None:
         ls = db_session.query(Status).all()
-        db_session.close()
     else:
-        list_stat = db_session.query(Status.stat_nazev).where(Status.id_stat==x).one_or_none()
-        db_session.close()
+        list_stat = db_session.query(Status.stat_nazev).where(Status.id_stat==x).one_or_none()   
         ls = list_stat[0]
+    db_session.close()
     return ls
 
 def uzivatel_list(x):
     if x is None:
             ls=db_session.query(Uzivatel).all()
+    elif x == 1:
+            ls=db_session.query(Uzivatel).where(Uzivatel.uziv_vystup.is_(None)).all()
     else:    
         list_uziv=db_session.query(Uzivatel.id_uziv).where(Uzivatel.uziv_kod==x).one_or_none()
         ls = list_uziv[0]

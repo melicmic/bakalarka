@@ -1,7 +1,7 @@
 {% extends "sablona.html" %}
 
 {% block podnazev %}
-New Transaction
+Historie
 {% endblock %}
 
 {% block obsah_stranky %}
@@ -34,7 +34,7 @@ New Transaction
                     </li>
               </ul>
             </form>
-            <form action="{{ url_for('main.records') }}" method="get" class="form-item">
+            <form action="{{ url_for('main.history') }}" method="get" class="form-item">
               <ul class="form-list">
                      <li class="form-item">
                           <button class="form-button-cancel" type="submit">X</button>

@@ -1,7 +1,7 @@
 {% extends "sablona.html" %}
 
 {% block podnazev %}
-New Transaction
+Přesunutí zařízení
 {% endblock %}
 
 {% block obsah_stranky %}
@@ -31,34 +31,36 @@ New Transaction
                             <input type="hidden" name="inv[]" value="{{ k.Zarizeni.id_zar }}">
                             <input type="text" value="{{ k.Zarizeni.zar_inv }}" readonly>
                             </td>
-                          <td class="form-item"><select name="old_lok">  
+                          <td class="form-item"><select name="old_lok[]">  
                             <option value="{{ k.Lokace.id_lok }}">{{ k.Lokace.lok_kod }} ({{ k.Lokace.lok_nazev }})</option>
                           </select></td>
-                          <td class="form-edit">                        
+                          <td class="form-item"><select name="new_lok[]">                          
                           {% for i in lok %}
-                          {% if i.Lokace.id_lok == 1 %}
-                          <input type="hidden" name="new_lok[]" value="{{ i.Lokace.id_lok }}">
-                          <input type="text" value="{{ i.Lokace.lok_kod }} ({{ i.Lokace.lok_nazev }})" readonly>
+                          {% if (i.Lokace.id_lok != k.Lokace.id_lok) and (i.Lokace.id_lok != 1) %}
+                              <option value="{{ i.Lokace.id_lok }}">{{ i.Lokace.lok_kod }} ({{ i.Lokace.lok_nazev }})</option>
                           {% endif %}
                           {% endfor %}
-                          </td>
-                                               
-                            <td class="form-item"><select name="new_status[]" >                          
-                              {% for i in status %}
-                              {%if i.id_stat == 10 %}
-                                  <option value="{{ i.id_stat }}" selected>{{ i.stat_nazev }}</option>
-                              {%elif i.id_stat == 11 or i.id_stat == 12 %}
-                                <option value="{{ i.id_stat }}">{{ i.stat_nazev }}</option>
-                              {%endif%}
-                              {% endfor %}</select>
-                           </td>
-                            <td class="form-edit">                         
-                              <input type="text" name="uziv" value="{{ uziv }}" readonly>
-                             </td>
+                          </select></td>
+                          <td class="form-item"><select name="new_status[]" >                          
+                            {% for i in status %}
+                            {%if i.id_stat == 2 %}
+                                <option value="{{ i.id_stat }}" selected>{{ i.stat_nazev }}</option>
+                            {%else%}
+                              <option value="{{ i.id_stat }}">{{ i.stat_nazev }}</option>
+                            {%endif%}
+                            {% endfor %}
+                            </select></td>
+                            <td class="form-item"><select name="new_user[]">                          
+                              {% for i in uziv %}
+                              {% if i.id_uziv > 3 %}
+                                  <option value="{{ i.id_uziv }}">{{ i.uziv_jmeno }} {{ i.uziv_prijmeni }} ({{ i.uziv_kod }})</option>
+                              {% endif %}
+                              {% endfor %}
+                              </select></td>
                               <td class="form-edit">                          
                                 <input type="text" name="popis[]">
                                 </td>
-                          <td class="form-edit"><input type="date" name="datum[]" value="{{datum}}" required></td>
+                          <td class="form-edit"><input type="date" name="datum[]" value="{{ datum }}"  max="{{ datum }}" required></td>
                           </tr>
                   {% endfor %}
                   {% endfor %}
@@ -69,15 +71,6 @@ New Transaction
         </div>
   </form>
 </section> 
-
-
-
-
-      
-
-    
-
-
  
 {% endblock %}  
 

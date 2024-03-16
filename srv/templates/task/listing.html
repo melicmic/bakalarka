@@ -1,19 +1,18 @@
 {% extends "sablona.html" %}
 
 {% block podnazev %}
-New relocation
+Přehled podle lokacích
 {% endblock %}
 
 {% block obsah_stranky %}
    
    
 <section class="left-block">
-
         <div class="group-container">
             <form action="#" method="post">
               <ul class="form-list">
                     <li class="form-item">
-                      <label>Zobrazit podle lokace:</label>
+                      <label>Lokace:</label>
                           <select name="location">
                             {% for ik in k %}
                             {% if ik.Lokace.id_lok == hledane %}
@@ -29,12 +28,11 @@ New relocation
                     </li>
               </ul>
             </form>
-            <form action="{{ url_for('edit.listing') }}" method="get" class="form-item">
+            <form action="{{ url_for('task.listing') }}" method="get" class="form-item">
               <ul class="form-list">
                      <li class="form-item">
                           <button class="form-button-cancel" type="submit">X</button>
-                    </li>
-                    
+                    </li>       
               </ul>
             </form>
             </div>
@@ -49,8 +47,6 @@ New relocation
                             <button class="form-button-admin" name="button_name" value="discard" type="submit">Vyřadit</button>
                       </li>
                   </ul>
-               
-        
                 </div>
                 {% endif %}
                 {% if dotaz == [] %} <h2>Na této lokaci se nic nenachází</h2>

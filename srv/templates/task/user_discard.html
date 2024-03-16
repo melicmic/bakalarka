@@ -1,7 +1,7 @@
 {% extends "sablona.html" %}
 
 {% block podnazev %}
-New Transaction
+Vyřazení uživatele
 {% endblock %}
 
 {% block obsah_stranky %}
@@ -33,7 +33,7 @@ New Transaction
             </div>
             <div class="form-group">
                 <label>Datum výstupu:</label>
-                <input type="date" name="vystup" value="{{ x }}" required>
+                <input type="date" name="vystup" value="{{ x }}"  max="{{ x }}" required>
             </div>
     
             <div class="form-group">

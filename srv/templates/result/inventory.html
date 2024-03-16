@@ -14,16 +14,13 @@ Přehled zařízení
                 </li>
                 <li class="form-item">
                       <select id="category" name="category">
-                        <option value="0">Inventární číslo</option>
-                        <option value="1">Sériové číslo</option>
-                        <option value="2">Výrobce</option>
-                        <option value="3">Model</option>
-                        <option value="4">Popisek</option>
+                        <!--- value="0" rezervována pro první načtení bez filtru-->
+                        <option value="1">Inventární číslo</option>
+                        <option value="2">Sériové číslo</option>
+                        <option value="3">Výrobce</option>
+                        <option value="4">Model</option>
                         <option value="5">Kategorie</option>
                         <option value="6">Nakoupeno</option>
-                        <option value="7">Status</option>
-                        <option value="8">Kódu lokace</option>
-                        <option value="9">Kódu budovy</option>
                       </select>
                 </li>
                 <li class="form-item">
@@ -58,11 +55,9 @@ Přehled zařízení
                 <th>Sériové číslo</th>
                 <th>Výrobce</th>
                 <th>Model</th>
-                <th>Popisek</th>
+                <th>Poznámka</th>
                 <th>Kategorie</th>
                 <th>Nakoupeno</th>
-                <th>Status</th>
-                <th>Umístění</th>
             </tr>
         </thead>
         <tbody>
@@ -76,8 +71,6 @@ Přehled zařízení
                     <td>{{ r.Zarizeni.zar_poznm }}</td>
                     <td>{{ r.Kategorie.kat_nazev }}</td>
                     <td>{{ r.Zarizeni.zar_nakup }}</td>
-                    <td>{{ r.Status.stat_nazev }}</td>
-                    <td>{{ r.Lokace.lok_kod }} ({{ r.Lokace.lok_nazev }})</td>                   
                     </tr>
             {% endfor %}
         </tbody>

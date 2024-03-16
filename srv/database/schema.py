@@ -1,5 +1,5 @@
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import Integer, String, Date, DateTime, ForeignKey, UniqueConstraint
+from sqlalchemy import Integer, String, Date, DateTime, ForeignKey, SmallInteger, UniqueConstraint
 
 from typing import List, Optional
 import datetime
@@ -23,11 +23,12 @@ class Kategorie(Base):
     __tablename__ = "Kategorie_tab"
     id_kat: Mapped[int] = mapped_column(primary_key=True)
     kat_nazev: Mapped[str] = mapped_column(String(30), unique=True) # název kategorie - pc, ntbk, workst,...
+    kat_zivot: Mapped[Optional[int]] = mapped_column(Integer)
 
     fk_kat_zar: Mapped[List["Zarizeni"]] = relationship(back_populates="fk_zar_kat")
 
     def __repr__(self) -> str:
-        return f"Kategorie(id={self.id_kat!r}, name={self.kat_nazev!r})"
+        return f"Kategorie(id={self.id_kat!r}, name={self.kat_nazev!r}, zivot={self.kat_zivot!r})"
 
 class Status(Base):
     __tablename__ = "Statusy_tab"
@@ -46,6 +47,7 @@ class Zarizeni(Base):
     zar_seriove: Mapped[str] = mapped_column(String(30), unique=True) # sériové číslo
     zar_model: Mapped[str] = mapped_column(String(30)) # model zařízení
     zar_nakup: Mapped[datetime.date] = mapped_column(Date) # datum nakupu
+    zar_smrt: Mapped[Optional[int]] = mapped_column(SmallInteger) # datum vyřazení
     zar_poznm: Mapped[Optional[str]] = mapped_column(String(64)) # poznámka
     # FK - kategorie, model->výrobce?, status?
     fk_kat: Mapped[int] = mapped_column(ForeignKey("Kategorie_tab.id_kat"))
@@ -56,7 +58,7 @@ class Zarizeni(Base):
     fk_zar_kat: Mapped[List["Kategorie"]] = relationship(back_populates="fk_kat_zar")
 
     def __repr__(self):
-        return f"<Zarizeni(id_zar={self.id_zar}, zar_inv={self.zar_inv}, zar_seriove='{self.zar_seriove}', zar_model='{self.zar_model}', zar_nakup={self.zar_nakup}, zar_poznm='{self.zar_poznm}', fk_kat={self.fk_kat}, fk_vyr={self.fk_vyr})>"
+        return f"<Zarizeni(id_zar={self.id_zar}, zar_inv={self.zar_inv}, zar_seriove='{self.zar_seriove}', zar_model='{self.zar_model}', zar_nakup={self.zar_nakup}, zar_smrt={self.zar_smrt}, zar_poznm='{self.zar_poznm}', fk_kat={self.fk_kat}, fk_vyr={self.fk_vyr})>"
 
 
 

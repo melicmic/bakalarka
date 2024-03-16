@@ -110,9 +110,9 @@
 <section class="right-block">
     <span class="quick-link">Rychlé akce</span>
     <ul class="side">
-        <li><a href="{{ url_for('edit.writing') }}">Přesunout</a></li>
-        <li><a href="{{ url_for('main.records', id=dotaz.Zarizeni.zar_inv, cp=0) }}">Historie</a></li>
-        <li><a href="{{ url_for('edit.update_device', id=dotaz.Zarizeni.id_zar) }}">Upravit</a></li>
+        <li><a href="{{ url_for('task.writing') }}">Přesunout</a></li>
+        <li><a href="{{ url_for('main.history', id=dotaz.Zarizeni.zar_inv, cp=0) }}">Historie</a></li>
+        <li><a href="{{ url_for('task.update_device', id=dotaz.Zarizeni.id_zar) }}">Upravit</a></li>
         
       </ul>
 </section>

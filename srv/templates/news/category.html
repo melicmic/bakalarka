@@ -16,6 +16,7 @@ New category
         <tr>
             <th class="id_db">Kód</th>
             <th>Název kategorie</th>
+            <th>Životní cyklus [roky]</th>
             {%if pravo==True%}<th class="list-akce">A</th>{%endif%}
         </tr>
     </thead>
@@ -23,7 +24,8 @@ New category
         {% for r in dotaz %}
             <tr>
                 <td>{{ r.id_kat }}</td>
-                <td style="text-align: left;"">{{ r.kat_nazev }}</td>
+                <td style="text-align: left;">{{ r.kat_nazev }}</td>
+                <td>{% if r.kat_zivot != None %}{{ r.kat_zivot }}{%endif%}</td>
                 {% if pravo==True %}
                 <td><form action="#" method="post">
                     <input type="hidden" name="selected_id" value="{{ r.id_kat }}">
@@ -46,6 +48,10 @@ New category
                   <label for="nazev">Název kategorie:</label>
                   <input type="text" name="nazev" required>
               </div>
+              <div class="form-group">
+                <label for="nazev">Životní cyklus:</label>
+                <input type="text" name="nazev" required>
+            </div>
               
               <div class="form-group">
                 <button type="submit">Založit</button>
