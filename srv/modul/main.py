@@ -3,7 +3,7 @@ from flask import Blueprint
 from flask import request, render_template, redirect, url_for, session
 
 from database import db_session
-from core import search_bar, my_role, device_listing, transaction_listing, user_listing, rok, load_year, kategorie_list 
+from core import search_bar, my_role, device_listing, transaction_listing, user_listing, rok, report_yearly, kategorie_list, report_stock, report_usecount
 
 main_bp = Blueprint("main", __name__)#, static_folder="static", template_folder="templates")
 
@@ -19,7 +19,9 @@ def home():
                 return redirect(url_for("main.searching", tp = text_pole, cp = combo_pole))
         else:
                 print("++ main.py | home() >> > načtení úvodní stránky")
-                return render_template("main/home.html", pravo=pravo)
+                result = report_stock()
+                result2 = report_usecount()
+                return render_template("main/home.html", dotaz=result, dotaz2=result2, pravo=pravo)
         
 @main_bp.route("/searching", methods=["GET", "POST"])
 def searching():
@@ -119,14 +121,14 @@ def planning():
         if request.method == "POST":
                 selected_year = request.form["year"]
                 print(f"vybrany rok {selected_year}")
-                result=load_year(int(selected_year))
+                result=report_yearly(int(selected_year))
                 roky = pandas.DataFrame(result)
                 roll_list=roky["zdechni"].unique().tolist()
                 print(result)
                 return render_template("result/planning.html", dotaz=result, hledane=int(selected_year), roll_list=roll_list, pravo=pravo) 
         else:   
                 x=rok()
-                result=load_year(x)
+                result=report_yearly(x)
                 roky = pandas.DataFrame(result)
                 print(roky)
                 roll_list=roky["zdechni"].unique().tolist()

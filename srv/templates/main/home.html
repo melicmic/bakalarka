@@ -32,68 +32,44 @@
       </div>
     </div>
     <div class="sub-content">
-              <div class="nested-content">
-                <p>Nested content 1 - zařízení skladem</p>
+      <div class="nested-content">
+                <span class="header">Počet zařízení na skladě</span>
                 <table class="bordered-table">
                   <thead>
                       <tr>
-                          <th>Zařízení</th>
+                          <th>Kategorie zařízení</th>
                           <th>Počet</th>
-                          <th>Výpis >>></th>
                       </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Sloupec 1</td>
-                      <td>Sloupec 2</td>
-                      <td>Sloupec 3</td>
-                  </tr>
-                  <tr>
-                    <td>Sloupec 1</td>
-                    <td>Sloupec 2</td>
-                    <td>Sloupec 3</td>
-                </tr>
-                      {% for row in rows %}
+                      {% for r in dotaz %}
                           <tr>
-                              <td>{{ row.column1 }}</td>
-                              <td>{{ row.column2 }}</td>
-                              <td>{{ row.column3 }}</td>
+                              <td>{{ r.kat_nazev }}</td>
+                              <td>{{ r.pocet }}</td>
                           </tr>
                       {% endfor %}
                   </tbody>
               </table>
               </div>
               <div class="nested-content">
-                <p>Nested content 2 - zařízení skladem</p>
+                <span class="header">Počet vydaných zařízení</span>
                 <table class="bordered-table">
                   <thead>
                       <tr>
-                          <th>Zařízení</th>
+                          <th>Kategorie zařízení</th>
                           <th>Počet</th>
-                          <th>Výpis >>></th>
                       </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Sloupec 1</td>
-                      <td>Sloupec 2</td>
-                      <td>Sloupec 3</td>
-                  </tr>
-                  <tr>
-                    <td>Sloupec 1</td>
-                    <td>Sloupec 2</td>
-                    <td>Sloupec 3</td>
-                </tr>
-                      {% for row in rows %}
+                      {% for r in dotaz2 %}
                           <tr>
-                              <td>{{ row.column1 }}</td>
-                              <td>{{ row.column2 }}</td>
-                              <td>{{ row.column3 }}</td>
+                              <td>{{ r.kat_nazev }}</td>
+                              <td>{{ r.pocet }}</td>
                           </tr>
                       {% endfor %}
                   </tbody>
               </table>
-            </div>
+              </div>
             </div>
           </div>
       </section>

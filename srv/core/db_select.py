@@ -52,7 +52,7 @@ def device_listing(text_pole=None, combo_pole=0):
     dotaz3 = (db_session.query(Zarizeni, Kategorie, Vyrobce)
             .join(Kategorie, Zarizeni.fk_kat == Kategorie.id_kat)
             .join(Vyrobce, Zarizeni.fk_vyr == Vyrobce.id_vyr)
-            .order_by(desc(Zarizeni.zar_nakup))
+            .order_by(desc(Zarizeni.id_zar))
             .where(x)
             .limit(50)
             .all())

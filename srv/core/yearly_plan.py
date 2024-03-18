@@ -5,7 +5,7 @@ from core import rok
 
 # Výpis ročního plánu výměn podle roku z tabulky Kategorie
 
-def load_year(x): # vstupuje int(x)
+def report_yearly(x): # vstupuje int(x)
     #x=2028
     subquery = (select(Zarizeni, Kategorie.kat_nazev, Kategorie.kat_zivot, Vyrobce.vyr_nazev,
                         (func.cast((func.extract('year', Zarizeni.zar_nakup) + Kategorie.kat_zivot), Integer)).label("zdechni"))
@@ -32,4 +32,33 @@ def load_year(x): # vstupuje int(x)
     result = db_session.execute(stmt).all()
     return result 
 
+# Výpis položek na skladě (lok=2) na úvodní stránce
+def report_stock():
+    stmt = (select(Kategorie.id_kat, Kategorie.kat_nazev, (func.count((Zarizeni.id_zar)).label("pocet")))
+            .join(Transakce, Transakce.fk_zar == Zarizeni.id_zar)
+            .join(Kategorie, Zarizeni.fk_kat == Kategorie.id_kat)
+            .filter(and_(Transakce.tran_platnost_do.is_(None), Transakce.fk_lok == 2))
+            .group_by(Kategorie.kat_nazev, Kategorie.id_kat)
+            .order_by(Kategorie.id_kat))
+    result = db_session.execute(stmt).all()
+    return result
+    
+# Výpis celkových položek
+def report_usecount():
+    stmt = (select(Kategorie.id_kat, Kategorie.kat_nazev, (func.count((Zarizeni.id_zar)).label("pocet")))
+            .join(Transakce, Transakce.fk_zar == Zarizeni.id_zar)
+            .join(Kategorie, Zarizeni.fk_kat == Kategorie.id_kat)
+            .filter(and_(Transakce.tran_platnost_do.is_(None), Transakce.fk_lok > 2))
+            .group_by(Kategorie.kat_nazev, Kategorie.id_kat)
+            .order_by(Kategorie.id_kat))
+    result2 = db_session.execute(stmt).all()
+    return result2
 
+"""select count(zt.zar_inv), kt.kat_nazev, kt.id_kat  from "Transakce_tab" tt 
+left join "Zarizeni_tab" zt 
+on tt.fk_zar = zt.id_zar
+left join  "Kategorie_tab" kt
+on zt.fk_kat = kt.id_kat
+where (tt.tran_platnost_do is null ) and (tt.fk_lok = 2)
+group by kt.kat_nazev, kt.id_kat 
+"""
