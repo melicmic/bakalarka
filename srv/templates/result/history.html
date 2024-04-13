@@ -21,7 +21,7 @@ Historie
                             <option value="1">Sériové číslo</option>
                             <option value="2">Výrobce</option>
                             <option value="3">Model</option>
-                            <option value="4">Popisek</option>
+                            <option value="4">Poznámka</option>
                             <option value="5">Kategorie</option>
                             <option value="6">ID uživatele</option>
                             <option value="7">Status</option>
@@ -46,11 +46,10 @@ Historie
     <table class="prehled">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Inventární číslo</th>
                 <th>Kategorie</th>
                 <th>Sériové číslo</th>
-                <th>Popis</th>
+                <th>Poznámka</th>
                 <th>Lokace</th>
                 <th>Uživatel</th>
                 <th>Status</th>
@@ -62,11 +61,10 @@ Historie
         <tbody>
             {% for r in dotaz %}
                 <tr>
-                    <td>{{ r.Transakce.id_tran }}</td>
                     <td>{{ r.Zarizeni.zar_inv }}</td>
                     <td>{{ r.Kategorie.kat_nazev}}</td>
                     <td>{{ r.Zarizeni.zar_seriove }}</td>
-                    <td>{{ r.Transakce.tran_poznamka}}</td>
+                    <td>{{ r.Transakce.tran_poznm}}</td>
                     <td>{{ r.Lokace.lok_kod }}</td>
                     <td>{{ r.Uzivatel.uziv_jmeno }} {{ r.Uzivatel.uziv_prijmeni }}</td>
                     <td>{{ r.Status.stat_nazev }}</td>

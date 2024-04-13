@@ -127,8 +127,8 @@ def update_user(id):
                 vystup.Uzivatel.uziv_prijemni = request.form["prijmeni"]
                 vystup.Uzivatel.uziv_email = request.form["email"]
                 vystup.Uzivatel.uziv_heslo = request.form["pswd"]
-                vystup.Uzivatel.fk_vzt = request.form["vzt"]
-                vystup.Uzivatel.fk_opr = request.form["opr"]
+                vystup.Uzivatel.id_vzt = request.form["vzt"]
+                vystup.Uzivatel.id_opr = request.form["opr"]
                 try:
                         db_session.commit()
                         #db_update_user(id_uziv, new_jmeno, new_prijmeni, new_vzt, new_opr, new_heslo, new_email)

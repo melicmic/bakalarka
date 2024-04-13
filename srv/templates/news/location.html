@@ -16,7 +16,7 @@ New Location
             <th class="id_db">Kód</th>
             <th>Popis lokace</th>
             <th>Budova</th>
-            {%if pravo==True%}<th class="list-akce">A</th>{%endif%}
+            <!--%if pravo==True%}<th class="list-akce">A</th> %endif%}-->
         </tr>
     </thead>
     <tbody>
@@ -25,16 +25,17 @@ New Location
                 <td>{{ r.Lokace.lok_kod }}</td>
                 <td>{{ r.Lokace.lok_nazev }}</td>
                 <td>{{ r.Budova.bud_nazev }}</td>
-                {% if pravo==True %}
-                <td><form action="#" method="post">
-                    <input type="hidden" name="selected_id" value="{{ r.Lokace.id_lok }}">
-                    <button class="button-akce"  type="submit">e</button>
-                    <input type="hidden" name="selected_id" value="{{ r.Lokace.id_lok }}">
-                    <button class="button-akce"  type="submit">X</button></form>
-                </td>
-                {% endif %}
+
+
                 </tr>
         {% endfor %}
+                        <!-- % if pravo==True %}
+                <td><form action="#" method="post">
+                    <input type="hidden" name="selected_id" value="{ r.Lokace.id_lok }}">
+                    <button class="button-akce"  type="submit">e</button>
+                    <button class="button-akce"  type="submit">X</button></form>
+                </td>
+                % endif %}-->
     </tbody>
 </table>
       </section>
@@ -59,7 +60,7 @@ New Location
                     {% if i.id_bud == 1 %}
                         <option value="{{ i.id_bud }}" selected>{{ i.bud_kod }} ({{ i.bud_nazev }})</option>
                     {% else %}
-                    <option value="{{ i.id_bud }}">{{ i.bud_kod }} - {{ i.bud_nazev }}</option>
+                    <option value="{{ i.id_bud }}">{{ i.bud_kod }} ({{ i.bud_nazev }})</option>
                     {% endif %}
                     {% endfor %}
                   </select>

@@ -182,11 +182,20 @@ body {
   margin: 0 auto;
   width: 80%;
 }
+.dim-prehled td {
+  padding: 10px;
+}
 .prehled {
   border: 0px;
   margin: 0 auto;
   width: 100%;
 }
+
+.selected_row, .selected_row:hover {
+  background-color: rgb(135, 40, 35);
+  color: white;
+}
+
 th {
   text-align: center;
   width: auto;

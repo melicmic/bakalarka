@@ -10,7 +10,7 @@ def vyrobce_list():
     return list_vyr
 
 def kategorie_list():
-    list_kat = db_session.query(Kategorie).all()
+    list_kat = db_session.query(Kategorie).order_by(Kategorie.id_kat).all()
     db_session.close()
     return list_kat
 
@@ -20,7 +20,7 @@ def budovy_list():
     return list_bud
 
 def lokace_list():
-    list_lok = db_session.query(Lokace, Budova).join(Budova, Lokace.fk_bud == Budova.id_bud).all()
+    list_lok = db_session.query(Lokace, Budova).join(Budova, Lokace.id_bud == Budova.id_bud).all()
     db_session.close()
     return list_lok
 

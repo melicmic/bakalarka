@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, request, url_for, sessio
 from sqlalchemy.exc import IntegrityError
 
 from database import db_session, Zarizeni, Lokace, Budova, Transakce, Status, Uzivatel, Kategorie, Vztah, Opravneni, Vyrobce
-from core import kratke_datum, vyrobce_list, kategorie_list, lokace_list, budovy_list, tr_new_device, my_role, relocation_listing, opravneni_list, vztah_list
+from core import kratke_datum, vyrobce_list, kategorie_list, lokace_list, budovy_list, tr_new_device, my_role, relocation_listing, opravneni_list, vztah_list, db_update_kategory
 
 news_bp = Blueprint("news", __name__)#, static_folder="static", template_folder="templates")
 
@@ -19,8 +19,8 @@ def device():
                             zar_model = request.form["model"].capitalize(),
                             zar_nakup = request.form["nakup"],
                             zar_poznm = request.form["info"] ,
-                            fk_kat = request.form["kat"],
-                            fk_vyr  = request.form["vyr"]                       
+                            id_kat = request.form["kat"],
+                            id_vyr  = request.form["vyr"]                       
                             )
             db_session.add(input) 
             #### opravit, padá to při duplikátní hodnotě, ale nevím proč???????
@@ -32,8 +32,8 @@ def device():
                 return render_template("main/error.html", e=e)
             else:
                 print("Zařízení založeno, trigger do transakce")
-                popisek = request.form["tran_popis"]
-                zalozeni = tr_new_device(input,popisek)
+                poznamka = request.form["tran_popis"]
+                zalozeni = tr_new_device(input,poznamka)
                 id_tr = zalozeni.id_tran
                 print(id_tr)
                 db_session.close()
@@ -56,7 +56,7 @@ def location():
         print("++ čtu vstupy z formuláře")
         input = Lokace(lok_kod = request.form["kod"].upper(),
                             lok_nazev = request.form["nazev"].capitalize(),
-                            fk_bud = request.form["bud"]                   
+                            id_bud = request.form["bud"]                   
                             )
         db_session.add(input) 
 
@@ -73,7 +73,7 @@ def location():
     else:
         print("první načtení")
         y=budovy_list()
-        vypis = db_session.query(Lokace, Budova).join(Budova, Lokace.fk_bud == Budova.id_bud).order_by(Budova.bud_nazev).all()
+        vypis = db_session.query(Lokace, Budova).join(Budova, Lokace.id_bud == Budova.id_bud).order_by(Budova.bud_nazev).all()
         return render_template("news/location.html", y=y, dotaz=vypis, pravo=pravo)
 
 # Nové budovy
@@ -125,30 +125,52 @@ def manufacturer():
     else:
         print("první načtení")
         y=vyrobce_list()
+        print(y)
         return render_template("news/manufacturer.html", dotaz=y, pravo=pravo)
 
 @news_bp.route("category", methods=["GET", "POST"])
 def category():
     pravo = my_role()
+    vypis = kategorie_list()
     print("++ news.py | category() - vytvoření nového zařízení")
     if request.method == "POST":
         print("++ čtu vstupy z formuláře")
-        input = Kategorie(kat_nazev = request.form["nazev"].capitalize())
-        db_session.add(input) 
-        try:
-            db_session.commit()
-        except IntegrityError as e:
-            print(f"chyba při vkládání {e}")
-            db_session.rollback() ##### nutnéééééééééééééééééééééééééééééééé
-            return render_template("main/error.html", e=e)
-        else:
-            print("Zařízení založeno, trigger do transakce")
-            return redirect(url_for("news.category"))
+        button_name = request.form.get('button_name')
+        if button_name == "edit":
+            print("button edit")
+            id_kat = request.form["selected_id"]
+            kat_nazev  = request.form["kat_nazev"]
+            kat_zivot = request.form["kat_zivot"]
+            print(kat_zivot, kat_nazev, id_kat)
+            return render_template("news/category.html", dotaz=vypis, pravo=pravo, edit_nazev=kat_nazev, edit_zivot=kat_zivot, chosen_id=int(id_kat))
+        elif button_name =="save": # přepsání změn
+            id = request.form["pass_id"]
+            new_nazev  = request.form["new_nazev"]
+            new_zivot = request.form["new_zivot"]
 
+            try:
+                db_update_kategory(id, new_nazev, new_zivot)
+            except IntegrityError as e:
+                print(f"chyba při vkládání {e}")
+                return render_template("main/error.html", e=e)
+            else:
+                print("Zařízení založeno, trigger do transakce")
+                return redirect(url_for("news.category"))   
+        else:
+            input = Kategorie(kat_nazev = request.form["nazev"].capitalize())
+            db_session.add(input) 
+            try:
+                db_session.commit()
+            except IntegrityError as e:
+                print(f"chyba při vkládání {e}")
+                db_session.rollback() ##### nutnéééééééééééééééééééééééééééééééé
+                return render_template("main/error.html", e=e)
+            else:
+                print("Zařízení založeno, trigger do transakce")
+                return redirect(url_for("news.category"))
     else:
         print("první načtení")
-        vypis = kategorie_list()
-        return render_template("news/category.html", dotaz=vypis, pravo=pravo)
+        return render_template("news/category.html", dotaz=vypis, pravo=pravo, edit_nazev=None, edit_zivot=None, chosen_id=None)
 
 @news_bp.route("user", methods=["GET", "POST"])
 def user():
@@ -163,8 +185,8 @@ def user():
                         uziv_email = request.form["email"].lower(),
                         uziv_nastup = request.form["nastup"],
                         uziv_heslo = request.form["heslo"],
-                        fk_vzt = request.form["vzt"],
-                        fk_opr = request.form["opr"]
+                        id_vzt = request.form["vzt"],
+                        id_opr = request.form["opr"]
                             )
         db_session.add(input) 
 

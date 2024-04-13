@@ -11,7 +11,7 @@
 <span class="quick-link">Informace o zařízení:</span>
       <table class="bordered-table">
         <tbody>            
-                <tr>
+                <tr style="font-weight:bold">
                     <td>Inventární číslo:</td>
                     <td>{{ dotaz.Zarizeni.zar_inv }}</td>
                 </tr>
@@ -23,6 +23,12 @@
                     <td>Sériové číslo:</td>
                     <td>{{ dotaz.Zarizeni.zar_seriove }}</td>
                 </tr>
+                {% if dotaz2.Transakce.tran_poznm  != "" %}
+                <tr>
+                    <td>Poznámka:</td>
+                    <td style="font-weight:bold">{{ dotaz2.Transakce.tran_poznm }}</td>
+                </tr>
+                {% endif %}
                 <tr>
                     <td>Výrobce:</td>
                     <td>{{ dotaz.Vyrobce.vyr_nazev }}</td>
@@ -33,7 +39,7 @@
                 </tr>
                 {% if dotaz.Zarizeni.zar_poznm  != "" %}
                 <tr>
-                    <td>Poznámka:</td>
+                    <td>Specifikace:</td>
                     <td>{{ dotaz.Zarizeni.zar_poznm }}</td>
                 </tr>
                 {% endif %}

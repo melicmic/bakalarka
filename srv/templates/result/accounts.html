@@ -61,7 +61,7 @@ Uživatelé
     <table class="prehled">
         <thead>
             <tr>
-                <th>ID</th>
+
                 <th>ID uživatele</th>
                 <th>Jméno</th>
                 <th>E-mail</th>
@@ -77,7 +77,7 @@ Uživatelé
         <tbody>
             {% for r in dotaz %}
                 <tr>
-                    <td>{{ r.Uzivatel.id_uziv }}</td>
+
                     <td>{{ r.Uzivatel.uziv_kod }}</td>
                     <td style="text-align: left;">{{ r.Uzivatel.uziv_jmeno}} {{ r.Uzivatel.uziv_prijmeni}}</td>
                     <td style="text-align: left;">{{ r.Uzivatel.uziv_email}}</td>
@@ -88,9 +88,8 @@ Uživatelé
                     {% if pravo==True %}
                     <td><form action="#" method="post">
                         <input type="hidden" name="selected_id" value="{{ r.Uzivatel.id_uziv }}">
-                        <button class="button-akce" name="button_name" value="edit" type="submit">e</button>
-                        <input type="hidden" name="selected_id" value="{{ r.Uzivatel.id_uziv }}">
-                        <button class="button-akce" name="button_name" value="discard" type="submit">X</button></form>
+                        <button class="button-akce" name="button_name" title="Editovat" value="edit" type="submit">e</button>
+                        <button class="button-akce" name="button_name" title="Vyřadit" value="discard" type="submit">X</button></form>
                     </td>
                     {% endif %}
                   </tr>

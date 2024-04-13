@@ -7,9 +7,9 @@ def edit_list(id_list):
     results = []
     for id in id_list:
         stmt = (select(Transakce, Zarizeni, Lokace, Budova)
-                .join(Zarizeni, Transakce.fk_zar == Zarizeni.id_zar)
-                .join(Lokace, Transakce.fk_lok == Lokace.id_lok)
-                .join(Budova, Lokace.fk_bud == Budova.id_bud)
+                .join(Zarizeni, Transakce.id_zar == Zarizeni.id_zar)
+                .join(Lokace, Transakce.id_lok == Lokace.id_lok)
+                .join(Budova, Lokace.id_bud == Budova.id_bud)
                 .where(and_(Zarizeni.zar_inv == int(id), Transakce.tran_platnost_do == None)))
         result = db_session.execute(stmt).all()
         results.append(result)
@@ -26,7 +26,7 @@ def write_change(id, lok, status, date, popis, user, zar):
                         ))
                         ssn.execute(update_stmt)
                         insert_stmt = (insert(Transakce).values(tran_platnost_od=kratke_datum(), tran_editace=dlouhe_datum(), 
-                                                                tran_poznamka = popis, fk_uziv=user, fk_zar=zar, fk_lok=lok, fk_stat=status))
+                                                                tran_poznm = popis, id_uziv=user, id_zar=zar, id_lok=lok, id_stat=status))
                         
                         ssn.execute(insert_stmt)
 
@@ -35,8 +35,8 @@ def write_change(id, lok, status, date, popis, user, zar):
 def load_device(id):
     print(id)
     stmt = (select(Zarizeni, Kategorie, Vyrobce)
-                .join(Kategorie, Zarizeni.fk_kat == Kategorie.id_kat)
-                .join(Vyrobce, Zarizeni.fk_vyr == Vyrobce.id_vyr)
+                .join(Kategorie, Zarizeni.id_kat == Kategorie.id_kat)
+                .join(Vyrobce, Zarizeni.id_vyr == Vyrobce.id_vyr)
                 .where(Zarizeni.id_zar == id))
     result = db_session.execute(stmt).first()
     return result
@@ -50,16 +50,16 @@ def db_update_device(id, new_seriove, new_model, new_info, new_kat, new_vyr):
                     zar_seriove = new_seriove,
                     zar_model = new_model,
                     zar_poznm = new_info,
-                    fk_kat = new_kat,
-                    fk_vyr = new_vyr
+                    id_kat = new_kat,
+                    id_vyr = new_vyr
             ))
             ssn.execute(update_stmt)
 
 
 def load_user(id):
     stmt = (select(Uzivatel, Vztah, Opravneni)
-                .join(Vztah, Uzivatel.fk_vzt == Vztah.id_vzt)
-                .join(Opravneni, Uzivatel.fk_opr == Opravneni.id_opr)
+                .join(Vztah, Uzivatel.id_vzt == Vztah.id_vzt)
+                .join(Opravneni, Uzivatel.id_opr == Opravneni.id_opr)
                 .where(Uzivatel.id_uziv == id))
     result = db_session.execute(stmt).first()
     return result
@@ -72,8 +72,8 @@ def db_update_user(id, new_jmeno, new_prijmeni, new_vzt, new_opr, new_heslo, new
                     .values(
                     uziv_jmeno = new_jmeno,
                     uziv_prijmeni = new_prijmeni,
-                    fk_vzt = new_vzt,
-                    fk_opr = new_opr,
+                    id_vzt = new_vzt,
+                    id_opr = new_opr,
                     uziv_heslo = new_heslo,
                     uziv_email = new_email
             ))
@@ -87,3 +87,19 @@ def db_discard_user(id, new_vystup):
                         uziv_vystup = new_vystup
                 ))
                 ssn.execute(update_stmt)
+
+def db_update_kategory(id, new_nazev, new_zivot):
+    print(f"db_upd_kat {id} {new_nazev}, {new_zivot}")
+    if new_zivot is None or new_zivot == 0 or new_zivot=="": #podchycení prázdné hodnoty na vynulování
+        new_zivot=None
+    else:
+         new_zivot=int(new_zivot)
+
+    with db_session as ssn:
+        with ssn.begin():
+            update_stmt = (update(Kategorie).where(Kategorie.id_kat == int(id))
+                    .values(
+                    kat_nazev = new_nazev,
+                    kat_zivot = new_zivot
+            ))
+            ssn.execute(update_stmt)

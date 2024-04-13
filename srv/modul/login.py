@@ -34,7 +34,7 @@ def index():
                 elif (dotaz.uziv_kod==uzivatel and dotaz.uziv_heslo==heslo):
                     print("++ login.py | index() >>> uživatel je ověřen")
                     session["uzivatel"] = uzivatel
-                    session["pravo"]  = dotaz.fk_opr
+                    session["pravo"]  = dotaz.id_opr
                     return redirect(url_for("main.home"))
                 else:
                     print("++ login.py | index() >>> neplatný vstup")

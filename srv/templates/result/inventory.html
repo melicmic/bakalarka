@@ -50,12 +50,11 @@ Přehled zařízení
     <table class="prehled">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Inventární číslo</th>
                 <th>Sériové číslo</th>
                 <th>Výrobce</th>
                 <th>Model</th>
-                <th>Poznámka</th>
+                <th>Specifikace</th>
                 <th>Kategorie</th>
                 <th>Nakoupeno</th>
             </tr>
@@ -63,7 +62,6 @@ Přehled zařízení
         <tbody>
             {% for r in dotaz %}
                 <tr>
-                    <td>{{ r.Zarizeni.id_zar }}</td>
                     <td>{{ r.Zarizeni.zar_inv }}</td>
                     <td>{{ r.Zarizeni.zar_seriove }}</td>
                     <td>{{ r.Vyrobce.vyr_nazev }}</td>

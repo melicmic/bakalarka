@@ -130,7 +130,5 @@ def planning():
                 x=rok()
                 result=report_yearly(x)
                 roky = pandas.DataFrame(result)
-                print(roky)
                 roll_list=roky["zdechni"].unique().tolist()
-                print(result)
                 return render_template("result/planning.html", dotaz=result, hledane=x, roll_list=roll_list, pravo=pravo) 

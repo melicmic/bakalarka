@@ -11,7 +11,7 @@ Editace zařízení
       <form action="#" method="POST">
         <div class="form-group">
             <label for="inv">Inventární číslo:</label>
-            <input type="text" name="inv" value="{{ result.Zarizeni.zar_inv }}" style="background-color: #ccc;"readonly>
+            <input type="text" name="inv" value="{{ result.Zarizeni.zar_inv }}" style="background-color: #e9e9ed;"readonly>
         </div>
         <div class="form-group">
             <label for="seriove">Sériové číslo:</label>
@@ -29,7 +29,7 @@ Editace zařízení
             <label for="kat">Kategorie:</label>
             <select name="kat">
                 {% for i in k %}
-                    {% if i.id_kat == result.Zarizeni.fk_kat %}
+                    {% if i.id_kat == result.Zarizeni.id_kat %}
                         <option value="{{ i.id_kat }}" selected>{{ i.kat_nazev }}</option>
                     {% else %}
                         <option value="{{ i.id_kat }}">{{ i.kat_nazev }}</option>
@@ -43,7 +43,7 @@ Editace zařízení
             <label for="vyr">Výrobce:</label>
             <select name="vyr">
               {% for i in v %}
-              {% if i.id_vyr == result.Zarizeni.fk_vyr %}
+              {% if i.id_vyr == result.Zarizeni.id_vyr %}
                   <option value="{{ i.id_vyr }}" selected>{{ i.vyr_nazev }}</option>
               {% else %}
                   <option value="{{ i.id_vyr }}">{{ i.vyr_nazev }}</option>

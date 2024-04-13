@@ -12,7 +12,7 @@ Editace uživatele
         <input type="hidden" name="id" value="{{ result.Uzivatel.id_uziv }}">
         <div class="form-group">
             <label>ID uživatele:</label>
-            <input type="text" name="uziv_kod" value="{{ result.Uzivatel.uziv_kod }}" style="background-color: #ccc;"readonly>
+            <input type="text" name="uziv_kod" value="{{ result.Uzivatel.uziv_kod }}" style="background-color: #e9e9ed;" readonly>
         </div>
         <div class="form-group">
             <label>Jméno:</label>
@@ -34,7 +34,7 @@ Editace uživatele
             <label>Vztah:</label>
             <select name="vzt">
                 {% for i in k %}
-                    {% if i.id_vzt == result.Uzivatel.fk_vzt %}
+                    {% if i.id_vzt == result.Uzivatel.id_vzt %}
                         <option value="{{ i.id_vzt }}" selected>{{ i.vzt_nazev }}</option>
                     {% elif i.id_vzt > 1 %}
                         <option value="{{ i.id_vzt }}">{{ i.vzt_nazev }}</option>
@@ -48,7 +48,7 @@ Editace uživatele
             <label>Oprávnění:</label>
             <select name="opr">
               {% for i in v %}
-              {% if i.id_opr == result.Uzivatel.fk_opr %}
+              {% if i.id_opr == result.Uzivatel.id_opr %}
                   <option value="{{ i.id_opr }}" selected>{{ i.opr_nazev }}</option>
               {% else %}
                   <option value="{{ i.id_opr }}">{{ i.opr_nazev }}</option>

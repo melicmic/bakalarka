@@ -18,7 +18,7 @@ Přesunutí zařízení
                       <th>Nová lokace</th>
                       <th>Nový status</th>
                       <th>Předáno uživateli</th>
-                      <th>Popisek</th>
+                      <th>Poznámka</th>
                       <th>Datum změny</th>
                   </tr>
               </thead>
@@ -29,7 +29,7 @@ Přesunutí zařízení
                         <input type="hidden" name="id_tran[]" value="{{ k.Transakce.id_tran }}">
                           <td class="form-edit">
                             <input type="hidden" name="inv[]" value="{{ k.Zarizeni.id_zar }}">
-                            <input type="text" value="{{ k.Zarizeni.zar_inv }}" readonly>
+                            <input type="text" value="{{ k.Zarizeni.zar_inv }}" style="background-color: #e9e9ed;" readonly>
                             </td>
                           <td class="form-item"><select name="old_lok[]">  
                             <option value="{{ k.Lokace.id_lok }}">{{ k.Lokace.lok_kod }} ({{ k.Lokace.lok_nazev }})</option>
@@ -52,7 +52,7 @@ Přesunutí zařízení
                             </select></td>
                             <td class="form-item"><select name="new_user[]">                          
                               {% for i in uziv %}
-                              {% if i.id_uziv > 3 %}
+                              {% if i.id_uziv > 1 %}
                                   <option value="{{ i.id_uziv }}">{{ i.uziv_jmeno }} {{ i.uziv_prijmeni }} ({{ i.uziv_kod }})</option>
                               {% endif %}
                               {% endfor %}
@@ -60,7 +60,7 @@ Přesunutí zařízení
                               <td class="form-edit">                          
                                 <input type="text" name="popis[]">
                                 </td>
-                          <td class="form-edit"><input type="date" name="datum[]" value="{{ datum }}"  max="{{ datum }}" required></td>
+                          <td class="form-edit"><input type="date" name="datum[]" value="{{ datum }}" min="{{k.Transakce.tran_platnost_od}}"  max="{{ datum }}" required></td>
                           </tr>
                   {% endfor %}
                   {% endfor %}

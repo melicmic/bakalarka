@@ -43,9 +43,11 @@ Přehled podle lokacích
                     <li class="form-item-admin">
                         <button class="form-button-admin" name="button_name" value="move" type="submit">Přesunout</button>
                   </li>
+                  {% if hledane == 3%}
                         <li class="form-item-admin">
                             <button class="form-button-admin" name="button_name" value="discard" type="submit">Vyřadit</button>
                       </li>
+                  {%endif%}
                   </ul>
                 </div>
                 {% endif %}
@@ -54,12 +56,12 @@ Přehled podle lokacích
     <table class="prehled">
         <thead>
             <tr>
-                <th>ID</th>
+                <th></th>
                 <th>Lokace</th>
                 <th>Kategorie</th>
                 <th>Inventární číslo</th>
                 <th>Sériové číslo</th>
-                <th>Popis</th>
+                <th>Poznámka</th>
                 <th>Uživatel</th>
                 <th>Status</th>
                 <th>Od</th>
@@ -73,7 +75,7 @@ Přehled podle lokacích
                     <td>{{ r.Kategorie.kat_nazev}}</td>
                     <td>{{ r.Zarizeni.zar_inv }}</td>
                     <td>{{ r.Zarizeni.zar_seriove }}</td>
-                    <td>{{ r.Transakce.tran_poznamka}}</td>
+                    <td>{{ r.Transakce.tran_poznm}}</td>
                     <td>{{ r.Uzivatel.uziv_jmeno }} {{ r.Uzivatel.uziv_prijmeni }}</td>
                     <td>{{ r.Status.stat_nazev }}</td>
                     <td>{{ r.Transakce.tran_platnost_od}}</td>

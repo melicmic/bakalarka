@@ -22,16 +22,17 @@ New category
     </thead>
     <tbody>
         {% for r in dotaz %}
-            <tr>
+            <tr {% if chosen_id== r.id_kat %} class="selected_row"{%endif%}>
                 <td>{{ r.id_kat }}</td>
                 <td style="text-align: left;">{{ r.kat_nazev }}</td>
                 <td>{% if r.kat_zivot != None %}{{ r.kat_zivot }}{%endif%}</td>
                 {% if pravo==True %}
                 <td><form action="#" method="post">
-                    <input type="hidden" name="selected_id" value="{{ r.id_kat }}">
-                    <button class="button-akce"  type="submit">e</button>
-                    <input type="hidden" name="selected_id" value="{{ r.id_kat }}">
-                    <button class="button-akce"  type="submit">X</button></form>
+                    <input type="hidden" name="selected_id"  value="{{ r.id_kat }}">
+                    <input type="hidden" name="kat_nazev"  value="{{ r.kat_nazev }}">
+                    <input type="hidden" name="kat_zivot"  value="{{ r.kat_zivot }}">
+                    <button class="button-akce" name="button_name" title="Editovat" value="edit" type="submit">e</button>
+                  </form>
                 </td>
                 {% endif %}
                 </tr>
@@ -41,23 +42,44 @@ New category
   
       </section>
       <section class="right-block">
-        <span class="quick-link">Nová kategorie</span>
+        {% if chosen_id != None %}
+        <span class="quick-link">Upravit kategorii</span>
         <div class="form-container">
             <form action="#" method="POST">
               <div class="form-group">
                   <label for="nazev">Název kategorie:</label>
-                  <input type="text" name="nazev" required>
+                  <input type="text" value="{{ edit_nazev }}"name="new_nazev" required>
               </div>
               <div class="form-group">
-                <label for="nazev">Životní cyklus:</label>
-                <input type="text" name="nazev" required>
+                <label for="zivot">Životní cyklus:</label>
+                <input type="text" value="{{ edit_zivot }}" name="new_zivot">
             </div>
               
               <div class="form-group">
-                <button type="submit">Založit</button>
+                <input type="text" value="{{ chosen_id }}" name="pass_id">
+                <button name="button_name" value="save" type="submit">Uložit</button>
               </div>
           </form>
-            </div>  
+            </div>
+            {% else %}
+            <span class="quick-link">Nová kategorie</span>
+            <div class="form-container">
+                <form action="#" method="POST">
+                  <div class="form-group">
+                      <label for="nazev">Název kategorie:</label>
+                      <input type="text" name="nazev" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="zivot">Životní cyklus:</label>
+                    <input type="text" name="zivot">
+                </div>
+                  
+                  <div class="form-group">
+                    <button name="button_name" value="create" type="submit">Založit</button>
+                  </div>
+              </form>
+                </div>
+            {% endif %}
       
       </section>
     

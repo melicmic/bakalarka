@@ -22,21 +22,21 @@ def vlozeni_budova():
     print("Budova - hotovo")
 
 def vlozeni_lokace(): # první musí být lokace vyřazeno
-    l1 = Lokace(lok_kod="RIP", lok_nazev="Křemíkové nebe", fk_bud=1)
-    l2 = Lokace(lok_kod="IT", lok_nazev="Sklad IT", fk_bud=1)
-    l3 = Lokace(lok_kod="JUNK", lok_nazev="Smetiště", fk_bud=1)
-    l4 = Lokace(lok_kod="A04", lok_nazev="Kontorla O2", fk_bud=1)
-    l5 = Lokace(lok_kod="A05", lok_nazev="Expedice O1", fk_bud=1)
-    l6 = Lokace(lok_kod="B01", lok_nazev="Stul O1", fk_bud=2)
-    l7 = Lokace(lok_kod="B02", lok_nazev="Stul O2", fk_bud=2)
-    l8 = Lokace(lok_kod="B03", lok_nazev="Kontrola 01", fk_bud=2)
-    l9 = Lokace(lok_kod="B04", lok_nazev="Kontrola 02", fk_bud=2)
-    l10 = Lokace(lok_kod="B05", lok_nazev="Expedice 01", fk_bud=2)    
-    l11 = Lokace(lok_kod="C01", lok_nazev="Stul O1", fk_bud=3)
-    l12 = Lokace(lok_kod="C02", lok_nazev="Stul O2", fk_bud=3)
-    l13 = Lokace(lok_kod="C03", lok_nazev="Kontrola O1", fk_bud=3)
-    l14 = Lokace(lok_kod="C04", lok_nazev="Kontrola 02", fk_bud=3)
-    l15 = Lokace(lok_kod="C05", lok_nazev="Expedice 01", fk_bud=3)    
+    l1 = Lokace(lok_kod="RIP", lok_nazev="Křemíkové nebe", id_bud=1)
+    l2 = Lokace(lok_kod="IT", lok_nazev="Sklad IT", id_bud=1)
+    l3 = Lokace(lok_kod="JUNK", lok_nazev="Smetiště", id_bud=1)
+    l4 = Lokace(lok_kod="A04", lok_nazev="Kontorla O2", id_bud=1)
+    l5 = Lokace(lok_kod="A05", lok_nazev="Expedice O1", id_bud=1)
+    l6 = Lokace(lok_kod="B01", lok_nazev="Stul O1", id_bud=2)
+    l7 = Lokace(lok_kod="B02", lok_nazev="Stul O2", id_bud=2)
+    l8 = Lokace(lok_kod="B03", lok_nazev="Kontrola 01", id_bud=2)
+    l9 = Lokace(lok_kod="B04", lok_nazev="Kontrola 02", id_bud=2)
+    l10 = Lokace(lok_kod="B05", lok_nazev="Expedice 01", id_bud=2)    
+    l11 = Lokace(lok_kod="C01", lok_nazev="Stul O1", id_bud=3)
+    l12 = Lokace(lok_kod="C02", lok_nazev="Stul O2", id_bud=3)
+    l13 = Lokace(lok_kod="C03", lok_nazev="Kontrola O1", id_bud=3)
+    l14 = Lokace(lok_kod="C04", lok_nazev="Kontrola 02", id_bud=3)
+    l15 = Lokace(lok_kod="C05", lok_nazev="Expedice 01", id_bud=3)    
     
     db_session.add_all([l1,l2,l3,l4,l5,l6,l7,l8,l9,l10,l11,l12,l13,l14,l15])
     db_session.commit()
@@ -118,11 +118,11 @@ def vlozeni_vyrobce():
 
 def vlozeni_uzivatele():
     u1 = Uzivatel(uziv_kod="admin", uziv_jmeno="Flask-Admin", uziv_prijmeni="1-Editor", uziv_nastup=datetime.datetime.now(), 
-        uziv_heslo="admin", fk_vzt=1, fk_opr=1)
+        uziv_heslo="admin", id_vzt=1, id_opr=1)
     u2 = Uzivatel(uziv_kod="visitor", uziv_jmeno="Návštěvník", uziv_prijmeni="2-Čtenář", uziv_nastup=datetime.datetime.now(),
-                  uziv_heslo="visitor", fk_vzt=1, fk_opr=2)
+                  uziv_heslo="visitor", id_vzt=1, id_opr=2)
     u3 = Uzivatel(uziv_kod="expelled", uziv_jmeno="Vyloučený", uziv_prijmeni="3-Vyloučený", uziv_nastup=datetime.datetime.now(),
-                  uziv_heslo="expelled", fk_vzt=1, fk_opr=2)      
+                  uziv_heslo="expelled", id_vzt=1, id_opr=2)      
     db_session.add_all([u1, u2, u3])
     db_session.commit()
     print("Uzivatel - hotovo")

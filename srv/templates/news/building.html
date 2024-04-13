@@ -17,7 +17,7 @@ New Location
         <tr>
             <th class="id_db">Kód</th>
             <th>Popis budovy</th>
-            {%if pravo==True%}<th class="list-akce">A</th>{%endif%}
+            <!--%if pravo==True%}<th class="list-akce">A</th>%endif%}-->
         </tr>
     </thead>
     <tbody>
@@ -25,16 +25,15 @@ New Location
             <tr>
                 <td>{{ r.bud_kod }}</td>
                 <td>{{ r.bud_nazev }}</td>
-                {% if pravo==True %}
-                <td><form action="#" method="post">
-                    <input type="hidden" name="selected_id" value="{{ r.id_bud }}">
-                    <button class="button-akce"  type="submit">e</button>
-                    <input type="hidden" name="selected_id" value="{{ r.id_bud }}">
-                    <button class="button-akce"  type="submit">X</button></form>
-                </td>
-                {% endif %}
                 </tr>
         {% endfor %}
+                        <!--% if pravo==True %}
+                    <td><form action="#" method="post">
+                    <input type="hidden" name="selected_id" value="{ r.id_bud }}">
+                    <button class="button-akce"  type="submit">e</button>
+                    <button class="button-akce"  type="submit">X</button></form>
+                </td>
+                 endif %}-->
     </tbody>
 </table>
 
@@ -56,7 +55,7 @@ New Location
               </div>
               
               <div class="form-group">
-                  <input type="submit" name="nova_budova" value="Založit">
+                <button type="submit">Založit</button>
               </div>
           </form>
           
