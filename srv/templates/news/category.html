@@ -14,7 +14,7 @@ New category
   <table class="dim-prehled">
     <thead>
         <tr>
-            <th class="id_db">Kód</th>
+            <th class="id_db"></th>
             <th>Název kategorie</th>
             <th>Životní cyklus [roky]</th>
             {%if pravo==True%}<th class="list-akce">A</th>{%endif%}
@@ -56,7 +56,7 @@ New category
             </div>
               
               <div class="form-group">
-                <input type="text" value="{{ chosen_id }}" name="pass_id">
+                <input type="hidden" value="{{ chosen_id }}" name="pass_id">
                 <button name="button_name" value="save" type="submit">Uložit</button>
               </div>
           </form>
