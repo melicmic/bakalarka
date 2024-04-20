@@ -57,7 +57,7 @@ class Zarizeni(Base):
     fk_zar_kat: Mapped[List["Kategorie"]] = relationship(back_populates="fk_kat_zar")
 
     def __repr__(self):
-        return f"<Zarizeni(id_zar={self.id_zar}, zar_inv={self.zar_inv}, zar_seriove='{self.zar_seriove}', zar_model='{self.zar_model}', zar_nakup={self.zar_nakup}, zar_smrt={self.zar_smrt}, zar_poznm='{self.zar_poznm}', id_kat={self.id_kat}, id_vyr={self.id_vyr})>"
+        return f"<Zarizeni(id_zar={self.id_zar}, zar_inv={self.zar_inv}, zar_seriove='{self.zar_seriove}', zar_model='{self.zar_model}', zar_nakup={self.zar_nakup}, zar_poznm='{self.zar_poznm}', id_kat={self.id_kat}, id_vyr={self.id_vyr})>"
 
 
 

@@ -1,5 +1,5 @@
 from sqlalchemy.exc import DataError
-from sqlalchemy import select, and_, not_, desc, extract, func, Integer
+from sqlalchemy import select, and_, or_, not_, desc, extract, func, Integer
 from database import db_session, Zarizeni, Kategorie, Vyrobce, Uzivatel, Budova, Lokace, Transakce, Vztah, Status, Opravneni
 from core import rok
 
@@ -26,7 +26,13 @@ def report_yearly(x): # vstupuje int(x)
             .join(Budova, Lokace.id_bud == Budova.id_bud)
             .join(Vztah, Uzivatel.id_vzt == Vztah.id_vzt)
             .join(subquery, Transakce.id_zar == subquery.c.id_zar)
-            .filter(and_(Transakce.tran_platnost_do.is_(None), Transakce.id_lok !=1))
+            .filter(and_(Transakce.tran_platnost_do.is_(None), 
+                         and_(
+                             not_(Transakce.id_lok ==1),
+                             not_(Transakce.id_lok ==3)
+                             )
+                        )
+                    )
             .order_by(Zarizeni.zar_nakup))
     
     result = db_session.execute(stmt).all()
