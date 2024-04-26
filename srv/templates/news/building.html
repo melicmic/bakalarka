@@ -47,11 +47,11 @@ New Location
             <form action="#" method="POST">
               <div class="form-group">
                   <label for="kod">Kód budovy:</label>
-                  <input type="text" id="kod" name="kod" required>
+                  <input type="text" id="kod" name="kod" maxlength="8" patern="[a-zA-Z0-9]" required>
               </div>
               <div class="form-group">
                   <label for="nazev">Název budovy:</label>
-                  <input type="text" id="nazev" name="nazev">
+                  <input type="text" id="nazev" name="nazev" maxlength="32" patern="[a-zA-Z0-9]">
               </div>
               
               <div class="form-group">

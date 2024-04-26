@@ -16,15 +16,15 @@ Vyřazení uživatele
             </div>
             <div class="form-group">
                 <label>Jméno:</label>
-                <input type="text" name="jmeno" value="{{ result.Uzivatel.uziv_jmeno }}">
+                <input type="text" name="jmeno" value="{{ result.Uzivatel.uziv_jmeno }}" maxlength="32" patern="[a-zA-Z0-9]">
             </div>
             <div class="form-group">
                 <label>Příjmení:</label>
-                <input type="text" name="prijmeni" value="{{ result.Uzivatel.uziv_prijmeni }}">
+                <input type="text" name="prijmeni" value="{{ result.Uzivatel.uziv_prijmeni }}" maxlength="32" patern="[-a-zA-Z0-9]">
             </div>
             <div class="form-group">
               <label>E-mail:</label>
-              <input type="text" name="email" value="{{ result.Uzivatel.uziv_email }}">
+              <input type="text" name="email" value="{{ result.Uzivatel.uziv_email }}" maxlength="64" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Zadej email ve formátu jmeno@domena.com">
           </div>
 
             <div class="form-group">

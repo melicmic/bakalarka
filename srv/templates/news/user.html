@@ -14,19 +14,19 @@ New User
       <form action="#" method="POST">
         <div class="form-group">
             <label for="kod">ID Uživatele:</label>
-            <input type="text" name="kod" required>
+            <input type="text" name="kod" maxlength="32" maxlength="32" patern="[a-zA-Z0-9]" required>
         </div>
         <div class="form-group">
             <label for="jmeno">Jméno:</label>
-            <input type="text" name="jmeno" required>
+            <input type="text" name="jmeno" maxlength="32" patern="[a-zA-Z0-9]" required>
         </div>
         <div class="form-group">
             <label for="model">Přijmení:</label>
-            <input type="text" name="prijmeni">
+            <input type="text" name="prijmeni" maxlength="32" maxlength="32" patern="[a-zA-Z0-9]">
         </div>
         <div class="form-group">
             <label for="email">E-mail:</label>
-            <input type="text" name="email">
+            <input type="text" name="email" maxlength="64" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" title="Zadej email ve formátu jmeno@domena.com">
         </div>
         <div class="form-group">
             <label for="nastup">Datum nástupu:</label>
@@ -34,7 +34,7 @@ New User
         </div>
         <div class="form-group">
             <label for="heslo">Heslo:</label>
-            <input type="text" name="heslo">
+            <input type="text" name="heslo" maxlength="64" patern="[a-zA-Z0-9]">
         </div>
         
         <div class="form-group">

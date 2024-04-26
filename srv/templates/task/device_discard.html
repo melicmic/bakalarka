@@ -56,7 +56,7 @@ Vyřazení zařízení
                               <input type="text" name="uziv" value="{{ uziv }}" style="background-color: #e9e9ed;" readonly>
                              </td>
                               <td class="form-edit">                          
-                                <input type="text" name="popis[]">
+                                <input type="text" name="popis[]"  maxlength="64" patern="[a-zA-Z0-9._%+\-]">
                                 </td>
                           <td class="form-edit"><input type="date" name="datum[]" value="{{ datum }}" min="{{k.Transakce.tran_platnost_od}}"  max="{{ datum }}" required></td>
                           </tr>

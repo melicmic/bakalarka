@@ -15,15 +15,15 @@ Editace zařízení
         </div>
         <div class="form-group">
             <label for="seriove">Sériové číslo:</label>
-            <input type="text" name="seriove" value="{{ result.Zarizeni.zar_seriove }}">
+            <input type="text" name="seriove" value="{{ result.Zarizeni.zar_seriove }}" maxlength="32" patern="[-a-zA-Z0-9]">
         </div>
         <div class="form-group">
             <label for="model">Model:</label>
-            <input type="text" name="model" value="{{ result.Zarizeni.zar_model }}">
+            <input type="text" name="model" value="{{ result.Zarizeni.zar_model }}" maxlength="32" patern="[-a-zA-Z0-9]">
         </div>
         <div class="form-group">
           <label for="nazev">Doplňující informace:</label>
-          <input type="text" name="info" value="{{ result.Zarizeni.zar_poznm }}">
+          <input type="text" name="info" value="{{ result.Zarizeni.zar_poznm }}" maxlength="64" patern="[a-zA-Z0-9._%+\-]">
       </div>
         <div class="form-group">
             <label for="kat">Kategorie:</label>

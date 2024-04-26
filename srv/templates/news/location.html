@@ -46,11 +46,11 @@ New Location
             <form action="#" method="POST">
               <div class="form-group">
                   <label for="kod">Kód lokace:</label>
-                  <input type="text" name="kod" required>
+                  <input type="text" name="kod" maxlength="8" patern="[a-zA-Z0-9]" required>
               </div>
               <div class="form-group">
                   <label for="nazev">Název lokace:</label>
-                  <input type="text" name="nazev">
+                  <input type="text" name="nazev" maxlength="32" patern="[a-zA-Z0-9]">
               </div>
               
               <div class="form-group">
