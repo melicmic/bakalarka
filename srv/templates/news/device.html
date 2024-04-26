@@ -8,24 +8,24 @@ Main
 
 {% block obsah_stranky %}
    
-<section class="left-block">       
+<section class="left-block">
   <div class="form-container">
     <form action="#" method="POST">
       <div class="form-group">
           <label for="inv">Inventární číslo:</label>
-          <input type="text" name="inv" required>
+          <input type="text" name="inv" patern="[0-9]" required>
       </div>
       <div class="form-group">
           <label for="seriove">Sériové číslo:</label>
-          <input type="text" name="seriove" required>
+          <input type="text" name="seriove" maxlength="32" patern="[-a-zA-Z0-9] required>
       </div>
       <div class="form-group">
           <label for="model">Model:</label>
-          <input type="text" name="model" required>
+          <input type="text" name="model" maxlength="32" patern="[-a-zA-Z0-9]" required>
       </div>
       <div class="form-group">
         <label for="nazev">Specifikace:</label>
-        <input type="text" name="info">
+        <input type="text" name="info" maxlength="32" patern="[a-zA-Z0-9._%+\-]">
     </div>
       <div class="form-group">
           <label for="nakup">Datum nákupu:</label>
@@ -33,7 +33,7 @@ Main
       </div>
       <div class="form-group">
           <label for="poznm">Poznámka:</label>
-          <input type="text" name="tran_popis">
+          <input type="text" name="tran_popis" maxlength="64" patern="[a-zA-Z0-9._%+\-]">
       </div>
       
       <div class="form-group">
