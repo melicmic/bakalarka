@@ -17,23 +17,28 @@ New Location
         <tr>
             <th class="id_db">Kód</th>
             <th>Popis budovy</th>
-            <!--%if pravo==True%}<th class="list-akce">Akce</th>%endif%}-->
+            {%if pravo==True%}<th class="list-akce">Akce</th>{%endif%}
         </tr>
     </thead>
     <tbody>
         {% for r in dotaz %}
-            <tr>
+            <tr {% if chosen_id== r.id_bud %} class="selected_row"{%endif%}>
                 <td>{{ r.bud_kod }}</td>
-                <td>{{ r.bud_nazev }}</td>
-                </tr>
-        {% endfor %}
-                        <!--% if pravo==True %}
+                <td>{{ r.bud_nazev }}</td>        
+                    {% if pravo==True %}
                     <td><form action="#" method="post">
-                    <input type="hidden" name="selected_id" value="{ r.id_bud }}">
-                    <button class="button-akce"  type="submit">e</button>
-                    <button class="button-akce"  type="submit">X</button></form>
+                    <input type="hidden" name="selected_id" value="{{ r.id_bud }}">
+                    <input type="hidden" name="bud_kod"  value="{{ r.bud_kod }}">
+                    <input type="hidden" name="bud_nazev"  value="{{ r.bud_nazev }}">
+                    {% if chosen_id== r.id_bud %}<button class="button-akce" name="button_name" title="Cancel" value="cancel" type="submit">C</button>
+                  {%else%}
+                  <button class="button-akce" name="button_name" title="Editovat" value="edit" type="submit">e</button>
+                  {%endif%}
+                    </form>
                 </td>
-                 endif %}-->
+                 {% endif %}
+                </tr>
+                {% endfor %}
     </tbody>
 </table>
 
@@ -41,27 +46,43 @@ New Location
       
       {% if pravo == True %}
       <section class="right-block">
-        <span class="quick-link">Přidání nové budovy</span>
-        
+        {% if chosen_id != None %}
         <div class="form-container">
+        <span class="quick-link">Upravit budovu</span>
+            <form action="#" method="POST">
+            <div class="form-group">
+              <label for="nazev">Kód budovy:</label>
+              <input type="text" value="{{ edit_kod }}" name="new_kod" maxlength="8" patern="[a-zA-Z0-9]" required>
+          </div>
+              <div class="form-group">
+                  <label for="nazev">Název budovy:</label>
+                  <input type="text" value="{{ edit_nazev }}" name="new_nazev" maxlength="32" patern="[a-zA-Z0-9]" required>
+              </div>
+        
+              <div class="form-group">
+                <input type="hidden" value="{{ chosen_id }}" name="pass_id">
+                <button name="button_name" value="save" type="submit">Uložit</button>
+              </div>
+          </form>
+          {% else %}
+        <div class="form-container">
+          <span class="quick-link">Nová budova</span>
             <form action="#" method="POST">
               <div class="form-group">
                   <label for="kod">Kód budovy:</label>
-                  <input type="text" id="kod" name="kod" maxlength="8" patern="[a-zA-Z0-9]" required>
+                  <input type="text" name="kod" maxlength="8" patern="[a-zA-Z0-9]" required>
               </div>
               <div class="form-group">
                   <label for="nazev">Název budovy:</label>
-                  <input type="text" id="nazev" name="nazev" maxlength="32" patern="[a-zA-Z0-9]">
+                  <input type="text" name="nazev" maxlength="32" patern="[a-zA-Z0-9]" required>
               </div>
               
               <div class="form-group">
-                <button type="submit">Založit</button>
+                <button name="button_name" value="create" type="submit">Založit</button>
               </div>
           </form>
-          
-          
         </div>
-      
+      {%endif%}
       </section>
       {% endif %}
 

@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template, redirect, request, url_for, session
+from flask import Blueprint, render_template, redirect, request, url_for
 from sqlalchemy.exc import IntegrityError
 
-from database import db_session, Zarizeni, Lokace, Budova, Transakce, Status, Uzivatel, Kategorie, Vztah, Opravneni, Vyrobce
-from core import kratke_datum, vyrobce_list, kategorie_list, lokace_list, budovy_list, tr_new_device, my_role, relocation_listing, opravneni_list, vztah_list, db_update_kategory
+from database import db_session, Zarizeni, Lokace, Budova, Uzivatel, Kategorie, Vyrobce
+from core import (kratke_datum, vyrobce_list, kategorie_list, lokace_list, budovy_list, tr_new_device, my_role, opravneni_list, vztah_list, 
+                  db_update_kategory, db_update_manufacturer, db_update_building, db_update_location)
 
 news_bp = Blueprint("news", __name__)#, static_folder="static", template_folder="templates")
 
@@ -51,82 +52,146 @@ def device():
 @news_bp.route("location", methods=["GET", "POST"])
 def location():
     pravo = my_role()
+    select_vypis=budovy_list()
+    vypis = db_session.query(Lokace, Budova).join(Budova, Lokace.id_bud == Budova.id_bud).order_by(Budova.bud_nazev).all()
     print("++ news.py | location() - vytvoření nového zařízení")
     if request.method == "POST":
         print("++ čtu vstupy z formuláře")
-        input = Lokace(lok_kod = request.form["kod"].upper(),
-                            lok_nazev = request.form["nazev"].capitalize(),
-                            id_bud = request.form["bud"]                   
-                            )
-        db_session.add(input) 
-
-        try:
-            db_session.commit()
-        except IntegrityError as e:
-            print(f"chyba při vkládání {e}")
-            db_session.rollback() ##### nutnéééééééééééééééééééééééééééééééé
-            return render_template("main/error.html", e=e)
-        else:
-            print("Zařízení založeno, trigger do transakce")
+        button_name = request.form.get('button_name')
+        if button_name == "edit":
+            id_lok = request.form["selected_id"]
+            lok_kod  = request.form["lok_kod"] 
+            lok_nazev  = request.form["lok_nazev"]   
+            fk_bud = request.form["id_bud"]
+            return render_template("news/location.html", rozbal=select_vypis, dotaz=vypis, pravo=pravo, edit_nazev=lok_nazev, edit_kod=lok_kod, edit_bud=int(fk_bud), chosen_id=int(id_lok))
+        elif button_name == "save":
+            id = request.form["pass_id"]
+            new_kod = request.form["new_kod"]
+            new_nazev = request.form["new_nazev"]
+            new_fk_bud = request.form["id_bud"]
+            try:
+                db_update_location(id, new_kod, new_nazev, new_fk_bud)
+            except IntegrityError as e:
+                print(f"chyba při vkládání {e}")
+                return render_template("main/error.html", e=e)
+            else:
+                print("Zařízení založeno, trigger do transakce")
+                return redirect(url_for("news.location"))
+        elif button_name == "cancel":
             return redirect(url_for("news.location"))
+        else:
+            input = Lokace(lok_kod = request.form["kod"].upper(),
+                                lok_nazev = request.form["nazev"].capitalize(),
+                                id_bud = int(request.form["id_bud"])            
+                                )
+            db_session.add(input) 
+
+            try:
+                db_session.commit()
+            except IntegrityError as e:
+                print(f"chyba při vkládání {e}")
+                db_session.rollback() ##### nutnéééééééééééééééééééééééééééééééé
+                return render_template("main/error.html", e=e)
+            else:
+                print("Zařízení založeno, trigger do transakce")
+                return redirect(url_for("news.location"))
 
     else:
-        print("první načtení")
-        y=budovy_list()
-        vypis = db_session.query(Lokace, Budova).join(Budova, Lokace.id_bud == Budova.id_bud).order_by(Budova.bud_nazev).all()
-        return render_template("news/location.html", y=y, dotaz=vypis, pravo=pravo)
+        print("první načtení")       
+        return render_template("news/location.html", rozbal=select_vypis, dotaz=vypis, pravo=pravo, edit_nazev=None, edit_kod=None, edit_bud=None, chosen_id=None)
 
 # Nové budovy
 @news_bp.route("building", methods=["GET", "POST"])
 def building():
     print("++ news.py | building() - vytvoření nového zařízení")
+    vypis=budovy_list() 
     pravo = my_role()
     if request.method == "POST":
         print("++ čtu vstupy z formuláře")
-        input = Budova(bud_kod = request.form["kod"].upper(),
-                bud_nazev = request.form["nazev"].capitalize())               
+        button_name = request.form.get('button_name')
+        if button_name=="edit":
+            id_bud = request.form["selected_id"]
+            bud_kod  = request.form["bud_kod"] 
+            bud_nazev  = request.form["bud_nazev"]   
+            return render_template("news/building.html", dotaz=vypis, pravo=pravo, edit_nazev=bud_nazev, edit_kod=bud_kod, chosen_id=int(id_bud))
+        elif button_name=="save":
+            id = request.form["pass_id"]
+            new_kod = request.form["new_kod"]
+            new_nazev = request.form["new_nazev"]
 
-        db_session.add(input) 
-        try:
-            db_session.commit()
-        except IntegrityError as e:
-            print(f"chyba při vkládání {e}")
-            db_session.rollback() ##### nutnéééééééééééééééééééééééééééééééé
-            return render_template("error.html", e=e)
-        else:
-            print("Zařízení založeno, trigger do transakce")
+            try:
+                db_update_building(id, new_kod, new_nazev)
+            except IntegrityError as e:
+                print(f"chyba při vkládání {e}")
+                return render_template("main/error.html", e=e)
+            else:
+                print("Zařízení založeno, trigger do transakce")
+                return redirect(url_for("news.building"))
+        elif button_name=="cancel":
             return redirect(url_for("news.building"))
+        else:
+            input = Budova(bud_kod = request.form["kod"].upper(),
+                    bud_nazev = request.form["nazev"].capitalize())               
+
+            db_session.add(input) 
+            try:
+                db_session.commit()
+            except IntegrityError as e:
+                print(f"chyba při vkládání {e}")
+                db_session.rollback() ##### nutnéééééééééééééééééééééééééééééééé
+                return render_template("error.html", e=e)
+            else:
+                print("Zařízení založeno, trigger do transakce")
+                return redirect(url_for("news.building"))
 
     else:
         print("první načtení")
-        y=budovy_list()   
-        return render_template("news/building.html", dotaz=y, pravo=pravo)
+          
+        return render_template("news/building.html", dotaz=vypis, pravo=pravo, edit_nazev=None, edit_kod=None, chosen_id=None)
 
 
 @news_bp.route("manufacturer", methods=["GET", "POST"])
 def manufacturer():
     pravo = my_role()
+    vypis=vyrobce_list()
     print("++ news.py | manufacturer() - vytvoření nového zařízení")
     if request.method == "POST":
         print("++ čtu vstupy z formuláře")
-        input = Vyrobce(vyr_nazev = request.form["nazev"].capitalize(),                    
-                         )
-        db_session.add(input) 
-        try:
-            db_session.commit()
-        except IntegrityError as e:
-            print(f"chyba při vkládání {e}")
-            db_session.rollback() ##### nutnéééééééééééééééééééééééééééééééé
-            return render_template("error.html", e=e)
-        else:
-            print("Zařízení založeno, trigger do transakce")
-            return redirect(url_for("news.manufacturer"))
+        button_name = request.form.get('button_name')
+        if button_name == "edit":
+            id_vyr = request.form["selected_id"]
+            vyr_nazev  = request.form["kat_nazev"]   
+            return render_template("news/manufacturer.html", dotaz=vypis, pravo=pravo, edit_nazev=vyr_nazev, chosen_id=int(id_vyr))
+        elif button_name =="save": # přepsání změn
+            id = request.form["pass_id"]
+            new_nazev  = request.form["new_nazev"]
 
+            try:
+                db_update_manufacturer(id, new_nazev)
+            except IntegrityError as e:
+                print(f"chyba při vkládání {e}")
+                return render_template("main/error.html", e=e)
+            else:
+                print("Zařízení založeno, trigger do transakce")
+                return redirect(url_for("news.manufacturer"))
+            
+        elif button_name =="cancel":
+            return redirect(url_for("news.manufacturer"))
+        else:
+            input = Vyrobce(vyr_nazev = request.form["nazev"].capitalize())
+            db_session.add(input) 
+            try:
+                db_session.commit()
+            except IntegrityError as e:
+                print(f"chyba při vkládání {e}")
+                db_session.rollback() ##### nutnéééééééééééééééééééééééééééééééé
+                return render_template("error.html", e=e)
+            else:
+                print("Zařízení založeno, trigger do transakce")
+                return redirect(url_for("news.manufacturer"))
     else:
         print("první načtení")
-        y=vyrobce_list()
-        print(y)
-        return render_template("news/manufacturer.html", dotaz=y, pravo=pravo)
+        return render_template("news/manufacturer.html", dotaz=vypis, pravo=pravo, edit_nazev=None, chosen_id=None)
 
 @news_bp.route("category", methods=["GET", "POST"])
 def category():
@@ -155,7 +220,9 @@ def category():
                 return render_template("main/error.html", e=e)
             else:
                 print("Zařízení založeno, trigger do transakce")
-                return redirect(url_for("news.category"))   
+                return redirect(url_for("news.category"))  
+        elif button_name=="cancel":
+            return redirect(url_for("news.category")) 
         else:
             input = Kategorie(kat_nazev = request.form["nazev"].capitalize())
             db_session.add(input) 

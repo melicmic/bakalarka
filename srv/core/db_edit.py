@@ -88,6 +88,7 @@ def db_discard_user(id, new_vystup):
                 ))
                 ssn.execute(update_stmt)
 
+# updaty z podsekce Editace -> Kat, Vyr, Lok, Bud
 def db_update_kategory(id, new_nazev, new_zivot):
     print(f"db_upd_kat {id} {new_nazev}, {new_zivot}")
     if new_zivot is None or new_zivot == 0 or new_zivot=="": #podchycení prázdné hodnoty na vynulování
@@ -101,5 +102,38 @@ def db_update_kategory(id, new_nazev, new_zivot):
                     .values(
                     kat_nazev = new_nazev,
                     kat_zivot = new_zivot
+            ))
+            ssn.execute(update_stmt)
+
+def db_update_manufacturer(id, new_nazev):
+    print(f"db_upd_vyr {id} {new_nazev}")
+    with db_session as ssn:
+        with ssn.begin():
+            update_stmt = (update(Vyrobce).where(Vyrobce.id_vyr == int(id))
+                    .values(
+                    vyr_nazev = new_nazev,
+            ))
+            ssn.execute(update_stmt)
+
+def db_update_building(id, new_kod, new_nazev):
+    print(f"db_upd_bud {id} {new_nazev}")
+    with db_session as ssn:
+        with ssn.begin():
+            update_stmt = (update(Budova).where(Budova.id_bud == int(id))
+                    .values(
+                        bud_kod = new_kod,
+                        bud_nazev = new_nazev,
+            ))
+            ssn.execute(update_stmt)
+
+def db_update_location(id, new_kod, new_nazev, new_bud):
+    print(f"db_upd_lok {id} {new_nazev}")
+    with db_session as ssn:
+        with ssn.begin():
+            update_stmt = (update(Lokace).where(Lokace.id_lok == int(id))
+                    .values(
+                        lok_kod = new_kod,
+                        lok_nazev = new_nazev,
+                        id_bud = new_bud
             ))
             ssn.execute(update_stmt)

@@ -16,31 +16,67 @@ New Location
             <th class="id_db">Kód</th>
             <th>Popis lokace</th>
             <th>Budova</th>
-            <!--%if pravo==True%}<th class="list-akce">Akce</th> %endif%}-->
+            {%if pravo==True%}<th class="list-akce">Akce</th>{%endif%}
         </tr>
     </thead>
     <tbody>
         {% for r in dotaz %}
-            <tr>
+            <tr {% if chosen_id== r.Lokace.id_lok %} class="selected_row"{%endif%}>
                 <td>{{ r.Lokace.lok_kod }}</td>
                 <td>{{ r.Lokace.lok_nazev }}</td>
                 <td>{{ r.Budova.bud_nazev }}</td>
 
-
-                </tr>
-        {% endfor %}
-                        <!-- % if pravo==True %}
+                {% if pravo==True %}
                 <td><form action="#" method="post">
-                    <input type="hidden" name="selected_id" value="{ r.Lokace.id_lok }}">
-                    <button class="button-akce"  type="submit">e</button>
-                    <button class="button-akce"  type="submit">X</button></form>
+                    <input type="hidden" name="selected_id" value="{{ r.Lokace.id_lok }}">
+                    <input type="hidden" name="lok_kod" value="{{r.Lokace.lok_kod}}">
+                    <input type="hidden" name="lok_nazev" value="{{r.Lokace.lok_nazev}}">
+                    <input type="hidden" name="id_bud" value="{{ r.Budova.id_bud}}">
+
+                    {% if chosen_id== r.Lokace.id_lok %}<button class="button-akce" name="button_name" title="Cancel" value="cancel" type="submit">C</button>
+                  {%else%}
+                  <button class="button-akce" name="button_name" title="Editovat" value="edit" type="submit">e</button>
+                  {%endif%}
+                    </form>
                 </td>
-                % endif %}-->
+                {% endif %}
+            </tr>
+                {% endfor %}
     </tbody>
 </table>
       </section>
       {% if pravo==True %}
       <section class="right-block">
+        {% if chosen_id != None %}
+        <span class="quick-link">Upravit lokaci</span>
+        <div class="form-container">
+            <form action="#" method="POST">
+            <div class="form-group">
+              <label for="nazev">Kód lokace:</label>
+              <input type="text" value="{{ edit_kod }}" name="new_kod" maxlength="8" patern="[a-zA-Z0-9]" required>
+          </div>
+              <div class="form-group">
+                  <label for="nazev">Název lokace:</label>
+                  <input type="text" value="{{ edit_nazev }}" name="new_nazev" maxlength="32" patern="[a-zA-Z0-9]" required>
+              </div>
+              <div class="form-group">
+              <label for="bud">Budova:</label>
+              <select name="id_bud">
+                {% for i in rozbal %}
+                {% if i.id_bud == edit_bud %}
+                    <option value="{{ i.id_bud }}" selected>{{ i.bud_kod }} ({{ i.bud_nazev }})</option>
+                {% else %}
+                <option value="{{ i.id_bud }}">{{ i.bud_kod }} ({{ i.bud_nazev }})</option>
+                {% endif %}
+                {% endfor %}
+              </select>
+              </div>
+              <div class="form-group">
+                <input type="hidden" value="{{ chosen_id }}" name="pass_id">
+                <button name="button_name" value="save" type="submit">Uložit</button>
+              </div>
+          </form>
+        {%else%}
         <span class="quick-link">Nová lokace</span>
         <div class="form-container">
             <form action="#" method="POST">
@@ -55,8 +91,8 @@ New Location
               
               <div class="form-group">
                   <label for="bud">Budova:</label>
-                  <select name="bud">
-                    {% for i in y %}
+                  <select name="id_bud">
+                    {% for i in rozbal %}
                     {% if i.id_bud == 1 %}
                         <option value="{{ i.id_bud }}" selected>{{ i.bud_kod }} ({{ i.bud_nazev }})</option>
                     {% else %}
@@ -68,14 +104,14 @@ New Location
               </div>
               
               <div class="form-group">
-                <button type="submit">Založit</button>
+                <button name="button_name" value="create" type="submit">Založit</button>
               </div>
           </form>
             </div>  
       
       </section>
       {% endif %}
-
+    {%endif%}
 
  
 {% endblock %}  

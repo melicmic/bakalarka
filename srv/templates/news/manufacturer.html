@@ -18,23 +18,27 @@ New Manufacturer
       <thead>
           <tr>
               <th style="text-align: left;">Název výrobce</th>
-              <!-- %if pravo==True%}<th class="list-akce">Akce</th>%endif%}-->
+              {% if pravo==True %}<th class="list-akce">Akce</th>{% endif %}
           </tr>
       </thead>
       <tbody>
           {% for r in dotaz %}
-              <tr>
+              <tr {% if chosen_id== r.id_vyr %} class="selected_row"{%endif%}>
                   <td style="text-align: left;">{{ r.vyr_nazev }}</td>
-
-                  </tr>
+          {% if pravo==True %}
+                <td><form action="#" method="post">
+                  <input type="hidden" name="selected_id" value="{{ r.id_vyr }}">
+                  <input type="hidden" name="kat_nazev"  value="{{ r.vyr_nazev }}">
+                  
+                  {% if chosen_id== r.id_vyr %}<button class="button-akce" name="button_name" title="Cancel" value="cancel" type="submit">C</button>
+                  {%else%}
+                  <button class="button-akce" name="button_name" title="Editovat" value="edit" type="submit">e</button>
+                  {%endif%}
+                  </form>
+                </td>
+          {% endif %}
+              </tr>
           {% endfor %}
-          <!-- % if pravo==True %}
-          <td><form action="#" method="post">
-              <input type="hidden" name="selected_id" value="{ r.id_vyr }}">
-              <button class="button-akce"  type="submit">e</button>
-              <button class="button-akce"  type="submit">X</button></form>
-          </td>
-          % endif %}-->
       </tbody>
   </table>
   
@@ -43,21 +47,37 @@ New Manufacturer
       </section>
       {% if pravo==True %}
       <section class="right-block">
-        <span class="quick-link">Nový výrobce</span>
-        <div class="form-container">
-            <form action="#" method="POST">
-              <div class="form-group">
-                  <label for="nazev">Název výrobce:</label>
-                  <input type="text" name="nazev" maxlength="32" patern="[a-zA-Z0-9]" required>
-              </div>
-              
-              <div class="form-group">
-                <button type="submit">Založit</button>
-              </div>
-          </form>
-            </div>  
+      {% if chosen_id != None %}
+      <span class="quick-link">Upravit výrobce</span>
+      <div class="form-container">
+          <form action="#" method="POST">
+            <div class="form-group">
+                <label for="nazev">Název výrobce:</label>
+                <input type="text" value="{{ edit_nazev }}" name="new_nazev" maxlength="32" patern="[a-zA-Z0-9]" required>
+            </div>
       
-      </section>
+            <div class="form-group">
+              <input type="hidden" value="{{ chosen_id }}" name="pass_id">
+              <button name="button_name" value="save" type="submit">Uložit</button>
+            </div>
+        </form>
+          </div>
+          {% else %}
+          <span class="quick-link">Nový výrobce</span>
+          <div class="form-container">
+              <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="nazev">Název výrobce:</label>
+                    <input type="text" name="nazev" maxlength="32" patern="[a-zA-Z0-9]" required>
+                </div>
+                <div class="form-group">
+                  <button name="button_name" value="create" type="submit">Založit</button>
+                  
+                </div>
+            </form>
+              </div>
+          {% endif %}
+        </section>
       {% endif %}
     
 

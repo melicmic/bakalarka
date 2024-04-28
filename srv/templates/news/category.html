@@ -31,7 +31,10 @@ New category
                     <input type="hidden" name="selected_id"  value="{{ r.id_kat }}">
                     <input type="hidden" name="kat_nazev"  value="{{ r.kat_nazev }}">
                     <input type="hidden" name="kat_zivot"  value="{{ r.kat_zivot }}">
+                    {% if chosen_id== r.id_kat %}<button class="button-akce" name="button_name" title="Cancel" value="cancel" type="submit">C</button>
+                    {%else%}
                     <button class="button-akce" name="button_name" title="Editovat" value="edit" type="submit">e</button>
+                    {%endif%}
                   </form>
                 </td>
                 {% endif %}
@@ -41,6 +44,7 @@ New category
 </table>
   
       </section>
+      {% if pravo==True %}
       <section class="right-block">
         {% if chosen_id != None %}
         <span class="quick-link">Upravit kategorii</span>
@@ -80,7 +84,7 @@ New category
               </form>
                 </div>
             {% endif %}
-      
+            {% endif %}
       </section>
     
 
