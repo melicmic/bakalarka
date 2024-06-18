@@ -1,5 +1,5 @@
 
-# Bakalářkská práce - Hardwarová evidence majetku
+# Bakalářská práce - Hardwarová evidence majetku
 
 Hlavní stránka:
 ![Snímek obrazovky z 2024-04-29 15-35-56](https://github.com/melicmic/bakalarka/assets/108867825/38b0d981-78b5-4c45-8fbd-6b708f8ec5d3)
